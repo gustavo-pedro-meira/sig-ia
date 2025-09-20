@@ -7,7 +7,7 @@ import { CreateEmployeeDto } from "../dto/create-employee.dto";
 export class CreateEmployeeUseCase {
     constructor(private readonly prismaService: PrismaService) {}
     async execute(createEmployeeDto: CreateEmployeeDto) {
-        const user = await this.prismaService.user.findFirst({
+        const user = await this.prismaService.employee.findFirst({
             where: {
                 OR: [{ username: createEmployeeDto.username }, { email: createEmployeeDto.email }],
             }
@@ -16,8 +16,10 @@ export class CreateEmployeeUseCase {
             throw new ConflictException('Username or email already exists');
         }
 
-        return await this.prismaService.user.create({
-            createEmployeeDto,
+        return await this.prismaService.employee.create({
+            data: {
+                ...createEmployeeDto,
+            }
         })
     }
 }
