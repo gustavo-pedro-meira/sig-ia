@@ -15,17 +15,17 @@ datasource db {
 }
 
 enum GenderEmployeeEnum {
-  MASCULINO
-  FEMININO
-  OUTRO
+  Masculino
+  Feminino
+  Outro
 } 
 
 enum CargoEmployeeEnum {
-  PREFEITO
-  SECRETARIO
-  DIRETOR
-  TECNICO
-  COORDENADOR
+  Prefeito
+  Secretario
+  Diretor
+  Tecnico
+  Coordenador
 }
 
 model Employee {
@@ -38,26 +38,26 @@ model Employee {
 
   fullName String
   dateOfBirth DateTime
-  gender GenderEmployeeEnum @default(OUTRO)
+  gender GenderEmployeeEnum @default(Outro)
   phone String
-  cargo CargoEmployeeEnum @default(SECRETARIO)
+  cargo CargoEmployeeEnum @default(Secretario)
   expirationDate DateTime
 
   @@map("employees")
 }
 
 enum StatusTaskEnum {
-  A_FAZER
-  ANDAMENTO
-  CONCLUIDA
-  EXPIRADA
+  Fazer
+  Andamento
+  Concluida
+  Expirada
 }
 
 enum PriorityTaskEnum {
-  BAIXA
-  MEDIA
-  ALTA
-  URGENTE
+  Baixa
+  Media
+  Alta
+  Urgente
 }
 
 model Task {
@@ -67,18 +67,18 @@ model Task {
   missionTask String
   descriptionTask String
   deadlineTask DateTime
-  statusTask StatusTaskEnum @default(A_FAZER)
-  PriorityTask PriorityTaskEnum @default(BAIXA)
+  statusTask StatusTaskEnum @default(Fazer)
+  PriorityTask PriorityTaskEnum @default(Baixa)
 
   @@map("tasks")
 }
 
 enum StatusMarkEnum {
-  AGENDADO
-  REAGENDADO
-  ADIADO
-  ENCERRADO
-  CANCELADO
+  Agendada
+  Reagendada
+  Adiada
+  Encerrada
+  Cancelada
 }
 
 model Mark {
@@ -89,7 +89,7 @@ model Mark {
   descriptionMark String
   localMark String
   prazoMark DateTime
-  statusMark StatusMarkEnum @default(AGENDADO)
+  statusMark StatusMarkEnum @default(Agendada)
 
   @@map("marks")
 }

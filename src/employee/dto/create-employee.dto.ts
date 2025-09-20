@@ -1,3 +1,4 @@
+import { Type } from "class-transformer";
 import { IsDate, IsEmail, IsEnum, IsNotEmpty, IsString, MinLength } from "class-validator";
 import { CargoEmployeeEnum, GenderEmployeeEnum } from "generated/prisma";
 
@@ -24,6 +25,7 @@ export class CreateEmployeeDto {
 
   @IsDate()
   @IsNotEmpty()
+  @Type(() => Date)
   dateOfBirth: Date;
 
   @IsNotEmpty()
@@ -39,5 +41,6 @@ export class CreateEmployeeDto {
 
   @IsDate()
   @IsNotEmpty()
+  @Type(() => Date)
   expirationDate: Date;
 }
