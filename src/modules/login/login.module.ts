@@ -3,6 +3,8 @@ import { SignInUseCase } from "./useCases/sign-in.usecase";
 import { PrismaService } from "src/infra/database/prisma.service";
 import { LoginController } from "./login.controller";
 import { JwtModule } from "@nestjs/jwt";
+import { EmployeeRepository } from "../employee/repositories/employee.repository";
+import { EmployeePrismaRepository } from "../employee/repositories/prisma/employee.prisma.repository";
 
 
 @Module ({
@@ -12,6 +14,9 @@ import { JwtModule } from "@nestjs/jwt";
         signOptions: { expiresIn: '5m' }
     })],
     controllers: [LoginController],
-    providers: [SignInUseCase, PrismaService],
+    providers: [SignInUseCase, PrismaService, {
+        provide: EmployeeRepository,
+        useClass: EmployeePrismaRepository,
+    }],
 })
 export class LoginModule {}

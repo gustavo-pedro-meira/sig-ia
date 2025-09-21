@@ -3,14 +3,15 @@ import { JwtService } from "@nestjs/jwt";
 import { PrismaService } from "src/infra/database/prisma.service";
 import { SignInDto } from "../dto/sign-in.dto";
 import { compare } from "bcrypt";
+import { EmployeeRepository } from "src/modules/employee/repositories/employee.repository";
 
 @Injectable()
 export class SignInUseCase {
-    constructor(private jwtService: JwtService, private prismaService: PrismaService) {}
+    constructor(private jwtService: JwtService, private employeeRepository: EmployeeRepository) {}
     async execute(signInDto: SignInDto) {
-        const employee = await this.prismaService.employee.findUnique({
-            where: { email: signInDto.email }
-        });
+        const employee = await this.employeeRepository.findByEmail(
+            signInDto.email
+        );
 
         if (!employee) {
             throw new UnauthorizedException();

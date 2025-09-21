@@ -7,5 +7,6 @@ import { CreateEmployeeDto, EmployeeCreateDto } from "../dto/create-employee.dto
 @Injectable()
 export abstract class EmployeeRepository {
     abstract findByUsernameAndEmail(usernameAndEmailDto: UsernameAndEmailDto): Promise<EmployeeCreateDto | null>;
+    abstract findByEmail(email: string): Promise<EmployeeCreateDto | null>;
     abstract save(createEmployeeDto: CreateEmployeeDto): Promise<EmployeeCreateDto>;
 }
