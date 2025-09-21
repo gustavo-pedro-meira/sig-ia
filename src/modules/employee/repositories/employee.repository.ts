@@ -8,5 +8,7 @@ import { CreateEmployeeDto, EmployeeCreateDto } from "../dto/create-employee.dto
 export abstract class EmployeeRepository {
     abstract findByUsernameAndEmail(usernameAndEmailDto: UsernameAndEmailDto): Promise<EmployeeCreateDto | null>;
     abstract findByEmail(email: string): Promise<EmployeeCreateDto | null>;
+    abstract findAll(): Promise<EmployeeCreateDto[] | null>;
+    abstract findOne(id: string): Promise<EmployeeCreateDto | null>;
     abstract save(createEmployeeDto: CreateEmployeeDto): Promise<EmployeeCreateDto>;
 }

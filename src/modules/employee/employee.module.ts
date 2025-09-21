@@ -4,13 +4,21 @@ import { CreateEmployeeUseCase } from "./useCases/create-employee.usecase";
 import { EmployeeController } from "./employee.controller";
 import { EmployeeRepository } from "./repositories/employee.repository";
 import { EmployeePrismaRepository } from "./repositories/prisma/employee.prisma.repository";
+import { FindAllEmployeeUseCase } from "./useCases/find-all-employee.usecase";
+import { FindOneEmployeeUseCase } from "./useCases/find-one-employee.usecase";
 
 @Module({
     imports: [],
     controllers: [EmployeeController],
-    providers: [CreateEmployeeUseCase, PrismaService, {
-        provide: EmployeeRepository,
-        useClass: EmployeePrismaRepository,
-    }],
+    providers: [
+        CreateEmployeeUseCase,
+        FindAllEmployeeUseCase,
+        FindOneEmployeeUseCase,
+        PrismaService,
+        {
+            provide: EmployeeRepository,
+            useClass: EmployeePrismaRepository,
+        },
+    ],
 })
 export class EmployeeModule{}

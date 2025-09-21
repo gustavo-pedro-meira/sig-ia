@@ -24,6 +24,16 @@ export class EmployeePrismaRepository implements EmployeeRepository {
       })
   }
 
+  async findAll(): Promise<EmployeeCreateDto[]> {
+    return await this.prismaService.employee.findMany();
+  }
+
+  async findOne(id: string): Promise<EmployeeCreateDto | null> {
+      return await this.prismaService.employee.findUnique({
+        where: { id }
+      });
+  }
+
   async save(createEmployeeDto: CreateEmployeeDto): Promise<EmployeeCreateDto> {
     return await this.prismaService.employee.create({
         data: createEmployeeDto,
