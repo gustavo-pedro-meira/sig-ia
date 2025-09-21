@@ -6,6 +6,8 @@ import { EmployeeRepository } from "./repositories/employee.repository";
 import { EmployeePrismaRepository } from "./repositories/prisma/employee.prisma.repository";
 import { FindAllEmployeeUseCase } from "./useCases/find-all-employee.usecase";
 import { FindOneEmployeeUseCase } from "./useCases/find-one-employee.usecase";
+import { UpdateEmployeeUseCase } from "./useCases/update-employee.usecas";
+import { DeleteEmployeeUseCase } from "./useCases/delete-employee.usecase";
 
 @Module({
     imports: [],
@@ -14,6 +16,8 @@ import { FindOneEmployeeUseCase } from "./useCases/find-one-employee.usecase";
         CreateEmployeeUseCase,
         FindAllEmployeeUseCase,
         FindOneEmployeeUseCase,
+        UpdateEmployeeUseCase,
+        DeleteEmployeeUseCase,
         PrismaService,
         {
             provide: EmployeeRepository,

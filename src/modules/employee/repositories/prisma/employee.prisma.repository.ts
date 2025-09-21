@@ -3,6 +3,7 @@ import { EmployeeCreateDto, CreateEmployeeDto } from '../../dto/create-employee.
 import { UsernameAndEmailDto } from '../../dto/username-email.dto';
 import { EmployeeRepository } from '../employee.repository';
 import { Injectable } from '@nestjs/common';
+import { UpdateEmployeeDto } from '../../dto/update-employee.dto';
 
 @Injectable()
 export class EmployeePrismaRepository implements EmployeeRepository {
@@ -31,7 +32,22 @@ export class EmployeePrismaRepository implements EmployeeRepository {
   async findOne(id: string): Promise<EmployeeCreateDto | null> {
       return await this.prismaService.employee.findUnique({
         where: { id }
-      });
+      })
+  }
+
+  async updateById(id: string, updateEmployeeDto: UpdateEmployeeDto): Promise<EmployeeCreateDto | null> {
+      return await this.prismaService.employee.update({
+        where: { id },
+        data: {
+            ...updateEmployeeDto,
+        }
+      })
+  }
+
+  async deleteById(id: string): Promise<EmployeeCreateDto | null> {
+      return await this.prismaService.employee.delete({
+        where: { id }
+      })
   }
 
   async save(createEmployeeDto: CreateEmployeeDto): Promise<EmployeeCreateDto> {
