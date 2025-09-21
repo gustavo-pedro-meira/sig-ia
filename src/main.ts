@@ -11,7 +11,6 @@ async function bootstrap() {
     .setTitle('API Sig-IA')
     .setDescription('Document API Sig-IA')
     .setVersion('1.0')
-    .addTag('Employees')
     .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
