@@ -206,6 +206,10 @@ const config = {
         "fromEnvVar": null,
         "value": "windows",
         "native": true
+      },
+      {
+        "fromEnvVar": null,
+        "value": "debian-openssl-3.0.x"
       }
     ],
     "previewFeatures": [],
@@ -223,6 +227,7 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -231,8 +236,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nenum GenderEmployeeEnum {\n  Masculino\n  Feminino\n  Outro\n}\n\nenum CargoEmployeeEnum {\n  Prefeito\n  Secretario\n  Diretor\n  Tecnico\n  Coordenador\n}\n\nmodel Employee {\n  id        String   @id @default(uuid())\n  createdAt DateTime @default(now())\n\n  username String @unique\n  email    String @unique\n  password String\n\n  fullName       String\n  dateOfBirth    DateTime\n  gender         GenderEmployeeEnum @default(Outro)\n  phone          String\n  cargo          CargoEmployeeEnum  @default(Secretario)\n  expirationDate DateTime\n\n  @@map(\"employees\")\n}\n\nenum StatusTaskEnum {\n  Fazer\n  Andamento\n  Concluida\n  Expirada\n}\n\nenum PriorityTaskEnum {\n  Baixa\n  Media\n  Alta\n  Urgente\n}\n\nmodel Task {\n  id        String   @id @default(uuid())\n  createdAt DateTime @default(now())\n\n  missionTask     String\n  descriptionTask String\n  deadlineTask    DateTime\n  statusTask      StatusTaskEnum   @default(Fazer)\n  PriorityTask    PriorityTaskEnum @default(Baixa)\n\n  @@map(\"tasks\")\n}\n\nenum StatusMarkEnum {\n  Agendada\n  Reagendada\n  Adiada\n  Encerrada\n  Cancelada\n}\n\nmodel Mark {\n  id        String   @id @default(uuid())\n  createdAt DateTime @default(now())\n\n  motiveMark      String\n  descriptionMark String\n  localMark       String\n  prazoMark       DateTime\n  statusMark      StatusMarkEnum @default(Agendada)\n\n  @@map(\"marks\")\n}\n\nmodel Department {\n  id        String   @id @default(uuid())\n  createdAt DateTime @default(now())\n\n  nameDepartment   String\n  sectorDepartment String\n\n  @@map(\"departments\")\n}\n",
-  "inlineSchemaHash": "361708e66b3937dbf5688de688ec57cc77f74c07f5b1dcc34803cdd575d4ed7d",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider      = \"prisma-client-js\"\n  output        = \"../generated/prisma\"\n  binaryTargets = [\"native\", \"debian-openssl-3.0.x\"]\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nenum GenderEmployeeEnum {\n  Masculino\n  Feminino\n  Outro\n}\n\nenum CargoEmployeeEnum {\n  Prefeito\n  Secretario\n  Diretor\n  Tecnico\n  Coordenador\n}\n\nmodel Employee {\n  id        String   @id @default(uuid())\n  createdAt DateTime @default(now())\n\n  username String @unique\n  email    String @unique\n  password String\n\n  fullName       String\n  dateOfBirth    DateTime\n  gender         GenderEmployeeEnum @default(Outro)\n  phone          String\n  cargo          CargoEmployeeEnum  @default(Secretario)\n  expirationDate DateTime\n\n  @@map(\"employees\")\n}\n\nenum StatusTaskEnum {\n  Fazer\n  Andamento\n  Concluida\n  Expirada\n}\n\nenum PriorityTaskEnum {\n  Baixa\n  Media\n  Alta\n  Urgente\n}\n\nmodel Task {\n  id        String   @id @default(uuid())\n  createdAt DateTime @default(now())\n\n  missionTask     String\n  descriptionTask String\n  deadlineTask    DateTime\n  statusTask      StatusTaskEnum   @default(Fazer)\n  PriorityTask    PriorityTaskEnum @default(Baixa)\n\n  @@map(\"tasks\")\n}\n\nenum StatusMarkEnum {\n  Agendada\n  Reagendada\n  Adiada\n  Encerrada\n  Cancelada\n}\n\nmodel Mark {\n  id        String   @id @default(uuid())\n  createdAt DateTime @default(now())\n\n  motiveMark      String\n  descriptionMark String\n  localMark       String\n  prazoMark       DateTime\n  statusMark      StatusMarkEnum @default(Agendada)\n\n  @@map(\"marks\")\n}\n\nmodel Department {\n  id        String   @id @default(uuid())\n  createdAt DateTime @default(now())\n\n  nameDepartment   String\n  sectorDepartment String\n\n  @@map(\"departments\")\n}\n",
+  "inlineSchemaHash": "95f7416601e6c267c8c3090cbcc2d42bfd4184f7574afb4ede884ea943013a84",
   "copyEngine": true
 }
 config.dirname = '/'
