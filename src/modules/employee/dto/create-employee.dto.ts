@@ -44,3 +44,11 @@ export class CreateEmployeeDto {
   @Type(() => Date)
   expirationDate: Date;
 }
+
+export class EmployeeCreateDto extends CreateEmployeeDto {
+  @IsString()
+  id: string;
+
+  @IsDate()
+  createdAt: Date;
+} 
