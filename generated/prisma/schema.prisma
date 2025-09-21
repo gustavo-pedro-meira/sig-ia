@@ -1,0 +1,105 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum GenderEmployeeEnum {
+  MASCULINO
+  FEMININO
+  OUTRO
+}
+
+enum CargoEmployeeEnum {
+  PREFEITO
+  SECRETARIO
+  DIRETOR
+  TECNICO
+  COORDENADOR
+}
+
+model Employee {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+
+  username String @unique
+  email    String @unique
+  password String
+
+  fullName       String
+  dateOfBirth    DateTime
+  gender         GenderEmployeeEnum @default(OUTRO)
+  phone          String
+  cargo          CargoEmployeeEnum  @default(SECRETARIO)
+  expirationDate DateTime
+
+  @@map("employees")
+}
+
+enum StatusTaskEnum {
+  A_FAZER
+  ANDAMENTO
+  CONCLUIDA
+  EXPIRADA
+}
+
+enum PriorityTaskEnum {
+  BAIXA
+  MEDIA
+  ALTA
+  URGENTE
+}
+
+model Task {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+
+  missionTask     String
+  descriptionTask String
+  deadlineTask    DateTime
+  statusTask      StatusTaskEnum   @default(A_FAZER)
+  PriorityTask    PriorityTaskEnum @default(BAIXA)
+
+  @@map("tasks")
+}
+
+enum StatusMarkEnum {
+  AGENDADO
+  REAGENDADO
+  ADIADO
+  ENCERRADO
+  CANCELADO
+}
+
+model Mark {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+
+  motiveMark      String
+  descriptionMark String
+  localMark       String
+  prazoMark       DateTime
+  statusMark      StatusMarkEnum @default(AGENDADO)
+
+  @@map("marks")
+}
+
+model Department {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+
+  nameDepartment   String
+  sectorDepartment String
+
+  @@map("departments")
+}
