@@ -50,7 +50,7 @@ export class EmployeePrismaRepository implements EmployeeRepository {
       })
   }
 
-  async save(createEmployeeDto: CreateEmployeeDto): Promise<EmployeeCreateDto> {
+  async save(createEmployeeDto: CreateEmployeeDto): Promise<EmployeeCreateDto | null> {
     return await this.prismaService.employee.create({
         data: createEmployeeDto,
     })

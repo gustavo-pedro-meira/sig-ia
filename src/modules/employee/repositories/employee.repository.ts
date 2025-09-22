@@ -13,5 +13,5 @@ export abstract class EmployeeRepository {
     abstract findOne(id: string): Promise<EmployeeCreateDto | null>;
     abstract updateById(id: string, updateEmployeeDto: UpdateEmployeeDto): Promise<EmployeeCreateDto | null>;
     abstract deleteById(id: string): Promise<EmployeeCreateDto | null>;
-    abstract save(createEmployeeDto: CreateEmployeeDto): Promise<EmployeeCreateDto>;
+    abstract save(createEmployeeDto: CreateEmployeeDto): Promise<EmployeeCreateDto | null>;
 }

@@ -1,10 +1,21 @@
 import { Module } from '@nestjs/common';
 import { EmployeeModule } from './modules/employee/employee.module';
 import { LoginModule } from './modules/login/login.module';
+import { APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
+import { ZodSerializerInterceptor, ZodValidationPipe } from 'nestjs-zod';
 
 @Module({
   imports: [EmployeeModule, LoginModule],
   controllers: [],
-  providers: [],
+  providers: [
+    {
+      provide: APP_PIPE,
+      useClass: ZodValidationPipe,
+    },
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: ZodSerializerInterceptor,
+    }
+  ],
 })
 export class AppModule {}
