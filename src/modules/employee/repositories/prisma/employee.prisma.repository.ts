@@ -4,6 +4,7 @@ import { UsernameAndEmailDto } from '../../dto/username-email.dto';
 import { EmployeeRepository } from '../employee.repository';
 import { Injectable } from '@nestjs/common';
 import { UpdateEmployeeDto } from '../../dto/update-employee.dto';
+import { CreateEmployeeSchemaDto } from '../../schemas/create-employee.schema';
 
 @Injectable()
 export class EmployeePrismaRepository implements EmployeeRepository {
@@ -50,7 +51,7 @@ export class EmployeePrismaRepository implements EmployeeRepository {
       })
   }
 
-  async save(createEmployeeDto: CreateEmployeeDto): Promise<EmployeeCreateDto | null> {
+  async save(createEmployeeDto: CreateEmployeeSchemaDto): Promise<EmployeeCreateDto | null> {
     return await this.prismaService.employee.create({
         data: createEmployeeDto,
     })

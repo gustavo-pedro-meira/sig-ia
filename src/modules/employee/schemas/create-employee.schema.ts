@@ -1,4 +1,5 @@
 import { CargoEmployeeEnum, GenderEmployeeEnum } from 'generated/prisma';
+import { createZodDto } from 'nestjs-zod';
 import { date, email, string, z } from 'zod'
 
 export const CreateEmployeeSchema = z.object({
@@ -44,16 +45,11 @@ export const CreateEmployeeSchema = z.object({
                 : 'Não é uma string.'
    }),
 
-//    dateOfBirth: z.coerce.date(),
+   dateOfBirth: z.string().transform(item => new Date(item)),
 
    cargo: z.nativeEnum(CargoEmployeeEnum),
 
-   dateOfBirth: z.string().datetime({
-    message: 'Data de nascimento deve estar no formato ISO 8601.',
-  }),
-
-  expirationDate: z.string().datetime({
-    message: 'Data de expiração deve estar no formato ISO 8601.',
-  }),
+   expirationDate: z.string().transform(item => new Date(item))
 })
 
+export class CreateEmployeeSchemaDto extends createZodDto(CreateEmployeeSchema) {}
