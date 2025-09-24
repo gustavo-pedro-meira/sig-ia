@@ -45,11 +45,11 @@ export const CreateEmployeeSchema = z.object({
                 : 'Não é uma string.'
    }),
 
-   dateOfBirth: z.string().transform(item => new Date(item)),
+   dateOfBirth: z.coerce.date(),
 
    cargo: z.nativeEnum(CargoEmployeeEnum),
 
-   expirationDate: z.string().transform(item => new Date(item))
+   expirationDate: z.coerce.date()
 })
 
 export class CreateEmployeeSchemaDto extends createZodDto(CreateEmployeeSchema) {}

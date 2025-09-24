@@ -51,9 +51,9 @@ export const UpdateEmployeeSchema = z.object({
 
    cargo: z.nativeEnum(CargoEmployeeEnum).optional(),
 
-   dateOfBirth: z.date().transform(item => new Date(item)).optional(),
+   dateOfBirth: z.coerce.date(),
 
-  expirationDate: z.date().transform(item => new Date(item)).optional(),
+  expirationDate: z.coerce.date(),
 })
 
 export class UpdateEmployeeSchemaDto extends createZodDto(UpdateEmployeeSchema) {}
