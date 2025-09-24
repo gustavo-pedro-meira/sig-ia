@@ -7,31 +7,25 @@ import { CreateEmployeeSchema } from "../schemas/create-employee.schema";
 
 
 export class CreateEmployeeDto extends createZodDto(CreateEmployeeSchema) {
-  @ApiProperty({
-    description: 'Date of birth of the employee',
-    example: '2004-08-16',
-  })
-  @IsDate()
-  @IsNotEmpty()
-  @Type(() => Date)
-  dateOfBirth: Date;
 
-  @ApiProperty({
-    description: 'Expiration date of the employee contract',
-    example: '2025-08-16',
-  })
-  @IsDate()
-  @IsNotEmpty()
-  @Type(() => Date)
-  expirationDate: Date;
 }
 
 
 
 export class EmployeeCreateDto extends CreateEmployeeDto {
+  @ApiProperty({
+    description: 'ID único do funcionário (gerado automaticamente)',
+    example: 'clxnw123456789abcdefg',
+  })
   @IsString()
   id: string;
 
+  @ApiProperty({
+    type: 'string',
+    format: 'date-time',
+    description: 'Data de criação do registro do funcionário',
+    example: '2025-09-23T19:40:00.000Z',
+  })
   @IsDate()
   createdAt: Date;
 } 

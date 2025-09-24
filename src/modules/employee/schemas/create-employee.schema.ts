@@ -44,7 +44,16 @@ export const CreateEmployeeSchema = z.object({
                 : 'Não é uma string.'
    }),
 
+//    dateOfBirth: z.coerce.date(),
+
    cargo: z.nativeEnum(CargoEmployeeEnum),
 
+   dateOfBirth: z.string().datetime({
+    message: 'Data de nascimento deve estar no formato ISO 8601.',
+  }),
+
+  expirationDate: z.string().datetime({
+    message: 'Data de expiração deve estar no formato ISO 8601.',
+  }),
 })
 
