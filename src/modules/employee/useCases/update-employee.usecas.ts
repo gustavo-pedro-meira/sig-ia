@@ -18,5 +18,6 @@ export class UpdateEmployeeUseCase {
             updateEmployeeDto.password = await hash(updateEmployeeDto.password, 10);
         }
 
-        return await this.employeeRepository.updateById(id, updateEmployeeDto);    }
+        return await this.employeeRepository.updateById(id, updateEmployeeDto);
+    }
 }

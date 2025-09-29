@@ -19,44 +19,29 @@ export class EmployeeController {
         private readonly deletEmployeeUseCase: DeleteEmployeeUseCase,
     ) {}
 
-    @ApiOperation({ summary: 'Create a new employee' })
-    @ApiResponse({ status: 201, description: 'The employee has been successfully created.' })
-    @ApiResponse({ status: 409, description: 'Username or email already exists.' })
     @Post()
     createEmployee(@Body() createEmployeeDto: CreateEmployeeDto) {
         return this.createEmployeUseCase.execute(createEmployeeDto);
     }
 
-    @ApiOperation({ summary: 'Retrieve a list of all employees' })
-    @ApiResponse({ status: 200, description: 'A list of employees has been successfully retrieved.' })
-    @ApiResponse({ status: 404, description: 'No employees found.' })
     @Get()
     @UseGuards(AuthGuard)
     findAllEmployee() {
         return this.findAllEmployeeUseCase.execute();
     }
 
-    @ApiOperation({ summary: 'Retrieve a specific employee by ID' })
-    @ApiResponse({ status: 200, description: 'The employee has been successfully retrieved.' })
-    @ApiResponse({ status: 404, description: 'Employee not found.' })
     @Get(':id')
     @UseGuards(AuthGuard)
     findOneEmploye(@Param('id') id: string) {
         return this.findOneEmployeeUseCase.execute(id);
     }
 
-    @ApiOperation({ summary: 'Update an existing employee by ID' })
-    @ApiResponse({ status: 200, description: 'The employee has been successfully updated.' })
-    @ApiResponse({ status: 404, description: 'Employee not found.' })
     @Put(':id')
     @UseGuards(AuthGuard)
     updateByIdEmployee(@Param('id') id: string, @Body() updateEmployeeDto: UpdateEmployeeDto) {
         return this.updateEmployeeUseCase.execute(id, updateEmployeeDto);
     }
 
-    @ApiOperation({ summary: 'Delete an employee by ID' })
-    @ApiResponse({ status: 200, description: 'The employee has been successfully deleted.' })
-    @ApiResponse({ status: 404, description: 'Employee not found.' })
     @Delete(':id')
     @UseGuards(AuthGuard)
     deleteByIdEmployee(@Param('id') id: string) {
