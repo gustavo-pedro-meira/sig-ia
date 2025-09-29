@@ -2,7 +2,6 @@ import { ConflictException, Injectable } from '@nestjs/common';
 import { CreateEmployeeDto } from '../dto/create-employee.dto';
 import { hash } from 'bcrypt';
 import { EmployeeRepository } from '../repositories/employee.repository';
-import { CreateEmployeeSchemaDto } from '../schemas/create-employee.schema';
 
 @Injectable()
 export class CreateEmployeeUseCase {

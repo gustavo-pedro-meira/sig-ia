@@ -3,7 +3,7 @@ import { Type } from "class-transformer";
 import { IsDate, IsEmail, IsEnum, IsNotEmpty, IsString, MinLength } from "class-validator";
 import { CargoEmployeeEnum, GenderEmployeeEnum } from "generated/prisma";
 import { createZodDto } from "nestjs-zod";
-import { CreateEmployeeSchema, CreateEmployeeSchemaDto } from "../schemas/create-employee.schema";
+import { CreateEmployeeSchema } from "../schemas/create-employee.schema";
 
 
 export class CreateEmployeeDto extends createZodDto(CreateEmployeeSchema) {

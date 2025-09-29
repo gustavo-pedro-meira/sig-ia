@@ -52,4 +52,3 @@ export const CreateEmployeeSchema = z.object({
    expirationDate: z.coerce.date()
 })
 
-export class CreateEmployeeSchemaDto extends createZodDto(CreateEmployeeSchema) {}
