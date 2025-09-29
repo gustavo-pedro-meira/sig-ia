@@ -8,7 +8,7 @@ import { CreateEmployeeSchemaDto } from '../schemas/create-employee.schema';
 export class CreateEmployeeUseCase {
   constructor(private readonly employeeRepository: EmployeeRepository) {}
 
-  async execute(createEmployeeDto: CreateEmployeeSchemaDto) {
+  async execute(createEmployeeDto: CreateEmployeeDto) {
     const user = await this.employeeRepository.findByUsernameAndEmail({
       username: createEmployeeDto.username,
       email: createEmployeeDto.email,
