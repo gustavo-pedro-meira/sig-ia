@@ -1,5 +1,5 @@
 // DTO para criação de tarefas, com validações class-validator
-import { IsDate, IsEnum, IsNotEmpty, IsOptional, IsString, MinLength } from "class-validator";
+import { IsDate, IsEnum, IsNotEmpty, IsOptional, IsString, MinLength, IsNumber, Min, Max } from "class-validator";
 import { Type } from "class-transformer";
 import { TaskPriority, TaskStatus } from "generated/prisma";
 
@@ -27,6 +27,16 @@ export class CreateTaskDto {
     @IsEnum(TaskPriority)
     @IsOptional()
     priority?: TaskPriority;
+
+    @IsNumber()
+    @Min(0)
+    @Max(23)
+    hour: number;
+
+    @IsNumber()
+    @Min(0)
+    @Max(59)
+    minute: number;
 
     @IsString()
     @IsOptional()

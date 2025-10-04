@@ -30,4 +30,8 @@ export const CreateAppointmentSchema = z.object({
     status: z.nativeEnum(AppointmentStatus).optional(),
 
     userId: z.string().nullable().optional(),
+
+    hour: z.number().min(0).max(23),
+
+    minute: z.number().min(0).max(59),
 })

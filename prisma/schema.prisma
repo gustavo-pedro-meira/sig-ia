@@ -74,6 +74,9 @@ model Task {
   status TaskStatus @default(ToDo)
   priority TaskPriority @default(Low)
 
+  hour Int @default(0)
+  minute Int @default(0)
+
   userId String?
   employee Employee? @relation(fields: [userId], references: [id])
 
@@ -99,6 +102,9 @@ model Appointment {
   location String
   deadline DateTime
   status AppointmentStatus @default(Scheduled)
+
+  hour Int @default(0)
+  minute Int @default(0)
 
   userId String?
   employee Employee? @relation(fields: [userId], references: [id])
