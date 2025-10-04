@@ -25,6 +25,7 @@ export class SignInUseCase {
         const token = await this.jwtService.signAsync(payload);
         return {
             access_token: token,
+            user: {name: employee.fullName},
         }
     }
 }
