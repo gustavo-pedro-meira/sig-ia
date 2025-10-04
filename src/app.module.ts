@@ -3,9 +3,10 @@ import { EmployeeModule } from './modules/employee/employee.module';
 import { LoginModule } from './modules/login/login.module';
 import { APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import { ZodSerializerInterceptor, ZodValidationPipe } from 'nestjs-zod';
+import { TaskModule } from './modules/task/task.module';
 
 @Module({
-  imports: [EmployeeModule, LoginModule],
+  imports: [EmployeeModule, LoginModule, TaskModule],
   controllers: [],
   providers: [
     {
