@@ -6,9 +6,10 @@ import { ZodSerializerInterceptor, ZodValidationPipe } from 'nestjs-zod';
 import { TaskModule } from './modules/task/task.module';
 import { AppointmentModule } from './modules/appointment/appointment.module';
 import { PrismaService } from './infra/database/prisma.service';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
-  imports: [EmployeeModule, LoginModule, TaskModule, AppointmentModule],
+  imports: [ScheduleModule.forRoot(), EmployeeModule, LoginModule, TaskModule, AppointmentModule],
   controllers: [],
   providers: [
     PrismaService,

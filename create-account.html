@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Conta - Sistema SIG-IA</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, select {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 12px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .response {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 4px;
+            display: none;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            .container {
+                padding: 15px;
+            }
+            input, select {
+                font-size: 14px;
+                padding: 8px;
+            }
+            button {
+                padding: 10px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Criar Conta</h1>
+        <form id="createAccountForm">
+            <label for="fullName">Nome Completo:</label>
+            <input type="text" id="fullName" name="fullName" required>
+
+            <label for="username">Nome de Usuário:</label>
+            <input type="text" id="username" name="username" required minlength="6">
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="password">Senha:</label>
+            <input type="password" id="password" name="password" required minlength="8">
+
+            <label for="gender">Gênero:</label>
+            <select id="gender" name="gender" required>
+                <option value="">Selecione</option>
+                <option value="Male">Masculino</option>
+                <option value="Female">Feminino</option>
+                <option value="Other">Outro</option>
+            </select>
+
+            <label for="phone">Telefone:</label>
+            <input type="tel" id="phone" name="phone" required>
+
+            <label for="dateOfBirth">Data de Nascimento:</label>
+            <input type="date" id="dateOfBirth" name="dateOfBirth" required>
+
+            <label for="position">Cargo:</label>
+            <select id="position" name="position" required>
+                <option value="">Selecione</option>
+                <option value="Cabinet">Gabinete</option>
+                <option value="Secretary">Secretário</option>
+                <option value="Technician1">Técnico 1</option>
+                <option value="Technician2">Técnico 2</option>
+                <option value="Technician3">Técnico 3</option>
+            </select>
+
+            <label for="expirationDate">Data de Expiração:</label>
+            <input type="date" id="expirationDate" name="expirationDate" required>
+
+            <button type="submit">Criar Conta</button>
+        </form>
+        <div id="response" class="response"></div>
+    </div>
+
+    <script>
+        document.getElementById('createAccountForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const formData = new FormData(event.target);
+            const data = {
+                fullName: formData.get('fullName'),
+                username: formData.get('username'),
+                email: formData.get('email'),
+                password: formData.get('password'),
+                gender: formData.get('gender'),
+                phone: formData.get('phone'),
+                dateOfBirth: formData.get('dateOfBirth'),
+                position: formData.get('position'),
+                expirationDate: formData.get('expirationDate')
+            };
+
+            try {
+                const response = await fetch('http://localhost:3000/employees', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+                const responseDiv = document.getElementById('response');
+
+                if (response.ok) {
+                    responseDiv.className = 'response success';
+                    responseDiv.textContent = 'Conta criada com sucesso!';
+                } else {
+                    responseDiv.className = 'response error';
+                    responseDiv.textContent = 'Erro: ' + (result.message || 'Falha ao criar conta');
+                }
+
+                responseDiv.style.display = 'block';
+            } catch (error) {
+                const responseDiv = document.getElementById('response');
+                responseDiv.className = 'response error';
+                responseDiv.textContent = 'Erro de rede: ' + error.message;
+                responseDiv.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>

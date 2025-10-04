@@ -9,6 +9,7 @@ import { DeleteTaskUseCase } from "./useCases/delete-task.usecase";
 import { FindAllTaskUseCase } from "./useCases/find-all-task.usecase";
 import { FindOneTaskUseCase } from "./useCases/find-one-task.usecase";
 import { UpdateTaskUseCase } from "./useCases/update-task.usecase";
+import { TaskExpirationService } from "./services/task-expiration.service";
 
 
 @Module({
@@ -20,6 +21,7 @@ import { UpdateTaskUseCase } from "./useCases/update-task.usecase";
         FindAllTaskUseCase,
         FindOneTaskUseCase,
         UpdateTaskUseCase,
+        TaskExpirationService,
         PrismaService,
         {
             provide: TaskRepository,
