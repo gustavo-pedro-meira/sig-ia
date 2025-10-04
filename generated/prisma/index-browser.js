@@ -130,35 +130,35 @@ exports.Prisma.EmployeeScalarFieldEnum = {
   dateOfBirth: 'dateOfBirth',
   gender: 'gender',
   phone: 'phone',
-  cargo: 'cargo',
+  position: 'position',
   expirationDate: 'expirationDate'
 };
 
 exports.Prisma.TaskScalarFieldEnum = {
   id: 'id',
   createdAt: 'createdAt',
-  missionTask: 'missionTask',
-  descriptionTask: 'descriptionTask',
-  deadlineTask: 'deadlineTask',
-  statusTask: 'statusTask',
-  priorityTask: 'priorityTask'
+  title: 'title',
+  description: 'description',
+  deadline: 'deadline',
+  status: 'status',
+  priority: 'priority'
 };
 
-exports.Prisma.MarkScalarFieldEnum = {
+exports.Prisma.AppointmentScalarFieldEnum = {
   id: 'id',
   createdAt: 'createdAt',
-  motiveMark: 'motiveMark',
-  descriptionMark: 'descriptionMark',
-  localMark: 'localMark',
-  prazoMark: 'prazoMark',
-  statusMark: 'statusMark'
+  reason: 'reason',
+  description: 'description',
+  location: 'location',
+  deadline: 'deadline',
+  status: 'status'
 };
 
 exports.Prisma.DepartmentScalarFieldEnum = {
   id: 'id',
   createdAt: 'createdAt',
-  nameDepartment: 'nameDepartment',
-  sectorDepartment: 'sectorDepartment'
+  name: 'name',
+  sector: 'sector'
 };
 
 exports.Prisma.SortOrder = {
@@ -170,46 +170,46 @@ exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 };
-exports.GenderEmployeeEnum = exports.$Enums.GenderEmployeeEnum = {
-  Masculino: 'Masculino',
-  Feminino: 'Feminino',
-  Outro: 'Outro'
+exports.Gender = exports.$Enums.Gender = {
+  Male: 'Male',
+  Female: 'Female',
+  Other: 'Other'
 };
 
-exports.CargoEmployeeEnum = exports.$Enums.CargoEmployeeEnum = {
-  Prefeito: 'Prefeito',
-  Secretario: 'Secretario',
-  Diretor: 'Diretor',
-  Tecnico: 'Tecnico',
-  Coordenador: 'Coordenador'
+exports.Position = exports.$Enums.Position = {
+  Cabinet: 'Cabinet',
+  Secretary: 'Secretary',
+  Technician1: 'Technician1',
+  Technician2: 'Technician2',
+  Technician3: 'Technician3'
 };
 
-exports.StatusTaskEnum = exports.$Enums.StatusTaskEnum = {
-  Fazer: 'Fazer',
-  Andamento: 'Andamento',
-  Concluida: 'Concluida',
-  Expirada: 'Expirada'
+exports.TaskStatus = exports.$Enums.TaskStatus = {
+  ToDo: 'ToDo',
+  InProgress: 'InProgress',
+  Completed: 'Completed',
+  Expired: 'Expired'
 };
 
-exports.PriorityTaskEnum = exports.$Enums.PriorityTaskEnum = {
-  Baixa: 'Baixa',
-  Media: 'Media',
-  Alta: 'Alta',
-  Urgente: 'Urgente'
+exports.TaskPriority = exports.$Enums.TaskPriority = {
+  Low: 'Low',
+  Medium: 'Medium',
+  High: 'High',
+  Urgent: 'Urgent'
 };
 
-exports.StatusMarkEnum = exports.$Enums.StatusMarkEnum = {
-  Agendada: 'Agendada',
-  Reagendada: 'Reagendada',
-  Adiada: 'Adiada',
-  Encerrada: 'Encerrada',
-  Cancelada: 'Cancelada'
+exports.AppointmentStatus = exports.$Enums.AppointmentStatus = {
+  Scheduled: 'Scheduled',
+  Rescheduled: 'Rescheduled',
+  Postponed: 'Postponed',
+  Closed: 'Closed',
+  Cancelled: 'Cancelled'
 };
 
 exports.Prisma.ModelName = {
   Employee: 'Employee',
   Task: 'Task',
-  Mark: 'Mark',
+  Appointment: 'Appointment',
   Department: 'Department'
 };
 

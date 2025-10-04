@@ -1,4 +1,5 @@
-import { CargoEmployeeEnum, GenderEmployeeEnum } from 'generated/prisma';
+// Schema Zod para validação de atualização de funcionários
+import { Position, Gender } from 'generated/prisma';
 import { createZodDto } from 'nestjs-zod';
 import { date, email, string, z } from 'zod'
 
@@ -6,50 +7,50 @@ export const UpdateEmployeeSchema = z.object({
     fullName: z.string({
         error: (issue) =>
             issue.input === undefined
-                ? 'Nome Completo não pode ser inválido.'
-                : 'Não é uma string.'
+                ? 'Full name cannot be invalid.'
+                : 'Must be a string.'
     }).optional(),
 
     username: z.string({
         error: (issue) =>
             issue.input === undefined
-                ? 'Username não pode ser inválido.'
-                : 'Não é uma string.'
+                ? 'Username cannot be invalid.'
+                : 'Must be a string.'
     })
-    .min(6, { message: 'O username não poder ter menos que 6 caracteres.'})
-    .refine(value => !value.includes(' '), { message: 'O username não pode conter espaços.'})
+    .min(6, { message: 'Username must be at least 6 characters long.'})
+    .refine(value => !value.includes(' '), { message: 'Username cannot contain spaces.'})
     .trim()
     .optional(),
 
-    email: z.email('Formato de email inválido.').nonempty('Email não pode ser inválido.').optional(),
+    email: z.email('Invalid email format.').nonempty('Email cannot be invalid.').optional(),
 
     password: z.string({
         error: (issue) =>
             issue.input === undefined
-                ? 'Password não pode ser inválido.'
-                : 'Não é uma string.'
+                ? 'Password cannot be invalid.'
+                : 'Must be a string.'
     })
-    .min(8, { message: 'A senha não poder ter menos que 8 caracteres.' })
-    .refine(value => !value.includes(' '), { message: 'A senha não pode conter espaços.' })
-    .refine(value => /[#$%&*@!?]/.test(value), { message: 'A senha deve conter caracteres especiais.' })
-    .refine(value => /\d/.test(value), { message: 'A senha deve conter números.' })
-    .refine(value => /[A-Z]/.test(value), { message: 'A senha deve conter letra maiúscula.' })
-    .refine(value => /[a-z]/.test(value), { message: 'A senha deve conter letra minúscula.' })
+    .min(8, { message: 'Password must be at least 8 characters long.' })
+    .refine(value => !value.includes(' '), { message: 'Password cannot contain spaces.' })
+    .refine(value => /[#$%&*@!?\-"]/.test(value), { message: 'Password must contain special characters.' })
+    .refine(value => /\d/.test(value), { message: 'Password must contain numbers.' })
+    .refine(value => /[A-Z]/.test(value), { message: 'Password must contain uppercase letters.' })
+    .refine(value => /[a-z]/.test(value), { message: 'Password must contain lowercase letters.' })
     .trim()
     .optional(),
 
-   gender: z.nativeEnum(GenderEmployeeEnum).optional(),
+   gender: z.nativeEnum(Gender).optional(),
    
    phone: z.string({
         error: (issue) =>
             issue.input === undefined
-                ? 'Número não pode ser vazio.'
-                : 'Não é uma string.'
+                ? 'Phone cannot be empty.'
+                : 'Must be a string.'
    })
    .optional(),
 
 
-   cargo: z.nativeEnum(CargoEmployeeEnum).optional(),
+   position: z.nativeEnum(Position).optional(),
 
    dateOfBirth: z.coerce.date().optional(),
 

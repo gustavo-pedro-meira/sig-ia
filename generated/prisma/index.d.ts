@@ -24,10 +24,10 @@ export type Employee = $Result.DefaultSelection<Prisma.$EmployeePayload>
  */
 export type Task = $Result.DefaultSelection<Prisma.$TaskPayload>
 /**
- * Model Mark
+ * Model Appointment
  * 
  */
-export type Mark = $Result.DefaultSelection<Prisma.$MarkPayload>
+export type Appointment = $Result.DefaultSelection<Prisma.$AppointmentPayload>
 /**
  * Model Department
  * 
@@ -38,77 +38,77 @@ export type Department = $Result.DefaultSelection<Prisma.$DepartmentPayload>
  * Enums
  */
 export namespace $Enums {
-  export const GenderEmployeeEnum: {
-  Masculino: 'Masculino',
-  Feminino: 'Feminino',
-  Outro: 'Outro'
+  export const Gender: {
+  Male: 'Male',
+  Female: 'Female',
+  Other: 'Other'
 };
 
-export type GenderEmployeeEnum = (typeof GenderEmployeeEnum)[keyof typeof GenderEmployeeEnum]
+export type Gender = (typeof Gender)[keyof typeof Gender]
 
 
-export const CargoEmployeeEnum: {
-  Prefeito: 'Prefeito',
-  Secretario: 'Secretario',
-  Diretor: 'Diretor',
-  Tecnico: 'Tecnico',
-  Coordenador: 'Coordenador'
+export const Position: {
+  Cabinet: 'Cabinet',
+  Secretary: 'Secretary',
+  Technician1: 'Technician1',
+  Technician2: 'Technician2',
+  Technician3: 'Technician3'
 };
 
-export type CargoEmployeeEnum = (typeof CargoEmployeeEnum)[keyof typeof CargoEmployeeEnum]
+export type Position = (typeof Position)[keyof typeof Position]
 
 
-export const StatusTaskEnum: {
-  Fazer: 'Fazer',
-  Andamento: 'Andamento',
-  Concluida: 'Concluida',
-  Expirada: 'Expirada'
+export const TaskStatus: {
+  ToDo: 'ToDo',
+  InProgress: 'InProgress',
+  Completed: 'Completed',
+  Expired: 'Expired'
 };
 
-export type StatusTaskEnum = (typeof StatusTaskEnum)[keyof typeof StatusTaskEnum]
+export type TaskStatus = (typeof TaskStatus)[keyof typeof TaskStatus]
 
 
-export const PriorityTaskEnum: {
-  Baixa: 'Baixa',
-  Media: 'Media',
-  Alta: 'Alta',
-  Urgente: 'Urgente'
+export const TaskPriority: {
+  Low: 'Low',
+  Medium: 'Medium',
+  High: 'High',
+  Urgent: 'Urgent'
 };
 
-export type PriorityTaskEnum = (typeof PriorityTaskEnum)[keyof typeof PriorityTaskEnum]
+export type TaskPriority = (typeof TaskPriority)[keyof typeof TaskPriority]
 
 
-export const StatusMarkEnum: {
-  Agendada: 'Agendada',
-  Reagendada: 'Reagendada',
-  Adiada: 'Adiada',
-  Encerrada: 'Encerrada',
-  Cancelada: 'Cancelada'
+export const AppointmentStatus: {
+  Scheduled: 'Scheduled',
+  Rescheduled: 'Rescheduled',
+  Postponed: 'Postponed',
+  Closed: 'Closed',
+  Cancelled: 'Cancelled'
 };
 
-export type StatusMarkEnum = (typeof StatusMarkEnum)[keyof typeof StatusMarkEnum]
+export type AppointmentStatus = (typeof AppointmentStatus)[keyof typeof AppointmentStatus]
 
 }
 
-export type GenderEmployeeEnum = $Enums.GenderEmployeeEnum
+export type Gender = $Enums.Gender
 
-export const GenderEmployeeEnum: typeof $Enums.GenderEmployeeEnum
+export const Gender: typeof $Enums.Gender
 
-export type CargoEmployeeEnum = $Enums.CargoEmployeeEnum
+export type Position = $Enums.Position
 
-export const CargoEmployeeEnum: typeof $Enums.CargoEmployeeEnum
+export const Position: typeof $Enums.Position
 
-export type StatusTaskEnum = $Enums.StatusTaskEnum
+export type TaskStatus = $Enums.TaskStatus
 
-export const StatusTaskEnum: typeof $Enums.StatusTaskEnum
+export const TaskStatus: typeof $Enums.TaskStatus
 
-export type PriorityTaskEnum = $Enums.PriorityTaskEnum
+export type TaskPriority = $Enums.TaskPriority
 
-export const PriorityTaskEnum: typeof $Enums.PriorityTaskEnum
+export const TaskPriority: typeof $Enums.TaskPriority
 
-export type StatusMarkEnum = $Enums.StatusMarkEnum
+export type AppointmentStatus = $Enums.AppointmentStatus
 
-export const StatusMarkEnum: typeof $Enums.StatusMarkEnum
+export const AppointmentStatus: typeof $Enums.AppointmentStatus
 
 /**
  * ##  Prisma Client ʲˢ
@@ -249,14 +249,14 @@ export class PrismaClient<
   get task(): Prisma.TaskDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.mark`: Exposes CRUD operations for the **Mark** model.
+   * `prisma.appointment`: Exposes CRUD operations for the **Appointment** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more Marks
-    * const marks = await prisma.mark.findMany()
+    * // Fetch zero or more Appointments
+    * const appointments = await prisma.appointment.findMany()
     * ```
     */
-  get mark(): Prisma.MarkDelegate<ExtArgs, ClientOptions>;
+  get appointment(): Prisma.AppointmentDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.department`: Exposes CRUD operations for the **Department** model.
@@ -709,7 +709,7 @@ export namespace Prisma {
   export const ModelName: {
     Employee: 'Employee',
     Task: 'Task',
-    Mark: 'Mark',
+    Appointment: 'Appointment',
     Department: 'Department'
   };
 
@@ -729,7 +729,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "employee" | "task" | "mark" | "department"
+      modelProps: "employee" | "task" | "appointment" | "department"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -881,77 +881,77 @@ export namespace Prisma {
           }
         }
       }
-      Mark: {
-        payload: Prisma.$MarkPayload<ExtArgs>
-        fields: Prisma.MarkFieldRefs
+      Appointment: {
+        payload: Prisma.$AppointmentPayload<ExtArgs>
+        fields: Prisma.AppointmentFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.MarkFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MarkPayload> | null
+            args: Prisma.AppointmentFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppointmentPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.MarkFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MarkPayload>
+            args: Prisma.AppointmentFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppointmentPayload>
           }
           findFirst: {
-            args: Prisma.MarkFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MarkPayload> | null
+            args: Prisma.AppointmentFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppointmentPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.MarkFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MarkPayload>
+            args: Prisma.AppointmentFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppointmentPayload>
           }
           findMany: {
-            args: Prisma.MarkFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MarkPayload>[]
+            args: Prisma.AppointmentFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppointmentPayload>[]
           }
           create: {
-            args: Prisma.MarkCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MarkPayload>
+            args: Prisma.AppointmentCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppointmentPayload>
           }
           createMany: {
-            args: Prisma.MarkCreateManyArgs<ExtArgs>
+            args: Prisma.AppointmentCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           createManyAndReturn: {
-            args: Prisma.MarkCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MarkPayload>[]
+            args: Prisma.AppointmentCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppointmentPayload>[]
           }
           delete: {
-            args: Prisma.MarkDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MarkPayload>
+            args: Prisma.AppointmentDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppointmentPayload>
           }
           update: {
-            args: Prisma.MarkUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MarkPayload>
+            args: Prisma.AppointmentUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppointmentPayload>
           }
           deleteMany: {
-            args: Prisma.MarkDeleteManyArgs<ExtArgs>
+            args: Prisma.AppointmentDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.MarkUpdateManyArgs<ExtArgs>
+            args: Prisma.AppointmentUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateManyAndReturn: {
-            args: Prisma.MarkUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MarkPayload>[]
+            args: Prisma.AppointmentUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppointmentPayload>[]
           }
           upsert: {
-            args: Prisma.MarkUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MarkPayload>
+            args: Prisma.AppointmentUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppointmentPayload>
           }
           aggregate: {
-            args: Prisma.MarkAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateMark>
+            args: Prisma.AppointmentAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAppointment>
           }
           groupBy: {
-            args: Prisma.MarkGroupByArgs<ExtArgs>
-            result: $Utils.Optional<MarkGroupByOutputType>[]
+            args: Prisma.AppointmentGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AppointmentGroupByOutputType>[]
           }
           count: {
-            args: Prisma.MarkCountArgs<ExtArgs>
-            result: $Utils.Optional<MarkCountAggregateOutputType> | number
+            args: Prisma.AppointmentCountArgs<ExtArgs>
+            result: $Utils.Optional<AppointmentCountAggregateOutputType> | number
           }
         }
       }
@@ -1127,7 +1127,7 @@ export namespace Prisma {
   export type GlobalOmitConfig = {
     employee?: EmployeeOmit
     task?: TaskOmit
-    mark?: MarkOmit
+    appointment?: AppointmentOmit
     department?: DepartmentOmit
   }
 
@@ -1227,9 +1227,9 @@ export namespace Prisma {
     password: string | null
     fullName: string | null
     dateOfBirth: Date | null
-    gender: $Enums.GenderEmployeeEnum | null
+    gender: $Enums.Gender | null
     phone: string | null
-    cargo: $Enums.CargoEmployeeEnum | null
+    position: $Enums.Position | null
     expirationDate: Date | null
   }
 
@@ -1241,9 +1241,9 @@ export namespace Prisma {
     password: string | null
     fullName: string | null
     dateOfBirth: Date | null
-    gender: $Enums.GenderEmployeeEnum | null
+    gender: $Enums.Gender | null
     phone: string | null
-    cargo: $Enums.CargoEmployeeEnum | null
+    position: $Enums.Position | null
     expirationDate: Date | null
   }
 
@@ -1257,7 +1257,7 @@ export namespace Prisma {
     dateOfBirth: number
     gender: number
     phone: number
-    cargo: number
+    position: number
     expirationDate: number
     _all: number
   }
@@ -1273,7 +1273,7 @@ export namespace Prisma {
     dateOfBirth?: true
     gender?: true
     phone?: true
-    cargo?: true
+    position?: true
     expirationDate?: true
   }
 
@@ -1287,7 +1287,7 @@ export namespace Prisma {
     dateOfBirth?: true
     gender?: true
     phone?: true
-    cargo?: true
+    position?: true
     expirationDate?: true
   }
 
@@ -1301,7 +1301,7 @@ export namespace Prisma {
     dateOfBirth?: true
     gender?: true
     phone?: true
-    cargo?: true
+    position?: true
     expirationDate?: true
     _all?: true
   }
@@ -1386,9 +1386,9 @@ export namespace Prisma {
     password: string
     fullName: string
     dateOfBirth: Date
-    gender: $Enums.GenderEmployeeEnum
+    gender: $Enums.Gender
     phone: string
-    cargo: $Enums.CargoEmployeeEnum
+    position: $Enums.Position
     expirationDate: Date
     _count: EmployeeCountAggregateOutputType | null
     _min: EmployeeMinAggregateOutputType | null
@@ -1419,7 +1419,7 @@ export namespace Prisma {
     dateOfBirth?: boolean
     gender?: boolean
     phone?: boolean
-    cargo?: boolean
+    position?: boolean
     expirationDate?: boolean
   }, ExtArgs["result"]["employee"]>
 
@@ -1433,7 +1433,7 @@ export namespace Prisma {
     dateOfBirth?: boolean
     gender?: boolean
     phone?: boolean
-    cargo?: boolean
+    position?: boolean
     expirationDate?: boolean
   }, ExtArgs["result"]["employee"]>
 
@@ -1447,7 +1447,7 @@ export namespace Prisma {
     dateOfBirth?: boolean
     gender?: boolean
     phone?: boolean
-    cargo?: boolean
+    position?: boolean
     expirationDate?: boolean
   }, ExtArgs["result"]["employee"]>
 
@@ -1461,11 +1461,11 @@ export namespace Prisma {
     dateOfBirth?: boolean
     gender?: boolean
     phone?: boolean
-    cargo?: boolean
+    position?: boolean
     expirationDate?: boolean
   }
 
-  export type EmployeeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "username" | "email" | "password" | "fullName" | "dateOfBirth" | "gender" | "phone" | "cargo" | "expirationDate", ExtArgs["result"]["employee"]>
+  export type EmployeeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "username" | "email" | "password" | "fullName" | "dateOfBirth" | "gender" | "phone" | "position" | "expirationDate", ExtArgs["result"]["employee"]>
 
   export type $EmployeePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Employee"
@@ -1478,9 +1478,9 @@ export namespace Prisma {
       password: string
       fullName: string
       dateOfBirth: Date
-      gender: $Enums.GenderEmployeeEnum
+      gender: $Enums.Gender
       phone: string
-      cargo: $Enums.CargoEmployeeEnum
+      position: $Enums.Position
       expirationDate: Date
     }, ExtArgs["result"]["employee"]>
     composites: {}
@@ -1912,9 +1912,9 @@ export namespace Prisma {
     readonly password: FieldRef<"Employee", 'String'>
     readonly fullName: FieldRef<"Employee", 'String'>
     readonly dateOfBirth: FieldRef<"Employee", 'DateTime'>
-    readonly gender: FieldRef<"Employee", 'GenderEmployeeEnum'>
+    readonly gender: FieldRef<"Employee", 'Gender'>
     readonly phone: FieldRef<"Employee", 'String'>
-    readonly cargo: FieldRef<"Employee", 'CargoEmployeeEnum'>
+    readonly position: FieldRef<"Employee", 'Position'>
     readonly expirationDate: FieldRef<"Employee", 'DateTime'>
   }
     
@@ -2295,31 +2295,31 @@ export namespace Prisma {
   export type TaskMinAggregateOutputType = {
     id: string | null
     createdAt: Date | null
-    missionTask: string | null
-    descriptionTask: string | null
-    deadlineTask: Date | null
-    statusTask: $Enums.StatusTaskEnum | null
-    priorityTask: $Enums.PriorityTaskEnum | null
+    title: string | null
+    description: string | null
+    deadline: Date | null
+    status: $Enums.TaskStatus | null
+    priority: $Enums.TaskPriority | null
   }
 
   export type TaskMaxAggregateOutputType = {
     id: string | null
     createdAt: Date | null
-    missionTask: string | null
-    descriptionTask: string | null
-    deadlineTask: Date | null
-    statusTask: $Enums.StatusTaskEnum | null
-    priorityTask: $Enums.PriorityTaskEnum | null
+    title: string | null
+    description: string | null
+    deadline: Date | null
+    status: $Enums.TaskStatus | null
+    priority: $Enums.TaskPriority | null
   }
 
   export type TaskCountAggregateOutputType = {
     id: number
     createdAt: number
-    missionTask: number
-    descriptionTask: number
-    deadlineTask: number
-    statusTask: number
-    priorityTask: number
+    title: number
+    description: number
+    deadline: number
+    status: number
+    priority: number
     _all: number
   }
 
@@ -2327,31 +2327,31 @@ export namespace Prisma {
   export type TaskMinAggregateInputType = {
     id?: true
     createdAt?: true
-    missionTask?: true
-    descriptionTask?: true
-    deadlineTask?: true
-    statusTask?: true
-    priorityTask?: true
+    title?: true
+    description?: true
+    deadline?: true
+    status?: true
+    priority?: true
   }
 
   export type TaskMaxAggregateInputType = {
     id?: true
     createdAt?: true
-    missionTask?: true
-    descriptionTask?: true
-    deadlineTask?: true
-    statusTask?: true
-    priorityTask?: true
+    title?: true
+    description?: true
+    deadline?: true
+    status?: true
+    priority?: true
   }
 
   export type TaskCountAggregateInputType = {
     id?: true
     createdAt?: true
-    missionTask?: true
-    descriptionTask?: true
-    deadlineTask?: true
-    statusTask?: true
-    priorityTask?: true
+    title?: true
+    description?: true
+    deadline?: true
+    status?: true
+    priority?: true
     _all?: true
   }
 
@@ -2430,11 +2430,11 @@ export namespace Prisma {
   export type TaskGroupByOutputType = {
     id: string
     createdAt: Date
-    missionTask: string
-    descriptionTask: string
-    deadlineTask: Date
-    statusTask: $Enums.StatusTaskEnum
-    priorityTask: $Enums.PriorityTaskEnum
+    title: string
+    description: string
+    deadline: Date
+    status: $Enums.TaskStatus
+    priority: $Enums.TaskPriority
     _count: TaskCountAggregateOutputType | null
     _min: TaskMinAggregateOutputType | null
     _max: TaskMaxAggregateOutputType | null
@@ -2457,44 +2457,44 @@ export namespace Prisma {
   export type TaskSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     createdAt?: boolean
-    missionTask?: boolean
-    descriptionTask?: boolean
-    deadlineTask?: boolean
-    statusTask?: boolean
-    priorityTask?: boolean
+    title?: boolean
+    description?: boolean
+    deadline?: boolean
+    status?: boolean
+    priority?: boolean
   }, ExtArgs["result"]["task"]>
 
   export type TaskSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     createdAt?: boolean
-    missionTask?: boolean
-    descriptionTask?: boolean
-    deadlineTask?: boolean
-    statusTask?: boolean
-    priorityTask?: boolean
+    title?: boolean
+    description?: boolean
+    deadline?: boolean
+    status?: boolean
+    priority?: boolean
   }, ExtArgs["result"]["task"]>
 
   export type TaskSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     createdAt?: boolean
-    missionTask?: boolean
-    descriptionTask?: boolean
-    deadlineTask?: boolean
-    statusTask?: boolean
-    priorityTask?: boolean
+    title?: boolean
+    description?: boolean
+    deadline?: boolean
+    status?: boolean
+    priority?: boolean
   }, ExtArgs["result"]["task"]>
 
   export type TaskSelectScalar = {
     id?: boolean
     createdAt?: boolean
-    missionTask?: boolean
-    descriptionTask?: boolean
-    deadlineTask?: boolean
-    statusTask?: boolean
-    priorityTask?: boolean
+    title?: boolean
+    description?: boolean
+    deadline?: boolean
+    status?: boolean
+    priority?: boolean
   }
 
-  export type TaskOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "missionTask" | "descriptionTask" | "deadlineTask" | "statusTask" | "priorityTask", ExtArgs["result"]["task"]>
+  export type TaskOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "title" | "description" | "deadline" | "status" | "priority", ExtArgs["result"]["task"]>
 
   export type $TaskPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Task"
@@ -2502,11 +2502,11 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       createdAt: Date
-      missionTask: string
-      descriptionTask: string
-      deadlineTask: Date
-      statusTask: $Enums.StatusTaskEnum
-      priorityTask: $Enums.PriorityTaskEnum
+      title: string
+      description: string
+      deadline: Date
+      status: $Enums.TaskStatus
+      priority: $Enums.TaskPriority
     }, ExtArgs["result"]["task"]>
     composites: {}
   }
@@ -2932,11 +2932,11 @@ export namespace Prisma {
   interface TaskFieldRefs {
     readonly id: FieldRef<"Task", 'String'>
     readonly createdAt: FieldRef<"Task", 'DateTime'>
-    readonly missionTask: FieldRef<"Task", 'String'>
-    readonly descriptionTask: FieldRef<"Task", 'String'>
-    readonly deadlineTask: FieldRef<"Task", 'DateTime'>
-    readonly statusTask: FieldRef<"Task", 'StatusTaskEnum'>
-    readonly priorityTask: FieldRef<"Task", 'PriorityTaskEnum'>
+    readonly title: FieldRef<"Task", 'String'>
+    readonly description: FieldRef<"Task", 'String'>
+    readonly deadline: FieldRef<"Task", 'DateTime'>
+    readonly status: FieldRef<"Task", 'TaskStatus'>
+    readonly priority: FieldRef<"Task", 'TaskPriority'>
   }
     
 
@@ -3304,360 +3304,360 @@ export namespace Prisma {
 
 
   /**
-   * Model Mark
+   * Model Appointment
    */
 
-  export type AggregateMark = {
-    _count: MarkCountAggregateOutputType | null
-    _min: MarkMinAggregateOutputType | null
-    _max: MarkMaxAggregateOutputType | null
+  export type AggregateAppointment = {
+    _count: AppointmentCountAggregateOutputType | null
+    _min: AppointmentMinAggregateOutputType | null
+    _max: AppointmentMaxAggregateOutputType | null
   }
 
-  export type MarkMinAggregateOutputType = {
+  export type AppointmentMinAggregateOutputType = {
     id: string | null
     createdAt: Date | null
-    motiveMark: string | null
-    descriptionMark: string | null
-    localMark: string | null
-    prazoMark: Date | null
-    statusMark: $Enums.StatusMarkEnum | null
+    reason: string | null
+    description: string | null
+    location: string | null
+    deadline: Date | null
+    status: $Enums.AppointmentStatus | null
   }
 
-  export type MarkMaxAggregateOutputType = {
+  export type AppointmentMaxAggregateOutputType = {
     id: string | null
     createdAt: Date | null
-    motiveMark: string | null
-    descriptionMark: string | null
-    localMark: string | null
-    prazoMark: Date | null
-    statusMark: $Enums.StatusMarkEnum | null
+    reason: string | null
+    description: string | null
+    location: string | null
+    deadline: Date | null
+    status: $Enums.AppointmentStatus | null
   }
 
-  export type MarkCountAggregateOutputType = {
+  export type AppointmentCountAggregateOutputType = {
     id: number
     createdAt: number
-    motiveMark: number
-    descriptionMark: number
-    localMark: number
-    prazoMark: number
-    statusMark: number
+    reason: number
+    description: number
+    location: number
+    deadline: number
+    status: number
     _all: number
   }
 
 
-  export type MarkMinAggregateInputType = {
+  export type AppointmentMinAggregateInputType = {
     id?: true
     createdAt?: true
-    motiveMark?: true
-    descriptionMark?: true
-    localMark?: true
-    prazoMark?: true
-    statusMark?: true
+    reason?: true
+    description?: true
+    location?: true
+    deadline?: true
+    status?: true
   }
 
-  export type MarkMaxAggregateInputType = {
+  export type AppointmentMaxAggregateInputType = {
     id?: true
     createdAt?: true
-    motiveMark?: true
-    descriptionMark?: true
-    localMark?: true
-    prazoMark?: true
-    statusMark?: true
+    reason?: true
+    description?: true
+    location?: true
+    deadline?: true
+    status?: true
   }
 
-  export type MarkCountAggregateInputType = {
+  export type AppointmentCountAggregateInputType = {
     id?: true
     createdAt?: true
-    motiveMark?: true
-    descriptionMark?: true
-    localMark?: true
-    prazoMark?: true
-    statusMark?: true
+    reason?: true
+    description?: true
+    location?: true
+    deadline?: true
+    status?: true
     _all?: true
   }
 
-  export type MarkAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type AppointmentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which Mark to aggregate.
+     * Filter which Appointment to aggregate.
      */
-    where?: MarkWhereInput
+    where?: AppointmentWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Marks to fetch.
+     * Determine the order of Appointments to fetch.
      */
-    orderBy?: MarkOrderByWithRelationInput | MarkOrderByWithRelationInput[]
+    orderBy?: AppointmentOrderByWithRelationInput | AppointmentOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: MarkWhereUniqueInput
+    cursor?: AppointmentWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Marks from the position of the cursor.
+     * Take `±n` Appointments from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Marks.
+     * Skip the first `n` Appointments.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned Marks
+     * Count returned Appointments
     **/
-    _count?: true | MarkCountAggregateInputType
+    _count?: true | AppointmentCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: MarkMinAggregateInputType
+    _min?: AppointmentMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: MarkMaxAggregateInputType
+    _max?: AppointmentMaxAggregateInputType
   }
 
-  export type GetMarkAggregateType<T extends MarkAggregateArgs> = {
-        [P in keyof T & keyof AggregateMark]: P extends '_count' | 'count'
+  export type GetAppointmentAggregateType<T extends AppointmentAggregateArgs> = {
+        [P in keyof T & keyof AggregateAppointment]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateMark[P]>
-      : GetScalarType<T[P], AggregateMark[P]>
+        : GetScalarType<T[P], AggregateAppointment[P]>
+      : GetScalarType<T[P], AggregateAppointment[P]>
   }
 
 
 
 
-  export type MarkGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: MarkWhereInput
-    orderBy?: MarkOrderByWithAggregationInput | MarkOrderByWithAggregationInput[]
-    by: MarkScalarFieldEnum[] | MarkScalarFieldEnum
-    having?: MarkScalarWhereWithAggregatesInput
+  export type AppointmentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AppointmentWhereInput
+    orderBy?: AppointmentOrderByWithAggregationInput | AppointmentOrderByWithAggregationInput[]
+    by: AppointmentScalarFieldEnum[] | AppointmentScalarFieldEnum
+    having?: AppointmentScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: MarkCountAggregateInputType | true
-    _min?: MarkMinAggregateInputType
-    _max?: MarkMaxAggregateInputType
+    _count?: AppointmentCountAggregateInputType | true
+    _min?: AppointmentMinAggregateInputType
+    _max?: AppointmentMaxAggregateInputType
   }
 
-  export type MarkGroupByOutputType = {
+  export type AppointmentGroupByOutputType = {
     id: string
     createdAt: Date
-    motiveMark: string
-    descriptionMark: string
-    localMark: string
-    prazoMark: Date
-    statusMark: $Enums.StatusMarkEnum
-    _count: MarkCountAggregateOutputType | null
-    _min: MarkMinAggregateOutputType | null
-    _max: MarkMaxAggregateOutputType | null
+    reason: string
+    description: string
+    location: string
+    deadline: Date
+    status: $Enums.AppointmentStatus
+    _count: AppointmentCountAggregateOutputType | null
+    _min: AppointmentMinAggregateOutputType | null
+    _max: AppointmentMaxAggregateOutputType | null
   }
 
-  type GetMarkGroupByPayload<T extends MarkGroupByArgs> = Prisma.PrismaPromise<
+  type GetAppointmentGroupByPayload<T extends AppointmentGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<MarkGroupByOutputType, T['by']> &
+      PickEnumerable<AppointmentGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof MarkGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof AppointmentGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], MarkGroupByOutputType[P]>
-            : GetScalarType<T[P], MarkGroupByOutputType[P]>
+              : GetScalarType<T[P], AppointmentGroupByOutputType[P]>
+            : GetScalarType<T[P], AppointmentGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type MarkSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type AppointmentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     createdAt?: boolean
-    motiveMark?: boolean
-    descriptionMark?: boolean
-    localMark?: boolean
-    prazoMark?: boolean
-    statusMark?: boolean
-  }, ExtArgs["result"]["mark"]>
+    reason?: boolean
+    description?: boolean
+    location?: boolean
+    deadline?: boolean
+    status?: boolean
+  }, ExtArgs["result"]["appointment"]>
 
-  export type MarkSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type AppointmentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     createdAt?: boolean
-    motiveMark?: boolean
-    descriptionMark?: boolean
-    localMark?: boolean
-    prazoMark?: boolean
-    statusMark?: boolean
-  }, ExtArgs["result"]["mark"]>
+    reason?: boolean
+    description?: boolean
+    location?: boolean
+    deadline?: boolean
+    status?: boolean
+  }, ExtArgs["result"]["appointment"]>
 
-  export type MarkSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type AppointmentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     createdAt?: boolean
-    motiveMark?: boolean
-    descriptionMark?: boolean
-    localMark?: boolean
-    prazoMark?: boolean
-    statusMark?: boolean
-  }, ExtArgs["result"]["mark"]>
+    reason?: boolean
+    description?: boolean
+    location?: boolean
+    deadline?: boolean
+    status?: boolean
+  }, ExtArgs["result"]["appointment"]>
 
-  export type MarkSelectScalar = {
+  export type AppointmentSelectScalar = {
     id?: boolean
     createdAt?: boolean
-    motiveMark?: boolean
-    descriptionMark?: boolean
-    localMark?: boolean
-    prazoMark?: boolean
-    statusMark?: boolean
+    reason?: boolean
+    description?: boolean
+    location?: boolean
+    deadline?: boolean
+    status?: boolean
   }
 
-  export type MarkOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "motiveMark" | "descriptionMark" | "localMark" | "prazoMark" | "statusMark", ExtArgs["result"]["mark"]>
+  export type AppointmentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "reason" | "description" | "location" | "deadline" | "status", ExtArgs["result"]["appointment"]>
 
-  export type $MarkPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Mark"
+  export type $AppointmentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Appointment"
     objects: {}
     scalars: $Extensions.GetPayloadResult<{
       id: string
       createdAt: Date
-      motiveMark: string
-      descriptionMark: string
-      localMark: string
-      prazoMark: Date
-      statusMark: $Enums.StatusMarkEnum
-    }, ExtArgs["result"]["mark"]>
+      reason: string
+      description: string
+      location: string
+      deadline: Date
+      status: $Enums.AppointmentStatus
+    }, ExtArgs["result"]["appointment"]>
     composites: {}
   }
 
-  type MarkGetPayload<S extends boolean | null | undefined | MarkDefaultArgs> = $Result.GetResult<Prisma.$MarkPayload, S>
+  type AppointmentGetPayload<S extends boolean | null | undefined | AppointmentDefaultArgs> = $Result.GetResult<Prisma.$AppointmentPayload, S>
 
-  type MarkCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<MarkFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: MarkCountAggregateInputType | true
+  type AppointmentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AppointmentFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AppointmentCountAggregateInputType | true
     }
 
-  export interface MarkDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Mark'], meta: { name: 'Mark' } }
+  export interface AppointmentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Appointment'], meta: { name: 'Appointment' } }
     /**
-     * Find zero or one Mark that matches the filter.
-     * @param {MarkFindUniqueArgs} args - Arguments to find a Mark
+     * Find zero or one Appointment that matches the filter.
+     * @param {AppointmentFindUniqueArgs} args - Arguments to find a Appointment
      * @example
-     * // Get one Mark
-     * const mark = await prisma.mark.findUnique({
+     * // Get one Appointment
+     * const appointment = await prisma.appointment.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends MarkFindUniqueArgs>(args: SelectSubset<T, MarkFindUniqueArgs<ExtArgs>>): Prisma__MarkClient<$Result.GetResult<Prisma.$MarkPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends AppointmentFindUniqueArgs>(args: SelectSubset<T, AppointmentFindUniqueArgs<ExtArgs>>): Prisma__AppointmentClient<$Result.GetResult<Prisma.$AppointmentPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find one Mark that matches the filter or throw an error with `error.code='P2025'`
+     * Find one Appointment that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {MarkFindUniqueOrThrowArgs} args - Arguments to find a Mark
+     * @param {AppointmentFindUniqueOrThrowArgs} args - Arguments to find a Appointment
      * @example
-     * // Get one Mark
-     * const mark = await prisma.mark.findUniqueOrThrow({
+     * // Get one Appointment
+     * const appointment = await prisma.appointment.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends MarkFindUniqueOrThrowArgs>(args: SelectSubset<T, MarkFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MarkClient<$Result.GetResult<Prisma.$MarkPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends AppointmentFindUniqueOrThrowArgs>(args: SelectSubset<T, AppointmentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AppointmentClient<$Result.GetResult<Prisma.$AppointmentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first Mark that matches the filter.
+     * Find the first Appointment that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {MarkFindFirstArgs} args - Arguments to find a Mark
+     * @param {AppointmentFindFirstArgs} args - Arguments to find a Appointment
      * @example
-     * // Get one Mark
-     * const mark = await prisma.mark.findFirst({
+     * // Get one Appointment
+     * const appointment = await prisma.appointment.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends MarkFindFirstArgs>(args?: SelectSubset<T, MarkFindFirstArgs<ExtArgs>>): Prisma__MarkClient<$Result.GetResult<Prisma.$MarkPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends AppointmentFindFirstArgs>(args?: SelectSubset<T, AppointmentFindFirstArgs<ExtArgs>>): Prisma__AppointmentClient<$Result.GetResult<Prisma.$AppointmentPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first Mark that matches the filter or
+     * Find the first Appointment that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {MarkFindFirstOrThrowArgs} args - Arguments to find a Mark
+     * @param {AppointmentFindFirstOrThrowArgs} args - Arguments to find a Appointment
      * @example
-     * // Get one Mark
-     * const mark = await prisma.mark.findFirstOrThrow({
+     * // Get one Appointment
+     * const appointment = await prisma.appointment.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends MarkFindFirstOrThrowArgs>(args?: SelectSubset<T, MarkFindFirstOrThrowArgs<ExtArgs>>): Prisma__MarkClient<$Result.GetResult<Prisma.$MarkPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends AppointmentFindFirstOrThrowArgs>(args?: SelectSubset<T, AppointmentFindFirstOrThrowArgs<ExtArgs>>): Prisma__AppointmentClient<$Result.GetResult<Prisma.$AppointmentPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more Marks that matches the filter.
+     * Find zero or more Appointments that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {MarkFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {AppointmentFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all Marks
-     * const marks = await prisma.mark.findMany()
+     * // Get all Appointments
+     * const appointments = await prisma.appointment.findMany()
      * 
-     * // Get first 10 Marks
-     * const marks = await prisma.mark.findMany({ take: 10 })
+     * // Get first 10 Appointments
+     * const appointments = await prisma.appointment.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const markWithIdOnly = await prisma.mark.findMany({ select: { id: true } })
+     * const appointmentWithIdOnly = await prisma.appointment.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends MarkFindManyArgs>(args?: SelectSubset<T, MarkFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MarkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends AppointmentFindManyArgs>(args?: SelectSubset<T, AppointmentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AppointmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
-     * Create a Mark.
-     * @param {MarkCreateArgs} args - Arguments to create a Mark.
+     * Create a Appointment.
+     * @param {AppointmentCreateArgs} args - Arguments to create a Appointment.
      * @example
-     * // Create one Mark
-     * const Mark = await prisma.mark.create({
+     * // Create one Appointment
+     * const Appointment = await prisma.appointment.create({
      *   data: {
-     *     // ... data to create a Mark
+     *     // ... data to create a Appointment
      *   }
      * })
      * 
      */
-    create<T extends MarkCreateArgs>(args: SelectSubset<T, MarkCreateArgs<ExtArgs>>): Prisma__MarkClient<$Result.GetResult<Prisma.$MarkPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends AppointmentCreateArgs>(args: SelectSubset<T, AppointmentCreateArgs<ExtArgs>>): Prisma__AppointmentClient<$Result.GetResult<Prisma.$AppointmentPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Create many Marks.
-     * @param {MarkCreateManyArgs} args - Arguments to create many Marks.
+     * Create many Appointments.
+     * @param {AppointmentCreateManyArgs} args - Arguments to create many Appointments.
      * @example
-     * // Create many Marks
-     * const mark = await prisma.mark.createMany({
+     * // Create many Appointments
+     * const appointment = await prisma.appointment.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends MarkCreateManyArgs>(args?: SelectSubset<T, MarkCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends AppointmentCreateManyArgs>(args?: SelectSubset<T, AppointmentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many Marks and returns the data saved in the database.
-     * @param {MarkCreateManyAndReturnArgs} args - Arguments to create many Marks.
+     * Create many Appointments and returns the data saved in the database.
+     * @param {AppointmentCreateManyAndReturnArgs} args - Arguments to create many Appointments.
      * @example
-     * // Create many Marks
-     * const mark = await prisma.mark.createManyAndReturn({
+     * // Create many Appointments
+     * const appointment = await prisma.appointment.createManyAndReturn({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      * 
-     * // Create many Marks and only return the `id`
-     * const markWithIdOnly = await prisma.mark.createManyAndReturn({
+     * // Create many Appointments and only return the `id`
+     * const appointmentWithIdOnly = await prisma.appointment.createManyAndReturn({
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -3667,28 +3667,28 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends MarkCreateManyAndReturnArgs>(args?: SelectSubset<T, MarkCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MarkPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+    createManyAndReturn<T extends AppointmentCreateManyAndReturnArgs>(args?: SelectSubset<T, AppointmentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AppointmentPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Delete a Mark.
-     * @param {MarkDeleteArgs} args - Arguments to delete one Mark.
+     * Delete a Appointment.
+     * @param {AppointmentDeleteArgs} args - Arguments to delete one Appointment.
      * @example
-     * // Delete one Mark
-     * const Mark = await prisma.mark.delete({
+     * // Delete one Appointment
+     * const Appointment = await prisma.appointment.delete({
      *   where: {
-     *     // ... filter to delete one Mark
+     *     // ... filter to delete one Appointment
      *   }
      * })
      * 
      */
-    delete<T extends MarkDeleteArgs>(args: SelectSubset<T, MarkDeleteArgs<ExtArgs>>): Prisma__MarkClient<$Result.GetResult<Prisma.$MarkPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends AppointmentDeleteArgs>(args: SelectSubset<T, AppointmentDeleteArgs<ExtArgs>>): Prisma__AppointmentClient<$Result.GetResult<Prisma.$AppointmentPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Update one Mark.
-     * @param {MarkUpdateArgs} args - Arguments to update one Mark.
+     * Update one Appointment.
+     * @param {AppointmentUpdateArgs} args - Arguments to update one Appointment.
      * @example
-     * // Update one Mark
-     * const mark = await prisma.mark.update({
+     * // Update one Appointment
+     * const appointment = await prisma.appointment.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -3698,30 +3698,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends MarkUpdateArgs>(args: SelectSubset<T, MarkUpdateArgs<ExtArgs>>): Prisma__MarkClient<$Result.GetResult<Prisma.$MarkPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends AppointmentUpdateArgs>(args: SelectSubset<T, AppointmentUpdateArgs<ExtArgs>>): Prisma__AppointmentClient<$Result.GetResult<Prisma.$AppointmentPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Delete zero or more Marks.
-     * @param {MarkDeleteManyArgs} args - Arguments to filter Marks to delete.
+     * Delete zero or more Appointments.
+     * @param {AppointmentDeleteManyArgs} args - Arguments to filter Appointments to delete.
      * @example
-     * // Delete a few Marks
-     * const { count } = await prisma.mark.deleteMany({
+     * // Delete a few Appointments
+     * const { count } = await prisma.appointment.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends MarkDeleteManyArgs>(args?: SelectSubset<T, MarkDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends AppointmentDeleteManyArgs>(args?: SelectSubset<T, AppointmentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more Marks.
+     * Update zero or more Appointments.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {MarkUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {AppointmentUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many Marks
-     * const mark = await prisma.mark.updateMany({
+     * // Update many Appointments
+     * const appointment = await prisma.appointment.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -3731,14 +3731,14 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends MarkUpdateManyArgs>(args: SelectSubset<T, MarkUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends AppointmentUpdateManyArgs>(args: SelectSubset<T, AppointmentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more Marks and returns the data updated in the database.
-     * @param {MarkUpdateManyAndReturnArgs} args - Arguments to update many Marks.
+     * Update zero or more Appointments and returns the data updated in the database.
+     * @param {AppointmentUpdateManyAndReturnArgs} args - Arguments to update many Appointments.
      * @example
-     * // Update many Marks
-     * const mark = await prisma.mark.updateManyAndReturn({
+     * // Update many Appointments
+     * const appointment = await prisma.appointment.updateManyAndReturn({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -3747,8 +3747,8 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more Marks and only return the `id`
-     * const markWithIdOnly = await prisma.mark.updateManyAndReturn({
+     * // Update zero or more Appointments and only return the `id`
+     * const appointmentWithIdOnly = await prisma.appointment.updateManyAndReturn({
      *   select: { id: true },
      *   where: {
      *     // ... provide filter here
@@ -3761,56 +3761,56 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends MarkUpdateManyAndReturnArgs>(args: SelectSubset<T, MarkUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MarkPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+    updateManyAndReturn<T extends AppointmentUpdateManyAndReturnArgs>(args: SelectSubset<T, AppointmentUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AppointmentPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Create or update one Mark.
-     * @param {MarkUpsertArgs} args - Arguments to update or create a Mark.
+     * Create or update one Appointment.
+     * @param {AppointmentUpsertArgs} args - Arguments to update or create a Appointment.
      * @example
-     * // Update or create a Mark
-     * const mark = await prisma.mark.upsert({
+     * // Update or create a Appointment
+     * const appointment = await prisma.appointment.upsert({
      *   create: {
-     *     // ... data to create a Mark
+     *     // ... data to create a Appointment
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the Mark we want to update
+     *     // ... the filter for the Appointment we want to update
      *   }
      * })
      */
-    upsert<T extends MarkUpsertArgs>(args: SelectSubset<T, MarkUpsertArgs<ExtArgs>>): Prisma__MarkClient<$Result.GetResult<Prisma.$MarkPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    upsert<T extends AppointmentUpsertArgs>(args: SelectSubset<T, AppointmentUpsertArgs<ExtArgs>>): Prisma__AppointmentClient<$Result.GetResult<Prisma.$AppointmentPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
-     * Count the number of Marks.
+     * Count the number of Appointments.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {MarkCountArgs} args - Arguments to filter Marks to count.
+     * @param {AppointmentCountArgs} args - Arguments to filter Appointments to count.
      * @example
-     * // Count the number of Marks
-     * const count = await prisma.mark.count({
+     * // Count the number of Appointments
+     * const count = await prisma.appointment.count({
      *   where: {
-     *     // ... the filter for the Marks we want to count
+     *     // ... the filter for the Appointments we want to count
      *   }
      * })
     **/
-    count<T extends MarkCountArgs>(
-      args?: Subset<T, MarkCountArgs>,
+    count<T extends AppointmentCountArgs>(
+      args?: Subset<T, AppointmentCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], MarkCountAggregateOutputType>
+          : GetScalarType<T['select'], AppointmentCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a Mark.
+     * Allows you to perform aggregations operations on a Appointment.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {MarkAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {AppointmentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -3830,13 +3830,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends MarkAggregateArgs>(args: Subset<T, MarkAggregateArgs>): Prisma.PrismaPromise<GetMarkAggregateType<T>>
+    aggregate<T extends AppointmentAggregateArgs>(args: Subset<T, AppointmentAggregateArgs>): Prisma.PrismaPromise<GetAppointmentAggregateType<T>>
 
     /**
-     * Group by Mark.
+     * Group by Appointment.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {MarkGroupByArgs} args - Group by arguments.
+     * @param {AppointmentGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -3851,14 +3851,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends MarkGroupByArgs,
+      T extends AppointmentGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: MarkGroupByArgs['orderBy'] }
-        : { orderBy?: MarkGroupByArgs['orderBy'] },
+        ? { orderBy: AppointmentGroupByArgs['orderBy'] }
+        : { orderBy?: AppointmentGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -3907,20 +3907,20 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, MarkGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMarkGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, AppointmentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAppointmentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the Mark model
+   * Fields of the Appointment model
    */
-  readonly fields: MarkFieldRefs;
+  readonly fields: AppointmentFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for Mark.
+   * The delegate class that acts as a "Promise-like" for Appointment.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__MarkClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__AppointmentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -3948,379 +3948,379 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the Mark model
+   * Fields of the Appointment model
    */
-  interface MarkFieldRefs {
-    readonly id: FieldRef<"Mark", 'String'>
-    readonly createdAt: FieldRef<"Mark", 'DateTime'>
-    readonly motiveMark: FieldRef<"Mark", 'String'>
-    readonly descriptionMark: FieldRef<"Mark", 'String'>
-    readonly localMark: FieldRef<"Mark", 'String'>
-    readonly prazoMark: FieldRef<"Mark", 'DateTime'>
-    readonly statusMark: FieldRef<"Mark", 'StatusMarkEnum'>
+  interface AppointmentFieldRefs {
+    readonly id: FieldRef<"Appointment", 'String'>
+    readonly createdAt: FieldRef<"Appointment", 'DateTime'>
+    readonly reason: FieldRef<"Appointment", 'String'>
+    readonly description: FieldRef<"Appointment", 'String'>
+    readonly location: FieldRef<"Appointment", 'String'>
+    readonly deadline: FieldRef<"Appointment", 'DateTime'>
+    readonly status: FieldRef<"Appointment", 'AppointmentStatus'>
   }
     
 
   // Custom InputTypes
   /**
-   * Mark findUnique
+   * Appointment findUnique
    */
-  export type MarkFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type AppointmentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Mark
+     * Select specific fields to fetch from the Appointment
      */
-    select?: MarkSelect<ExtArgs> | null
+    select?: AppointmentSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Mark
+     * Omit specific fields from the Appointment
      */
-    omit?: MarkOmit<ExtArgs> | null
+    omit?: AppointmentOmit<ExtArgs> | null
     /**
-     * Filter, which Mark to fetch.
+     * Filter, which Appointment to fetch.
      */
-    where: MarkWhereUniqueInput
+    where: AppointmentWhereUniqueInput
   }
 
   /**
-   * Mark findUniqueOrThrow
+   * Appointment findUniqueOrThrow
    */
-  export type MarkFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type AppointmentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Mark
+     * Select specific fields to fetch from the Appointment
      */
-    select?: MarkSelect<ExtArgs> | null
+    select?: AppointmentSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Mark
+     * Omit specific fields from the Appointment
      */
-    omit?: MarkOmit<ExtArgs> | null
+    omit?: AppointmentOmit<ExtArgs> | null
     /**
-     * Filter, which Mark to fetch.
+     * Filter, which Appointment to fetch.
      */
-    where: MarkWhereUniqueInput
+    where: AppointmentWhereUniqueInput
   }
 
   /**
-   * Mark findFirst
+   * Appointment findFirst
    */
-  export type MarkFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type AppointmentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Mark
+     * Select specific fields to fetch from the Appointment
      */
-    select?: MarkSelect<ExtArgs> | null
+    select?: AppointmentSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Mark
+     * Omit specific fields from the Appointment
      */
-    omit?: MarkOmit<ExtArgs> | null
+    omit?: AppointmentOmit<ExtArgs> | null
     /**
-     * Filter, which Mark to fetch.
+     * Filter, which Appointment to fetch.
      */
-    where?: MarkWhereInput
+    where?: AppointmentWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Marks to fetch.
+     * Determine the order of Appointments to fetch.
      */
-    orderBy?: MarkOrderByWithRelationInput | MarkOrderByWithRelationInput[]
+    orderBy?: AppointmentOrderByWithRelationInput | AppointmentOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for Marks.
+     * Sets the position for searching for Appointments.
      */
-    cursor?: MarkWhereUniqueInput
+    cursor?: AppointmentWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Marks from the position of the cursor.
+     * Take `±n` Appointments from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Marks.
+     * Skip the first `n` Appointments.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of Marks.
+     * Filter by unique combinations of Appointments.
      */
-    distinct?: MarkScalarFieldEnum | MarkScalarFieldEnum[]
+    distinct?: AppointmentScalarFieldEnum | AppointmentScalarFieldEnum[]
   }
 
   /**
-   * Mark findFirstOrThrow
+   * Appointment findFirstOrThrow
    */
-  export type MarkFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type AppointmentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Mark
+     * Select specific fields to fetch from the Appointment
      */
-    select?: MarkSelect<ExtArgs> | null
+    select?: AppointmentSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Mark
+     * Omit specific fields from the Appointment
      */
-    omit?: MarkOmit<ExtArgs> | null
+    omit?: AppointmentOmit<ExtArgs> | null
     /**
-     * Filter, which Mark to fetch.
+     * Filter, which Appointment to fetch.
      */
-    where?: MarkWhereInput
+    where?: AppointmentWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Marks to fetch.
+     * Determine the order of Appointments to fetch.
      */
-    orderBy?: MarkOrderByWithRelationInput | MarkOrderByWithRelationInput[]
+    orderBy?: AppointmentOrderByWithRelationInput | AppointmentOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for Marks.
+     * Sets the position for searching for Appointments.
      */
-    cursor?: MarkWhereUniqueInput
+    cursor?: AppointmentWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Marks from the position of the cursor.
+     * Take `±n` Appointments from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Marks.
+     * Skip the first `n` Appointments.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of Marks.
+     * Filter by unique combinations of Appointments.
      */
-    distinct?: MarkScalarFieldEnum | MarkScalarFieldEnum[]
+    distinct?: AppointmentScalarFieldEnum | AppointmentScalarFieldEnum[]
   }
 
   /**
-   * Mark findMany
+   * Appointment findMany
    */
-  export type MarkFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type AppointmentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Mark
+     * Select specific fields to fetch from the Appointment
      */
-    select?: MarkSelect<ExtArgs> | null
+    select?: AppointmentSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Mark
+     * Omit specific fields from the Appointment
      */
-    omit?: MarkOmit<ExtArgs> | null
+    omit?: AppointmentOmit<ExtArgs> | null
     /**
-     * Filter, which Marks to fetch.
+     * Filter, which Appointments to fetch.
      */
-    where?: MarkWhereInput
+    where?: AppointmentWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Marks to fetch.
+     * Determine the order of Appointments to fetch.
      */
-    orderBy?: MarkOrderByWithRelationInput | MarkOrderByWithRelationInput[]
+    orderBy?: AppointmentOrderByWithRelationInput | AppointmentOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing Marks.
+     * Sets the position for listing Appointments.
      */
-    cursor?: MarkWhereUniqueInput
+    cursor?: AppointmentWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Marks from the position of the cursor.
+     * Take `±n` Appointments from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Marks.
+     * Skip the first `n` Appointments.
      */
     skip?: number
-    distinct?: MarkScalarFieldEnum | MarkScalarFieldEnum[]
+    distinct?: AppointmentScalarFieldEnum | AppointmentScalarFieldEnum[]
   }
 
   /**
-   * Mark create
+   * Appointment create
    */
-  export type MarkCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type AppointmentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Mark
+     * Select specific fields to fetch from the Appointment
      */
-    select?: MarkSelect<ExtArgs> | null
+    select?: AppointmentSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Mark
+     * Omit specific fields from the Appointment
      */
-    omit?: MarkOmit<ExtArgs> | null
+    omit?: AppointmentOmit<ExtArgs> | null
     /**
-     * The data needed to create a Mark.
+     * The data needed to create a Appointment.
      */
-    data: XOR<MarkCreateInput, MarkUncheckedCreateInput>
+    data: XOR<AppointmentCreateInput, AppointmentUncheckedCreateInput>
   }
 
   /**
-   * Mark createMany
+   * Appointment createMany
    */
-  export type MarkCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type AppointmentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many Marks.
+     * The data used to create many Appointments.
      */
-    data: MarkCreateManyInput | MarkCreateManyInput[]
+    data: AppointmentCreateManyInput | AppointmentCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * Mark createManyAndReturn
+   * Appointment createManyAndReturn
    */
-  export type MarkCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type AppointmentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Mark
+     * Select specific fields to fetch from the Appointment
      */
-    select?: MarkSelectCreateManyAndReturn<ExtArgs> | null
+    select?: AppointmentSelectCreateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the Mark
+     * Omit specific fields from the Appointment
      */
-    omit?: MarkOmit<ExtArgs> | null
+    omit?: AppointmentOmit<ExtArgs> | null
     /**
-     * The data used to create many Marks.
+     * The data used to create many Appointments.
      */
-    data: MarkCreateManyInput | MarkCreateManyInput[]
+    data: AppointmentCreateManyInput | AppointmentCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * Mark update
+   * Appointment update
    */
-  export type MarkUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type AppointmentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Mark
+     * Select specific fields to fetch from the Appointment
      */
-    select?: MarkSelect<ExtArgs> | null
+    select?: AppointmentSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Mark
+     * Omit specific fields from the Appointment
      */
-    omit?: MarkOmit<ExtArgs> | null
+    omit?: AppointmentOmit<ExtArgs> | null
     /**
-     * The data needed to update a Mark.
+     * The data needed to update a Appointment.
      */
-    data: XOR<MarkUpdateInput, MarkUncheckedUpdateInput>
+    data: XOR<AppointmentUpdateInput, AppointmentUncheckedUpdateInput>
     /**
-     * Choose, which Mark to update.
+     * Choose, which Appointment to update.
      */
-    where: MarkWhereUniqueInput
+    where: AppointmentWhereUniqueInput
   }
 
   /**
-   * Mark updateMany
+   * Appointment updateMany
    */
-  export type MarkUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type AppointmentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update Marks.
+     * The data used to update Appointments.
      */
-    data: XOR<MarkUpdateManyMutationInput, MarkUncheckedUpdateManyInput>
+    data: XOR<AppointmentUpdateManyMutationInput, AppointmentUncheckedUpdateManyInput>
     /**
-     * Filter which Marks to update
+     * Filter which Appointments to update
      */
-    where?: MarkWhereInput
+    where?: AppointmentWhereInput
     /**
-     * Limit how many Marks to update.
+     * Limit how many Appointments to update.
      */
     limit?: number
   }
 
   /**
-   * Mark updateManyAndReturn
+   * Appointment updateManyAndReturn
    */
-  export type MarkUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type AppointmentUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Mark
+     * Select specific fields to fetch from the Appointment
      */
-    select?: MarkSelectUpdateManyAndReturn<ExtArgs> | null
+    select?: AppointmentSelectUpdateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the Mark
+     * Omit specific fields from the Appointment
      */
-    omit?: MarkOmit<ExtArgs> | null
+    omit?: AppointmentOmit<ExtArgs> | null
     /**
-     * The data used to update Marks.
+     * The data used to update Appointments.
      */
-    data: XOR<MarkUpdateManyMutationInput, MarkUncheckedUpdateManyInput>
+    data: XOR<AppointmentUpdateManyMutationInput, AppointmentUncheckedUpdateManyInput>
     /**
-     * Filter which Marks to update
+     * Filter which Appointments to update
      */
-    where?: MarkWhereInput
+    where?: AppointmentWhereInput
     /**
-     * Limit how many Marks to update.
+     * Limit how many Appointments to update.
      */
     limit?: number
   }
 
   /**
-   * Mark upsert
+   * Appointment upsert
    */
-  export type MarkUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type AppointmentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Mark
+     * Select specific fields to fetch from the Appointment
      */
-    select?: MarkSelect<ExtArgs> | null
+    select?: AppointmentSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Mark
+     * Omit specific fields from the Appointment
      */
-    omit?: MarkOmit<ExtArgs> | null
+    omit?: AppointmentOmit<ExtArgs> | null
     /**
-     * The filter to search for the Mark to update in case it exists.
+     * The filter to search for the Appointment to update in case it exists.
      */
-    where: MarkWhereUniqueInput
+    where: AppointmentWhereUniqueInput
     /**
-     * In case the Mark found by the `where` argument doesn't exist, create a new Mark with this data.
+     * In case the Appointment found by the `where` argument doesn't exist, create a new Appointment with this data.
      */
-    create: XOR<MarkCreateInput, MarkUncheckedCreateInput>
+    create: XOR<AppointmentCreateInput, AppointmentUncheckedCreateInput>
     /**
-     * In case the Mark was found with the provided `where` argument, update it with this data.
+     * In case the Appointment was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<MarkUpdateInput, MarkUncheckedUpdateInput>
+    update: XOR<AppointmentUpdateInput, AppointmentUncheckedUpdateInput>
   }
 
   /**
-   * Mark delete
+   * Appointment delete
    */
-  export type MarkDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type AppointmentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Mark
+     * Select specific fields to fetch from the Appointment
      */
-    select?: MarkSelect<ExtArgs> | null
+    select?: AppointmentSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Mark
+     * Omit specific fields from the Appointment
      */
-    omit?: MarkOmit<ExtArgs> | null
+    omit?: AppointmentOmit<ExtArgs> | null
     /**
-     * Filter which Mark to delete.
+     * Filter which Appointment to delete.
      */
-    where: MarkWhereUniqueInput
+    where: AppointmentWhereUniqueInput
   }
 
   /**
-   * Mark deleteMany
+   * Appointment deleteMany
    */
-  export type MarkDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type AppointmentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which Marks to delete
+     * Filter which Appointments to delete
      */
-    where?: MarkWhereInput
+    where?: AppointmentWhereInput
     /**
-     * Limit how many Marks to delete.
+     * Limit how many Appointments to delete.
      */
     limit?: number
   }
 
   /**
-   * Mark without action
+   * Appointment without action
    */
-  export type MarkDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type AppointmentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Mark
+     * Select specific fields to fetch from the Appointment
      */
-    select?: MarkSelect<ExtArgs> | null
+    select?: AppointmentSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Mark
+     * Omit specific fields from the Appointment
      */
-    omit?: MarkOmit<ExtArgs> | null
+    omit?: AppointmentOmit<ExtArgs> | null
   }
 
 
@@ -4337,22 +4337,22 @@ export namespace Prisma {
   export type DepartmentMinAggregateOutputType = {
     id: string | null
     createdAt: Date | null
-    nameDepartment: string | null
-    sectorDepartment: string | null
+    name: string | null
+    sector: string | null
   }
 
   export type DepartmentMaxAggregateOutputType = {
     id: string | null
     createdAt: Date | null
-    nameDepartment: string | null
-    sectorDepartment: string | null
+    name: string | null
+    sector: string | null
   }
 
   export type DepartmentCountAggregateOutputType = {
     id: number
     createdAt: number
-    nameDepartment: number
-    sectorDepartment: number
+    name: number
+    sector: number
     _all: number
   }
 
@@ -4360,22 +4360,22 @@ export namespace Prisma {
   export type DepartmentMinAggregateInputType = {
     id?: true
     createdAt?: true
-    nameDepartment?: true
-    sectorDepartment?: true
+    name?: true
+    sector?: true
   }
 
   export type DepartmentMaxAggregateInputType = {
     id?: true
     createdAt?: true
-    nameDepartment?: true
-    sectorDepartment?: true
+    name?: true
+    sector?: true
   }
 
   export type DepartmentCountAggregateInputType = {
     id?: true
     createdAt?: true
-    nameDepartment?: true
-    sectorDepartment?: true
+    name?: true
+    sector?: true
     _all?: true
   }
 
@@ -4454,8 +4454,8 @@ export namespace Prisma {
   export type DepartmentGroupByOutputType = {
     id: string
     createdAt: Date
-    nameDepartment: string
-    sectorDepartment: string
+    name: string
+    sector: string
     _count: DepartmentCountAggregateOutputType | null
     _min: DepartmentMinAggregateOutputType | null
     _max: DepartmentMaxAggregateOutputType | null
@@ -4478,32 +4478,32 @@ export namespace Prisma {
   export type DepartmentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     createdAt?: boolean
-    nameDepartment?: boolean
-    sectorDepartment?: boolean
+    name?: boolean
+    sector?: boolean
   }, ExtArgs["result"]["department"]>
 
   export type DepartmentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     createdAt?: boolean
-    nameDepartment?: boolean
-    sectorDepartment?: boolean
+    name?: boolean
+    sector?: boolean
   }, ExtArgs["result"]["department"]>
 
   export type DepartmentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     createdAt?: boolean
-    nameDepartment?: boolean
-    sectorDepartment?: boolean
+    name?: boolean
+    sector?: boolean
   }, ExtArgs["result"]["department"]>
 
   export type DepartmentSelectScalar = {
     id?: boolean
     createdAt?: boolean
-    nameDepartment?: boolean
-    sectorDepartment?: boolean
+    name?: boolean
+    sector?: boolean
   }
 
-  export type DepartmentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "nameDepartment" | "sectorDepartment", ExtArgs["result"]["department"]>
+  export type DepartmentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "name" | "sector", ExtArgs["result"]["department"]>
 
   export type $DepartmentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Department"
@@ -4511,8 +4511,8 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       createdAt: Date
-      nameDepartment: string
-      sectorDepartment: string
+      name: string
+      sector: string
     }, ExtArgs["result"]["department"]>
     composites: {}
   }
@@ -4938,8 +4938,8 @@ export namespace Prisma {
   interface DepartmentFieldRefs {
     readonly id: FieldRef<"Department", 'String'>
     readonly createdAt: FieldRef<"Department", 'DateTime'>
-    readonly nameDepartment: FieldRef<"Department", 'String'>
-    readonly sectorDepartment: FieldRef<"Department", 'String'>
+    readonly name: FieldRef<"Department", 'String'>
+    readonly sector: FieldRef<"Department", 'String'>
   }
     
 
@@ -5330,7 +5330,7 @@ export namespace Prisma {
     dateOfBirth: 'dateOfBirth',
     gender: 'gender',
     phone: 'phone',
-    cargo: 'cargo',
+    position: 'position',
     expirationDate: 'expirationDate'
   };
 
@@ -5340,34 +5340,34 @@ export namespace Prisma {
   export const TaskScalarFieldEnum: {
     id: 'id',
     createdAt: 'createdAt',
-    missionTask: 'missionTask',
-    descriptionTask: 'descriptionTask',
-    deadlineTask: 'deadlineTask',
-    statusTask: 'statusTask',
-    priorityTask: 'priorityTask'
+    title: 'title',
+    description: 'description',
+    deadline: 'deadline',
+    status: 'status',
+    priority: 'priority'
   };
 
   export type TaskScalarFieldEnum = (typeof TaskScalarFieldEnum)[keyof typeof TaskScalarFieldEnum]
 
 
-  export const MarkScalarFieldEnum: {
+  export const AppointmentScalarFieldEnum: {
     id: 'id',
     createdAt: 'createdAt',
-    motiveMark: 'motiveMark',
-    descriptionMark: 'descriptionMark',
-    localMark: 'localMark',
-    prazoMark: 'prazoMark',
-    statusMark: 'statusMark'
+    reason: 'reason',
+    description: 'description',
+    location: 'location',
+    deadline: 'deadline',
+    status: 'status'
   };
 
-  export type MarkScalarFieldEnum = (typeof MarkScalarFieldEnum)[keyof typeof MarkScalarFieldEnum]
+  export type AppointmentScalarFieldEnum = (typeof AppointmentScalarFieldEnum)[keyof typeof AppointmentScalarFieldEnum]
 
 
   export const DepartmentScalarFieldEnum: {
     id: 'id',
     createdAt: 'createdAt',
-    nameDepartment: 'nameDepartment',
-    sectorDepartment: 'sectorDepartment'
+    name: 'name',
+    sector: 'sector'
   };
 
   export type DepartmentScalarFieldEnum = (typeof DepartmentScalarFieldEnum)[keyof typeof DepartmentScalarFieldEnum]
@@ -5423,72 +5423,72 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'GenderEmployeeEnum'
+   * Reference to a field of type 'Gender'
    */
-  export type EnumGenderEmployeeEnumFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'GenderEmployeeEnum'>
+  export type EnumGenderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Gender'>
     
 
 
   /**
-   * Reference to a field of type 'GenderEmployeeEnum[]'
+   * Reference to a field of type 'Gender[]'
    */
-  export type ListEnumGenderEmployeeEnumFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'GenderEmployeeEnum[]'>
+  export type ListEnumGenderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Gender[]'>
     
 
 
   /**
-   * Reference to a field of type 'CargoEmployeeEnum'
+   * Reference to a field of type 'Position'
    */
-  export type EnumCargoEmployeeEnumFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CargoEmployeeEnum'>
+  export type EnumPositionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Position'>
     
 
 
   /**
-   * Reference to a field of type 'CargoEmployeeEnum[]'
+   * Reference to a field of type 'Position[]'
    */
-  export type ListEnumCargoEmployeeEnumFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CargoEmployeeEnum[]'>
+  export type ListEnumPositionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Position[]'>
     
 
 
   /**
-   * Reference to a field of type 'StatusTaskEnum'
+   * Reference to a field of type 'TaskStatus'
    */
-  export type EnumStatusTaskEnumFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StatusTaskEnum'>
+  export type EnumTaskStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TaskStatus'>
     
 
 
   /**
-   * Reference to a field of type 'StatusTaskEnum[]'
+   * Reference to a field of type 'TaskStatus[]'
    */
-  export type ListEnumStatusTaskEnumFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StatusTaskEnum[]'>
+  export type ListEnumTaskStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TaskStatus[]'>
     
 
 
   /**
-   * Reference to a field of type 'PriorityTaskEnum'
+   * Reference to a field of type 'TaskPriority'
    */
-  export type EnumPriorityTaskEnumFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PriorityTaskEnum'>
+  export type EnumTaskPriorityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TaskPriority'>
     
 
 
   /**
-   * Reference to a field of type 'PriorityTaskEnum[]'
+   * Reference to a field of type 'TaskPriority[]'
    */
-  export type ListEnumPriorityTaskEnumFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PriorityTaskEnum[]'>
+  export type ListEnumTaskPriorityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TaskPriority[]'>
     
 
 
   /**
-   * Reference to a field of type 'StatusMarkEnum'
+   * Reference to a field of type 'AppointmentStatus'
    */
-  export type EnumStatusMarkEnumFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StatusMarkEnum'>
+  export type EnumAppointmentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AppointmentStatus'>
     
 
 
   /**
-   * Reference to a field of type 'StatusMarkEnum[]'
+   * Reference to a field of type 'AppointmentStatus[]'
    */
-  export type ListEnumStatusMarkEnumFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StatusMarkEnum[]'>
+  export type ListEnumAppointmentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AppointmentStatus[]'>
     
 
 
@@ -5520,9 +5520,9 @@ export namespace Prisma {
     password?: StringFilter<"Employee"> | string
     fullName?: StringFilter<"Employee"> | string
     dateOfBirth?: DateTimeFilter<"Employee"> | Date | string
-    gender?: EnumGenderEmployeeEnumFilter<"Employee"> | $Enums.GenderEmployeeEnum
+    gender?: EnumGenderFilter<"Employee"> | $Enums.Gender
     phone?: StringFilter<"Employee"> | string
-    cargo?: EnumCargoEmployeeEnumFilter<"Employee"> | $Enums.CargoEmployeeEnum
+    position?: EnumPositionFilter<"Employee"> | $Enums.Position
     expirationDate?: DateTimeFilter<"Employee"> | Date | string
   }
 
@@ -5536,7 +5536,7 @@ export namespace Prisma {
     dateOfBirth?: SortOrder
     gender?: SortOrder
     phone?: SortOrder
-    cargo?: SortOrder
+    position?: SortOrder
     expirationDate?: SortOrder
   }
 
@@ -5551,9 +5551,9 @@ export namespace Prisma {
     password?: StringFilter<"Employee"> | string
     fullName?: StringFilter<"Employee"> | string
     dateOfBirth?: DateTimeFilter<"Employee"> | Date | string
-    gender?: EnumGenderEmployeeEnumFilter<"Employee"> | $Enums.GenderEmployeeEnum
+    gender?: EnumGenderFilter<"Employee"> | $Enums.Gender
     phone?: StringFilter<"Employee"> | string
-    cargo?: EnumCargoEmployeeEnumFilter<"Employee"> | $Enums.CargoEmployeeEnum
+    position?: EnumPositionFilter<"Employee"> | $Enums.Position
     expirationDate?: DateTimeFilter<"Employee"> | Date | string
   }, "id" | "username" | "email">
 
@@ -5567,7 +5567,7 @@ export namespace Prisma {
     dateOfBirth?: SortOrder
     gender?: SortOrder
     phone?: SortOrder
-    cargo?: SortOrder
+    position?: SortOrder
     expirationDate?: SortOrder
     _count?: EmployeeCountOrderByAggregateInput
     _max?: EmployeeMaxOrderByAggregateInput
@@ -5585,9 +5585,9 @@ export namespace Prisma {
     password?: StringWithAggregatesFilter<"Employee"> | string
     fullName?: StringWithAggregatesFilter<"Employee"> | string
     dateOfBirth?: DateTimeWithAggregatesFilter<"Employee"> | Date | string
-    gender?: EnumGenderEmployeeEnumWithAggregatesFilter<"Employee"> | $Enums.GenderEmployeeEnum
+    gender?: EnumGenderWithAggregatesFilter<"Employee"> | $Enums.Gender
     phone?: StringWithAggregatesFilter<"Employee"> | string
-    cargo?: EnumCargoEmployeeEnumWithAggregatesFilter<"Employee"> | $Enums.CargoEmployeeEnum
+    position?: EnumPositionWithAggregatesFilter<"Employee"> | $Enums.Position
     expirationDate?: DateTimeWithAggregatesFilter<"Employee"> | Date | string
   }
 
@@ -5597,21 +5597,21 @@ export namespace Prisma {
     NOT?: TaskWhereInput | TaskWhereInput[]
     id?: StringFilter<"Task"> | string
     createdAt?: DateTimeFilter<"Task"> | Date | string
-    missionTask?: StringFilter<"Task"> | string
-    descriptionTask?: StringFilter<"Task"> | string
-    deadlineTask?: DateTimeFilter<"Task"> | Date | string
-    statusTask?: EnumStatusTaskEnumFilter<"Task"> | $Enums.StatusTaskEnum
-    priorityTask?: EnumPriorityTaskEnumFilter<"Task"> | $Enums.PriorityTaskEnum
+    title?: StringFilter<"Task"> | string
+    description?: StringFilter<"Task"> | string
+    deadline?: DateTimeFilter<"Task"> | Date | string
+    status?: EnumTaskStatusFilter<"Task"> | $Enums.TaskStatus
+    priority?: EnumTaskPriorityFilter<"Task"> | $Enums.TaskPriority
   }
 
   export type TaskOrderByWithRelationInput = {
     id?: SortOrder
     createdAt?: SortOrder
-    missionTask?: SortOrder
-    descriptionTask?: SortOrder
-    deadlineTask?: SortOrder
-    statusTask?: SortOrder
-    priorityTask?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    deadline?: SortOrder
+    status?: SortOrder
+    priority?: SortOrder
   }
 
   export type TaskWhereUniqueInput = Prisma.AtLeast<{
@@ -5620,21 +5620,21 @@ export namespace Prisma {
     OR?: TaskWhereInput[]
     NOT?: TaskWhereInput | TaskWhereInput[]
     createdAt?: DateTimeFilter<"Task"> | Date | string
-    missionTask?: StringFilter<"Task"> | string
-    descriptionTask?: StringFilter<"Task"> | string
-    deadlineTask?: DateTimeFilter<"Task"> | Date | string
-    statusTask?: EnumStatusTaskEnumFilter<"Task"> | $Enums.StatusTaskEnum
-    priorityTask?: EnumPriorityTaskEnumFilter<"Task"> | $Enums.PriorityTaskEnum
+    title?: StringFilter<"Task"> | string
+    description?: StringFilter<"Task"> | string
+    deadline?: DateTimeFilter<"Task"> | Date | string
+    status?: EnumTaskStatusFilter<"Task"> | $Enums.TaskStatus
+    priority?: EnumTaskPriorityFilter<"Task"> | $Enums.TaskPriority
   }, "id">
 
   export type TaskOrderByWithAggregationInput = {
     id?: SortOrder
     createdAt?: SortOrder
-    missionTask?: SortOrder
-    descriptionTask?: SortOrder
-    deadlineTask?: SortOrder
-    statusTask?: SortOrder
-    priorityTask?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    deadline?: SortOrder
+    status?: SortOrder
+    priority?: SortOrder
     _count?: TaskCountOrderByAggregateInput
     _max?: TaskMaxOrderByAggregateInput
     _min?: TaskMinOrderByAggregateInput
@@ -5646,73 +5646,73 @@ export namespace Prisma {
     NOT?: TaskScalarWhereWithAggregatesInput | TaskScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Task"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Task"> | Date | string
-    missionTask?: StringWithAggregatesFilter<"Task"> | string
-    descriptionTask?: StringWithAggregatesFilter<"Task"> | string
-    deadlineTask?: DateTimeWithAggregatesFilter<"Task"> | Date | string
-    statusTask?: EnumStatusTaskEnumWithAggregatesFilter<"Task"> | $Enums.StatusTaskEnum
-    priorityTask?: EnumPriorityTaskEnumWithAggregatesFilter<"Task"> | $Enums.PriorityTaskEnum
+    title?: StringWithAggregatesFilter<"Task"> | string
+    description?: StringWithAggregatesFilter<"Task"> | string
+    deadline?: DateTimeWithAggregatesFilter<"Task"> | Date | string
+    status?: EnumTaskStatusWithAggregatesFilter<"Task"> | $Enums.TaskStatus
+    priority?: EnumTaskPriorityWithAggregatesFilter<"Task"> | $Enums.TaskPriority
   }
 
-  export type MarkWhereInput = {
-    AND?: MarkWhereInput | MarkWhereInput[]
-    OR?: MarkWhereInput[]
-    NOT?: MarkWhereInput | MarkWhereInput[]
-    id?: StringFilter<"Mark"> | string
-    createdAt?: DateTimeFilter<"Mark"> | Date | string
-    motiveMark?: StringFilter<"Mark"> | string
-    descriptionMark?: StringFilter<"Mark"> | string
-    localMark?: StringFilter<"Mark"> | string
-    prazoMark?: DateTimeFilter<"Mark"> | Date | string
-    statusMark?: EnumStatusMarkEnumFilter<"Mark"> | $Enums.StatusMarkEnum
+  export type AppointmentWhereInput = {
+    AND?: AppointmentWhereInput | AppointmentWhereInput[]
+    OR?: AppointmentWhereInput[]
+    NOT?: AppointmentWhereInput | AppointmentWhereInput[]
+    id?: StringFilter<"Appointment"> | string
+    createdAt?: DateTimeFilter<"Appointment"> | Date | string
+    reason?: StringFilter<"Appointment"> | string
+    description?: StringFilter<"Appointment"> | string
+    location?: StringFilter<"Appointment"> | string
+    deadline?: DateTimeFilter<"Appointment"> | Date | string
+    status?: EnumAppointmentStatusFilter<"Appointment"> | $Enums.AppointmentStatus
   }
 
-  export type MarkOrderByWithRelationInput = {
+  export type AppointmentOrderByWithRelationInput = {
     id?: SortOrder
     createdAt?: SortOrder
-    motiveMark?: SortOrder
-    descriptionMark?: SortOrder
-    localMark?: SortOrder
-    prazoMark?: SortOrder
-    statusMark?: SortOrder
+    reason?: SortOrder
+    description?: SortOrder
+    location?: SortOrder
+    deadline?: SortOrder
+    status?: SortOrder
   }
 
-  export type MarkWhereUniqueInput = Prisma.AtLeast<{
+  export type AppointmentWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    AND?: MarkWhereInput | MarkWhereInput[]
-    OR?: MarkWhereInput[]
-    NOT?: MarkWhereInput | MarkWhereInput[]
-    createdAt?: DateTimeFilter<"Mark"> | Date | string
-    motiveMark?: StringFilter<"Mark"> | string
-    descriptionMark?: StringFilter<"Mark"> | string
-    localMark?: StringFilter<"Mark"> | string
-    prazoMark?: DateTimeFilter<"Mark"> | Date | string
-    statusMark?: EnumStatusMarkEnumFilter<"Mark"> | $Enums.StatusMarkEnum
+    AND?: AppointmentWhereInput | AppointmentWhereInput[]
+    OR?: AppointmentWhereInput[]
+    NOT?: AppointmentWhereInput | AppointmentWhereInput[]
+    createdAt?: DateTimeFilter<"Appointment"> | Date | string
+    reason?: StringFilter<"Appointment"> | string
+    description?: StringFilter<"Appointment"> | string
+    location?: StringFilter<"Appointment"> | string
+    deadline?: DateTimeFilter<"Appointment"> | Date | string
+    status?: EnumAppointmentStatusFilter<"Appointment"> | $Enums.AppointmentStatus
   }, "id">
 
-  export type MarkOrderByWithAggregationInput = {
+  export type AppointmentOrderByWithAggregationInput = {
     id?: SortOrder
     createdAt?: SortOrder
-    motiveMark?: SortOrder
-    descriptionMark?: SortOrder
-    localMark?: SortOrder
-    prazoMark?: SortOrder
-    statusMark?: SortOrder
-    _count?: MarkCountOrderByAggregateInput
-    _max?: MarkMaxOrderByAggregateInput
-    _min?: MarkMinOrderByAggregateInput
+    reason?: SortOrder
+    description?: SortOrder
+    location?: SortOrder
+    deadline?: SortOrder
+    status?: SortOrder
+    _count?: AppointmentCountOrderByAggregateInput
+    _max?: AppointmentMaxOrderByAggregateInput
+    _min?: AppointmentMinOrderByAggregateInput
   }
 
-  export type MarkScalarWhereWithAggregatesInput = {
-    AND?: MarkScalarWhereWithAggregatesInput | MarkScalarWhereWithAggregatesInput[]
-    OR?: MarkScalarWhereWithAggregatesInput[]
-    NOT?: MarkScalarWhereWithAggregatesInput | MarkScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"Mark"> | string
-    createdAt?: DateTimeWithAggregatesFilter<"Mark"> | Date | string
-    motiveMark?: StringWithAggregatesFilter<"Mark"> | string
-    descriptionMark?: StringWithAggregatesFilter<"Mark"> | string
-    localMark?: StringWithAggregatesFilter<"Mark"> | string
-    prazoMark?: DateTimeWithAggregatesFilter<"Mark"> | Date | string
-    statusMark?: EnumStatusMarkEnumWithAggregatesFilter<"Mark"> | $Enums.StatusMarkEnum
+  export type AppointmentScalarWhereWithAggregatesInput = {
+    AND?: AppointmentScalarWhereWithAggregatesInput | AppointmentScalarWhereWithAggregatesInput[]
+    OR?: AppointmentScalarWhereWithAggregatesInput[]
+    NOT?: AppointmentScalarWhereWithAggregatesInput | AppointmentScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Appointment"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Appointment"> | Date | string
+    reason?: StringWithAggregatesFilter<"Appointment"> | string
+    description?: StringWithAggregatesFilter<"Appointment"> | string
+    location?: StringWithAggregatesFilter<"Appointment"> | string
+    deadline?: DateTimeWithAggregatesFilter<"Appointment"> | Date | string
+    status?: EnumAppointmentStatusWithAggregatesFilter<"Appointment"> | $Enums.AppointmentStatus
   }
 
   export type DepartmentWhereInput = {
@@ -5721,15 +5721,15 @@ export namespace Prisma {
     NOT?: DepartmentWhereInput | DepartmentWhereInput[]
     id?: StringFilter<"Department"> | string
     createdAt?: DateTimeFilter<"Department"> | Date | string
-    nameDepartment?: StringFilter<"Department"> | string
-    sectorDepartment?: StringFilter<"Department"> | string
+    name?: StringFilter<"Department"> | string
+    sector?: StringFilter<"Department"> | string
   }
 
   export type DepartmentOrderByWithRelationInput = {
     id?: SortOrder
     createdAt?: SortOrder
-    nameDepartment?: SortOrder
-    sectorDepartment?: SortOrder
+    name?: SortOrder
+    sector?: SortOrder
   }
 
   export type DepartmentWhereUniqueInput = Prisma.AtLeast<{
@@ -5738,15 +5738,15 @@ export namespace Prisma {
     OR?: DepartmentWhereInput[]
     NOT?: DepartmentWhereInput | DepartmentWhereInput[]
     createdAt?: DateTimeFilter<"Department"> | Date | string
-    nameDepartment?: StringFilter<"Department"> | string
-    sectorDepartment?: StringFilter<"Department"> | string
+    name?: StringFilter<"Department"> | string
+    sector?: StringFilter<"Department"> | string
   }, "id">
 
   export type DepartmentOrderByWithAggregationInput = {
     id?: SortOrder
     createdAt?: SortOrder
-    nameDepartment?: SortOrder
-    sectorDepartment?: SortOrder
+    name?: SortOrder
+    sector?: SortOrder
     _count?: DepartmentCountOrderByAggregateInput
     _max?: DepartmentMaxOrderByAggregateInput
     _min?: DepartmentMinOrderByAggregateInput
@@ -5758,8 +5758,8 @@ export namespace Prisma {
     NOT?: DepartmentScalarWhereWithAggregatesInput | DepartmentScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Department"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Department"> | Date | string
-    nameDepartment?: StringWithAggregatesFilter<"Department"> | string
-    sectorDepartment?: StringWithAggregatesFilter<"Department"> | string
+    name?: StringWithAggregatesFilter<"Department"> | string
+    sector?: StringWithAggregatesFilter<"Department"> | string
   }
 
   export type EmployeeCreateInput = {
@@ -5770,9 +5770,9 @@ export namespace Prisma {
     password: string
     fullName: string
     dateOfBirth: Date | string
-    gender?: $Enums.GenderEmployeeEnum
+    gender?: $Enums.Gender
     phone: string
-    cargo?: $Enums.CargoEmployeeEnum
+    position?: $Enums.Position
     expirationDate: Date | string
   }
 
@@ -5784,9 +5784,9 @@ export namespace Prisma {
     password: string
     fullName: string
     dateOfBirth: Date | string
-    gender?: $Enums.GenderEmployeeEnum
+    gender?: $Enums.Gender
     phone: string
-    cargo?: $Enums.CargoEmployeeEnum
+    position?: $Enums.Position
     expirationDate: Date | string
   }
 
@@ -5798,9 +5798,9 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
-    gender?: EnumGenderEmployeeEnumFieldUpdateOperationsInput | $Enums.GenderEmployeeEnum
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     phone?: StringFieldUpdateOperationsInput | string
-    cargo?: EnumCargoEmployeeEnumFieldUpdateOperationsInput | $Enums.CargoEmployeeEnum
+    position?: EnumPositionFieldUpdateOperationsInput | $Enums.Position
     expirationDate?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -5812,9 +5812,9 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
-    gender?: EnumGenderEmployeeEnumFieldUpdateOperationsInput | $Enums.GenderEmployeeEnum
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     phone?: StringFieldUpdateOperationsInput | string
-    cargo?: EnumCargoEmployeeEnumFieldUpdateOperationsInput | $Enums.CargoEmployeeEnum
+    position?: EnumPositionFieldUpdateOperationsInput | $Enums.Position
     expirationDate?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -5826,9 +5826,9 @@ export namespace Prisma {
     password: string
     fullName: string
     dateOfBirth: Date | string
-    gender?: $Enums.GenderEmployeeEnum
+    gender?: $Enums.Gender
     phone: string
-    cargo?: $Enums.CargoEmployeeEnum
+    position?: $Enums.Position
     expirationDate: Date | string
   }
 
@@ -5840,9 +5840,9 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
-    gender?: EnumGenderEmployeeEnumFieldUpdateOperationsInput | $Enums.GenderEmployeeEnum
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     phone?: StringFieldUpdateOperationsInput | string
-    cargo?: EnumCargoEmployeeEnumFieldUpdateOperationsInput | $Enums.CargoEmployeeEnum
+    position?: EnumPositionFieldUpdateOperationsInput | $Enums.Position
     expirationDate?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -5854,199 +5854,199 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
-    gender?: EnumGenderEmployeeEnumFieldUpdateOperationsInput | $Enums.GenderEmployeeEnum
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     phone?: StringFieldUpdateOperationsInput | string
-    cargo?: EnumCargoEmployeeEnumFieldUpdateOperationsInput | $Enums.CargoEmployeeEnum
+    position?: EnumPositionFieldUpdateOperationsInput | $Enums.Position
     expirationDate?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TaskCreateInput = {
     id?: string
     createdAt?: Date | string
-    missionTask: string
-    descriptionTask: string
-    deadlineTask: Date | string
-    statusTask?: $Enums.StatusTaskEnum
-    priorityTask?: $Enums.PriorityTaskEnum
+    title: string
+    description: string
+    deadline: Date | string
+    status?: $Enums.TaskStatus
+    priority?: $Enums.TaskPriority
   }
 
   export type TaskUncheckedCreateInput = {
     id?: string
     createdAt?: Date | string
-    missionTask: string
-    descriptionTask: string
-    deadlineTask: Date | string
-    statusTask?: $Enums.StatusTaskEnum
-    priorityTask?: $Enums.PriorityTaskEnum
+    title: string
+    description: string
+    deadline: Date | string
+    status?: $Enums.TaskStatus
+    priority?: $Enums.TaskPriority
   }
 
   export type TaskUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    missionTask?: StringFieldUpdateOperationsInput | string
-    descriptionTask?: StringFieldUpdateOperationsInput | string
-    deadlineTask?: DateTimeFieldUpdateOperationsInput | Date | string
-    statusTask?: EnumStatusTaskEnumFieldUpdateOperationsInput | $Enums.StatusTaskEnum
-    priorityTask?: EnumPriorityTaskEnumFieldUpdateOperationsInput | $Enums.PriorityTaskEnum
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    deadline?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
+    priority?: EnumTaskPriorityFieldUpdateOperationsInput | $Enums.TaskPriority
   }
 
   export type TaskUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    missionTask?: StringFieldUpdateOperationsInput | string
-    descriptionTask?: StringFieldUpdateOperationsInput | string
-    deadlineTask?: DateTimeFieldUpdateOperationsInput | Date | string
-    statusTask?: EnumStatusTaskEnumFieldUpdateOperationsInput | $Enums.StatusTaskEnum
-    priorityTask?: EnumPriorityTaskEnumFieldUpdateOperationsInput | $Enums.PriorityTaskEnum
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    deadline?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
+    priority?: EnumTaskPriorityFieldUpdateOperationsInput | $Enums.TaskPriority
   }
 
   export type TaskCreateManyInput = {
     id?: string
     createdAt?: Date | string
-    missionTask: string
-    descriptionTask: string
-    deadlineTask: Date | string
-    statusTask?: $Enums.StatusTaskEnum
-    priorityTask?: $Enums.PriorityTaskEnum
+    title: string
+    description: string
+    deadline: Date | string
+    status?: $Enums.TaskStatus
+    priority?: $Enums.TaskPriority
   }
 
   export type TaskUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    missionTask?: StringFieldUpdateOperationsInput | string
-    descriptionTask?: StringFieldUpdateOperationsInput | string
-    deadlineTask?: DateTimeFieldUpdateOperationsInput | Date | string
-    statusTask?: EnumStatusTaskEnumFieldUpdateOperationsInput | $Enums.StatusTaskEnum
-    priorityTask?: EnumPriorityTaskEnumFieldUpdateOperationsInput | $Enums.PriorityTaskEnum
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    deadline?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
+    priority?: EnumTaskPriorityFieldUpdateOperationsInput | $Enums.TaskPriority
   }
 
   export type TaskUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    missionTask?: StringFieldUpdateOperationsInput | string
-    descriptionTask?: StringFieldUpdateOperationsInput | string
-    deadlineTask?: DateTimeFieldUpdateOperationsInput | Date | string
-    statusTask?: EnumStatusTaskEnumFieldUpdateOperationsInput | $Enums.StatusTaskEnum
-    priorityTask?: EnumPriorityTaskEnumFieldUpdateOperationsInput | $Enums.PriorityTaskEnum
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    deadline?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
+    priority?: EnumTaskPriorityFieldUpdateOperationsInput | $Enums.TaskPriority
   }
 
-  export type MarkCreateInput = {
+  export type AppointmentCreateInput = {
     id?: string
     createdAt?: Date | string
-    motiveMark: string
-    descriptionMark: string
-    localMark: string
-    prazoMark: Date | string
-    statusMark?: $Enums.StatusMarkEnum
+    reason: string
+    description: string
+    location: string
+    deadline: Date | string
+    status?: $Enums.AppointmentStatus
   }
 
-  export type MarkUncheckedCreateInput = {
+  export type AppointmentUncheckedCreateInput = {
     id?: string
     createdAt?: Date | string
-    motiveMark: string
-    descriptionMark: string
-    localMark: string
-    prazoMark: Date | string
-    statusMark?: $Enums.StatusMarkEnum
+    reason: string
+    description: string
+    location: string
+    deadline: Date | string
+    status?: $Enums.AppointmentStatus
   }
 
-  export type MarkUpdateInput = {
+  export type AppointmentUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    motiveMark?: StringFieldUpdateOperationsInput | string
-    descriptionMark?: StringFieldUpdateOperationsInput | string
-    localMark?: StringFieldUpdateOperationsInput | string
-    prazoMark?: DateTimeFieldUpdateOperationsInput | Date | string
-    statusMark?: EnumStatusMarkEnumFieldUpdateOperationsInput | $Enums.StatusMarkEnum
+    reason?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    deadline?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumAppointmentStatusFieldUpdateOperationsInput | $Enums.AppointmentStatus
   }
 
-  export type MarkUncheckedUpdateInput = {
+  export type AppointmentUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    motiveMark?: StringFieldUpdateOperationsInput | string
-    descriptionMark?: StringFieldUpdateOperationsInput | string
-    localMark?: StringFieldUpdateOperationsInput | string
-    prazoMark?: DateTimeFieldUpdateOperationsInput | Date | string
-    statusMark?: EnumStatusMarkEnumFieldUpdateOperationsInput | $Enums.StatusMarkEnum
+    reason?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    deadline?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumAppointmentStatusFieldUpdateOperationsInput | $Enums.AppointmentStatus
   }
 
-  export type MarkCreateManyInput = {
+  export type AppointmentCreateManyInput = {
     id?: string
     createdAt?: Date | string
-    motiveMark: string
-    descriptionMark: string
-    localMark: string
-    prazoMark: Date | string
-    statusMark?: $Enums.StatusMarkEnum
+    reason: string
+    description: string
+    location: string
+    deadline: Date | string
+    status?: $Enums.AppointmentStatus
   }
 
-  export type MarkUpdateManyMutationInput = {
+  export type AppointmentUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    motiveMark?: StringFieldUpdateOperationsInput | string
-    descriptionMark?: StringFieldUpdateOperationsInput | string
-    localMark?: StringFieldUpdateOperationsInput | string
-    prazoMark?: DateTimeFieldUpdateOperationsInput | Date | string
-    statusMark?: EnumStatusMarkEnumFieldUpdateOperationsInput | $Enums.StatusMarkEnum
+    reason?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    deadline?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumAppointmentStatusFieldUpdateOperationsInput | $Enums.AppointmentStatus
   }
 
-  export type MarkUncheckedUpdateManyInput = {
+  export type AppointmentUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    motiveMark?: StringFieldUpdateOperationsInput | string
-    descriptionMark?: StringFieldUpdateOperationsInput | string
-    localMark?: StringFieldUpdateOperationsInput | string
-    prazoMark?: DateTimeFieldUpdateOperationsInput | Date | string
-    statusMark?: EnumStatusMarkEnumFieldUpdateOperationsInput | $Enums.StatusMarkEnum
+    reason?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    deadline?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumAppointmentStatusFieldUpdateOperationsInput | $Enums.AppointmentStatus
   }
 
   export type DepartmentCreateInput = {
     id?: string
     createdAt?: Date | string
-    nameDepartment: string
-    sectorDepartment: string
+    name: string
+    sector: string
   }
 
   export type DepartmentUncheckedCreateInput = {
     id?: string
     createdAt?: Date | string
-    nameDepartment: string
-    sectorDepartment: string
+    name: string
+    sector: string
   }
 
   export type DepartmentUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    nameDepartment?: StringFieldUpdateOperationsInput | string
-    sectorDepartment?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    sector?: StringFieldUpdateOperationsInput | string
   }
 
   export type DepartmentUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    nameDepartment?: StringFieldUpdateOperationsInput | string
-    sectorDepartment?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    sector?: StringFieldUpdateOperationsInput | string
   }
 
   export type DepartmentCreateManyInput = {
     id?: string
     createdAt?: Date | string
-    nameDepartment: string
-    sectorDepartment: string
+    name: string
+    sector: string
   }
 
   export type DepartmentUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    nameDepartment?: StringFieldUpdateOperationsInput | string
-    sectorDepartment?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    sector?: StringFieldUpdateOperationsInput | string
   }
 
   export type DepartmentUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    nameDepartment?: StringFieldUpdateOperationsInput | string
-    sectorDepartment?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    sector?: StringFieldUpdateOperationsInput | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -6075,18 +6075,18 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type EnumGenderEmployeeEnumFilter<$PrismaModel = never> = {
-    equals?: $Enums.GenderEmployeeEnum | EnumGenderEmployeeEnumFieldRefInput<$PrismaModel>
-    in?: $Enums.GenderEmployeeEnum[] | ListEnumGenderEmployeeEnumFieldRefInput<$PrismaModel>
-    notIn?: $Enums.GenderEmployeeEnum[] | ListEnumGenderEmployeeEnumFieldRefInput<$PrismaModel>
-    not?: NestedEnumGenderEmployeeEnumFilter<$PrismaModel> | $Enums.GenderEmployeeEnum
+  export type EnumGenderFilter<$PrismaModel = never> = {
+    equals?: $Enums.Gender | EnumGenderFieldRefInput<$PrismaModel>
+    in?: $Enums.Gender[] | ListEnumGenderFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Gender[] | ListEnumGenderFieldRefInput<$PrismaModel>
+    not?: NestedEnumGenderFilter<$PrismaModel> | $Enums.Gender
   }
 
-  export type EnumCargoEmployeeEnumFilter<$PrismaModel = never> = {
-    equals?: $Enums.CargoEmployeeEnum | EnumCargoEmployeeEnumFieldRefInput<$PrismaModel>
-    in?: $Enums.CargoEmployeeEnum[] | ListEnumCargoEmployeeEnumFieldRefInput<$PrismaModel>
-    notIn?: $Enums.CargoEmployeeEnum[] | ListEnumCargoEmployeeEnumFieldRefInput<$PrismaModel>
-    not?: NestedEnumCargoEmployeeEnumFilter<$PrismaModel> | $Enums.CargoEmployeeEnum
+  export type EnumPositionFilter<$PrismaModel = never> = {
+    equals?: $Enums.Position | EnumPositionFieldRefInput<$PrismaModel>
+    in?: $Enums.Position[] | ListEnumPositionFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Position[] | ListEnumPositionFieldRefInput<$PrismaModel>
+    not?: NestedEnumPositionFilter<$PrismaModel> | $Enums.Position
   }
 
   export type EmployeeCountOrderByAggregateInput = {
@@ -6099,7 +6099,7 @@ export namespace Prisma {
     dateOfBirth?: SortOrder
     gender?: SortOrder
     phone?: SortOrder
-    cargo?: SortOrder
+    position?: SortOrder
     expirationDate?: SortOrder
   }
 
@@ -6113,7 +6113,7 @@ export namespace Prisma {
     dateOfBirth?: SortOrder
     gender?: SortOrder
     phone?: SortOrder
-    cargo?: SortOrder
+    position?: SortOrder
     expirationDate?: SortOrder
   }
 
@@ -6127,7 +6127,7 @@ export namespace Prisma {
     dateOfBirth?: SortOrder
     gender?: SortOrder
     phone?: SortOrder
-    cargo?: SortOrder
+    position?: SortOrder
     expirationDate?: SortOrder
   }
 
@@ -6163,156 +6163,156 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type EnumGenderEmployeeEnumWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.GenderEmployeeEnum | EnumGenderEmployeeEnumFieldRefInput<$PrismaModel>
-    in?: $Enums.GenderEmployeeEnum[] | ListEnumGenderEmployeeEnumFieldRefInput<$PrismaModel>
-    notIn?: $Enums.GenderEmployeeEnum[] | ListEnumGenderEmployeeEnumFieldRefInput<$PrismaModel>
-    not?: NestedEnumGenderEmployeeEnumWithAggregatesFilter<$PrismaModel> | $Enums.GenderEmployeeEnum
+  export type EnumGenderWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Gender | EnumGenderFieldRefInput<$PrismaModel>
+    in?: $Enums.Gender[] | ListEnumGenderFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Gender[] | ListEnumGenderFieldRefInput<$PrismaModel>
+    not?: NestedEnumGenderWithAggregatesFilter<$PrismaModel> | $Enums.Gender
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumGenderEmployeeEnumFilter<$PrismaModel>
-    _max?: NestedEnumGenderEmployeeEnumFilter<$PrismaModel>
+    _min?: NestedEnumGenderFilter<$PrismaModel>
+    _max?: NestedEnumGenderFilter<$PrismaModel>
   }
 
-  export type EnumCargoEmployeeEnumWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.CargoEmployeeEnum | EnumCargoEmployeeEnumFieldRefInput<$PrismaModel>
-    in?: $Enums.CargoEmployeeEnum[] | ListEnumCargoEmployeeEnumFieldRefInput<$PrismaModel>
-    notIn?: $Enums.CargoEmployeeEnum[] | ListEnumCargoEmployeeEnumFieldRefInput<$PrismaModel>
-    not?: NestedEnumCargoEmployeeEnumWithAggregatesFilter<$PrismaModel> | $Enums.CargoEmployeeEnum
+  export type EnumPositionWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Position | EnumPositionFieldRefInput<$PrismaModel>
+    in?: $Enums.Position[] | ListEnumPositionFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Position[] | ListEnumPositionFieldRefInput<$PrismaModel>
+    not?: NestedEnumPositionWithAggregatesFilter<$PrismaModel> | $Enums.Position
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumCargoEmployeeEnumFilter<$PrismaModel>
-    _max?: NestedEnumCargoEmployeeEnumFilter<$PrismaModel>
+    _min?: NestedEnumPositionFilter<$PrismaModel>
+    _max?: NestedEnumPositionFilter<$PrismaModel>
   }
 
-  export type EnumStatusTaskEnumFilter<$PrismaModel = never> = {
-    equals?: $Enums.StatusTaskEnum | EnumStatusTaskEnumFieldRefInput<$PrismaModel>
-    in?: $Enums.StatusTaskEnum[] | ListEnumStatusTaskEnumFieldRefInput<$PrismaModel>
-    notIn?: $Enums.StatusTaskEnum[] | ListEnumStatusTaskEnumFieldRefInput<$PrismaModel>
-    not?: NestedEnumStatusTaskEnumFilter<$PrismaModel> | $Enums.StatusTaskEnum
+  export type EnumTaskStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.TaskStatus | EnumTaskStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.TaskStatus[] | ListEnumTaskStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TaskStatus[] | ListEnumTaskStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumTaskStatusFilter<$PrismaModel> | $Enums.TaskStatus
   }
 
-  export type EnumPriorityTaskEnumFilter<$PrismaModel = never> = {
-    equals?: $Enums.PriorityTaskEnum | EnumPriorityTaskEnumFieldRefInput<$PrismaModel>
-    in?: $Enums.PriorityTaskEnum[] | ListEnumPriorityTaskEnumFieldRefInput<$PrismaModel>
-    notIn?: $Enums.PriorityTaskEnum[] | ListEnumPriorityTaskEnumFieldRefInput<$PrismaModel>
-    not?: NestedEnumPriorityTaskEnumFilter<$PrismaModel> | $Enums.PriorityTaskEnum
+  export type EnumTaskPriorityFilter<$PrismaModel = never> = {
+    equals?: $Enums.TaskPriority | EnumTaskPriorityFieldRefInput<$PrismaModel>
+    in?: $Enums.TaskPriority[] | ListEnumTaskPriorityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TaskPriority[] | ListEnumTaskPriorityFieldRefInput<$PrismaModel>
+    not?: NestedEnumTaskPriorityFilter<$PrismaModel> | $Enums.TaskPriority
   }
 
   export type TaskCountOrderByAggregateInput = {
     id?: SortOrder
     createdAt?: SortOrder
-    missionTask?: SortOrder
-    descriptionTask?: SortOrder
-    deadlineTask?: SortOrder
-    statusTask?: SortOrder
-    priorityTask?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    deadline?: SortOrder
+    status?: SortOrder
+    priority?: SortOrder
   }
 
   export type TaskMaxOrderByAggregateInput = {
     id?: SortOrder
     createdAt?: SortOrder
-    missionTask?: SortOrder
-    descriptionTask?: SortOrder
-    deadlineTask?: SortOrder
-    statusTask?: SortOrder
-    priorityTask?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    deadline?: SortOrder
+    status?: SortOrder
+    priority?: SortOrder
   }
 
   export type TaskMinOrderByAggregateInput = {
     id?: SortOrder
     createdAt?: SortOrder
-    missionTask?: SortOrder
-    descriptionTask?: SortOrder
-    deadlineTask?: SortOrder
-    statusTask?: SortOrder
-    priorityTask?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    deadline?: SortOrder
+    status?: SortOrder
+    priority?: SortOrder
   }
 
-  export type EnumStatusTaskEnumWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.StatusTaskEnum | EnumStatusTaskEnumFieldRefInput<$PrismaModel>
-    in?: $Enums.StatusTaskEnum[] | ListEnumStatusTaskEnumFieldRefInput<$PrismaModel>
-    notIn?: $Enums.StatusTaskEnum[] | ListEnumStatusTaskEnumFieldRefInput<$PrismaModel>
-    not?: NestedEnumStatusTaskEnumWithAggregatesFilter<$PrismaModel> | $Enums.StatusTaskEnum
+  export type EnumTaskStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TaskStatus | EnumTaskStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.TaskStatus[] | ListEnumTaskStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TaskStatus[] | ListEnumTaskStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumTaskStatusWithAggregatesFilter<$PrismaModel> | $Enums.TaskStatus
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumStatusTaskEnumFilter<$PrismaModel>
-    _max?: NestedEnumStatusTaskEnumFilter<$PrismaModel>
+    _min?: NestedEnumTaskStatusFilter<$PrismaModel>
+    _max?: NestedEnumTaskStatusFilter<$PrismaModel>
   }
 
-  export type EnumPriorityTaskEnumWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.PriorityTaskEnum | EnumPriorityTaskEnumFieldRefInput<$PrismaModel>
-    in?: $Enums.PriorityTaskEnum[] | ListEnumPriorityTaskEnumFieldRefInput<$PrismaModel>
-    notIn?: $Enums.PriorityTaskEnum[] | ListEnumPriorityTaskEnumFieldRefInput<$PrismaModel>
-    not?: NestedEnumPriorityTaskEnumWithAggregatesFilter<$PrismaModel> | $Enums.PriorityTaskEnum
+  export type EnumTaskPriorityWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TaskPriority | EnumTaskPriorityFieldRefInput<$PrismaModel>
+    in?: $Enums.TaskPriority[] | ListEnumTaskPriorityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TaskPriority[] | ListEnumTaskPriorityFieldRefInput<$PrismaModel>
+    not?: NestedEnumTaskPriorityWithAggregatesFilter<$PrismaModel> | $Enums.TaskPriority
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumPriorityTaskEnumFilter<$PrismaModel>
-    _max?: NestedEnumPriorityTaskEnumFilter<$PrismaModel>
+    _min?: NestedEnumTaskPriorityFilter<$PrismaModel>
+    _max?: NestedEnumTaskPriorityFilter<$PrismaModel>
   }
 
-  export type EnumStatusMarkEnumFilter<$PrismaModel = never> = {
-    equals?: $Enums.StatusMarkEnum | EnumStatusMarkEnumFieldRefInput<$PrismaModel>
-    in?: $Enums.StatusMarkEnum[] | ListEnumStatusMarkEnumFieldRefInput<$PrismaModel>
-    notIn?: $Enums.StatusMarkEnum[] | ListEnumStatusMarkEnumFieldRefInput<$PrismaModel>
-    not?: NestedEnumStatusMarkEnumFilter<$PrismaModel> | $Enums.StatusMarkEnum
+  export type EnumAppointmentStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.AppointmentStatus | EnumAppointmentStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.AppointmentStatus[] | ListEnumAppointmentStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AppointmentStatus[] | ListEnumAppointmentStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumAppointmentStatusFilter<$PrismaModel> | $Enums.AppointmentStatus
   }
 
-  export type MarkCountOrderByAggregateInput = {
+  export type AppointmentCountOrderByAggregateInput = {
     id?: SortOrder
     createdAt?: SortOrder
-    motiveMark?: SortOrder
-    descriptionMark?: SortOrder
-    localMark?: SortOrder
-    prazoMark?: SortOrder
-    statusMark?: SortOrder
+    reason?: SortOrder
+    description?: SortOrder
+    location?: SortOrder
+    deadline?: SortOrder
+    status?: SortOrder
   }
 
-  export type MarkMaxOrderByAggregateInput = {
+  export type AppointmentMaxOrderByAggregateInput = {
     id?: SortOrder
     createdAt?: SortOrder
-    motiveMark?: SortOrder
-    descriptionMark?: SortOrder
-    localMark?: SortOrder
-    prazoMark?: SortOrder
-    statusMark?: SortOrder
+    reason?: SortOrder
+    description?: SortOrder
+    location?: SortOrder
+    deadline?: SortOrder
+    status?: SortOrder
   }
 
-  export type MarkMinOrderByAggregateInput = {
+  export type AppointmentMinOrderByAggregateInput = {
     id?: SortOrder
     createdAt?: SortOrder
-    motiveMark?: SortOrder
-    descriptionMark?: SortOrder
-    localMark?: SortOrder
-    prazoMark?: SortOrder
-    statusMark?: SortOrder
+    reason?: SortOrder
+    description?: SortOrder
+    location?: SortOrder
+    deadline?: SortOrder
+    status?: SortOrder
   }
 
-  export type EnumStatusMarkEnumWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.StatusMarkEnum | EnumStatusMarkEnumFieldRefInput<$PrismaModel>
-    in?: $Enums.StatusMarkEnum[] | ListEnumStatusMarkEnumFieldRefInput<$PrismaModel>
-    notIn?: $Enums.StatusMarkEnum[] | ListEnumStatusMarkEnumFieldRefInput<$PrismaModel>
-    not?: NestedEnumStatusMarkEnumWithAggregatesFilter<$PrismaModel> | $Enums.StatusMarkEnum
+  export type EnumAppointmentStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AppointmentStatus | EnumAppointmentStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.AppointmentStatus[] | ListEnumAppointmentStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AppointmentStatus[] | ListEnumAppointmentStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumAppointmentStatusWithAggregatesFilter<$PrismaModel> | $Enums.AppointmentStatus
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumStatusMarkEnumFilter<$PrismaModel>
-    _max?: NestedEnumStatusMarkEnumFilter<$PrismaModel>
+    _min?: NestedEnumAppointmentStatusFilter<$PrismaModel>
+    _max?: NestedEnumAppointmentStatusFilter<$PrismaModel>
   }
 
   export type DepartmentCountOrderByAggregateInput = {
     id?: SortOrder
     createdAt?: SortOrder
-    nameDepartment?: SortOrder
-    sectorDepartment?: SortOrder
+    name?: SortOrder
+    sector?: SortOrder
   }
 
   export type DepartmentMaxOrderByAggregateInput = {
     id?: SortOrder
     createdAt?: SortOrder
-    nameDepartment?: SortOrder
-    sectorDepartment?: SortOrder
+    name?: SortOrder
+    sector?: SortOrder
   }
 
   export type DepartmentMinOrderByAggregateInput = {
     id?: SortOrder
     createdAt?: SortOrder
-    nameDepartment?: SortOrder
-    sectorDepartment?: SortOrder
+    name?: SortOrder
+    sector?: SortOrder
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -6323,24 +6323,24 @@ export namespace Prisma {
     set?: Date | string
   }
 
-  export type EnumGenderEmployeeEnumFieldUpdateOperationsInput = {
-    set?: $Enums.GenderEmployeeEnum
+  export type EnumGenderFieldUpdateOperationsInput = {
+    set?: $Enums.Gender
   }
 
-  export type EnumCargoEmployeeEnumFieldUpdateOperationsInput = {
-    set?: $Enums.CargoEmployeeEnum
+  export type EnumPositionFieldUpdateOperationsInput = {
+    set?: $Enums.Position
   }
 
-  export type EnumStatusTaskEnumFieldUpdateOperationsInput = {
-    set?: $Enums.StatusTaskEnum
+  export type EnumTaskStatusFieldUpdateOperationsInput = {
+    set?: $Enums.TaskStatus
   }
 
-  export type EnumPriorityTaskEnumFieldUpdateOperationsInput = {
-    set?: $Enums.PriorityTaskEnum
+  export type EnumTaskPriorityFieldUpdateOperationsInput = {
+    set?: $Enums.TaskPriority
   }
 
-  export type EnumStatusMarkEnumFieldUpdateOperationsInput = {
-    set?: $Enums.StatusMarkEnum
+  export type EnumAppointmentStatusFieldUpdateOperationsInput = {
+    set?: $Enums.AppointmentStatus
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -6368,18 +6368,18 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type NestedEnumGenderEmployeeEnumFilter<$PrismaModel = never> = {
-    equals?: $Enums.GenderEmployeeEnum | EnumGenderEmployeeEnumFieldRefInput<$PrismaModel>
-    in?: $Enums.GenderEmployeeEnum[] | ListEnumGenderEmployeeEnumFieldRefInput<$PrismaModel>
-    notIn?: $Enums.GenderEmployeeEnum[] | ListEnumGenderEmployeeEnumFieldRefInput<$PrismaModel>
-    not?: NestedEnumGenderEmployeeEnumFilter<$PrismaModel> | $Enums.GenderEmployeeEnum
+  export type NestedEnumGenderFilter<$PrismaModel = never> = {
+    equals?: $Enums.Gender | EnumGenderFieldRefInput<$PrismaModel>
+    in?: $Enums.Gender[] | ListEnumGenderFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Gender[] | ListEnumGenderFieldRefInput<$PrismaModel>
+    not?: NestedEnumGenderFilter<$PrismaModel> | $Enums.Gender
   }
 
-  export type NestedEnumCargoEmployeeEnumFilter<$PrismaModel = never> = {
-    equals?: $Enums.CargoEmployeeEnum | EnumCargoEmployeeEnumFieldRefInput<$PrismaModel>
-    in?: $Enums.CargoEmployeeEnum[] | ListEnumCargoEmployeeEnumFieldRefInput<$PrismaModel>
-    notIn?: $Enums.CargoEmployeeEnum[] | ListEnumCargoEmployeeEnumFieldRefInput<$PrismaModel>
-    not?: NestedEnumCargoEmployeeEnumFilter<$PrismaModel> | $Enums.CargoEmployeeEnum
+  export type NestedEnumPositionFilter<$PrismaModel = never> = {
+    equals?: $Enums.Position | EnumPositionFieldRefInput<$PrismaModel>
+    in?: $Enums.Position[] | ListEnumPositionFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Position[] | ListEnumPositionFieldRefInput<$PrismaModel>
+    not?: NestedEnumPositionFilter<$PrismaModel> | $Enums.Position
   }
 
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
@@ -6424,75 +6424,75 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type NestedEnumGenderEmployeeEnumWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.GenderEmployeeEnum | EnumGenderEmployeeEnumFieldRefInput<$PrismaModel>
-    in?: $Enums.GenderEmployeeEnum[] | ListEnumGenderEmployeeEnumFieldRefInput<$PrismaModel>
-    notIn?: $Enums.GenderEmployeeEnum[] | ListEnumGenderEmployeeEnumFieldRefInput<$PrismaModel>
-    not?: NestedEnumGenderEmployeeEnumWithAggregatesFilter<$PrismaModel> | $Enums.GenderEmployeeEnum
+  export type NestedEnumGenderWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Gender | EnumGenderFieldRefInput<$PrismaModel>
+    in?: $Enums.Gender[] | ListEnumGenderFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Gender[] | ListEnumGenderFieldRefInput<$PrismaModel>
+    not?: NestedEnumGenderWithAggregatesFilter<$PrismaModel> | $Enums.Gender
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumGenderEmployeeEnumFilter<$PrismaModel>
-    _max?: NestedEnumGenderEmployeeEnumFilter<$PrismaModel>
+    _min?: NestedEnumGenderFilter<$PrismaModel>
+    _max?: NestedEnumGenderFilter<$PrismaModel>
   }
 
-  export type NestedEnumCargoEmployeeEnumWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.CargoEmployeeEnum | EnumCargoEmployeeEnumFieldRefInput<$PrismaModel>
-    in?: $Enums.CargoEmployeeEnum[] | ListEnumCargoEmployeeEnumFieldRefInput<$PrismaModel>
-    notIn?: $Enums.CargoEmployeeEnum[] | ListEnumCargoEmployeeEnumFieldRefInput<$PrismaModel>
-    not?: NestedEnumCargoEmployeeEnumWithAggregatesFilter<$PrismaModel> | $Enums.CargoEmployeeEnum
+  export type NestedEnumPositionWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Position | EnumPositionFieldRefInput<$PrismaModel>
+    in?: $Enums.Position[] | ListEnumPositionFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Position[] | ListEnumPositionFieldRefInput<$PrismaModel>
+    not?: NestedEnumPositionWithAggregatesFilter<$PrismaModel> | $Enums.Position
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumCargoEmployeeEnumFilter<$PrismaModel>
-    _max?: NestedEnumCargoEmployeeEnumFilter<$PrismaModel>
+    _min?: NestedEnumPositionFilter<$PrismaModel>
+    _max?: NestedEnumPositionFilter<$PrismaModel>
   }
 
-  export type NestedEnumStatusTaskEnumFilter<$PrismaModel = never> = {
-    equals?: $Enums.StatusTaskEnum | EnumStatusTaskEnumFieldRefInput<$PrismaModel>
-    in?: $Enums.StatusTaskEnum[] | ListEnumStatusTaskEnumFieldRefInput<$PrismaModel>
-    notIn?: $Enums.StatusTaskEnum[] | ListEnumStatusTaskEnumFieldRefInput<$PrismaModel>
-    not?: NestedEnumStatusTaskEnumFilter<$PrismaModel> | $Enums.StatusTaskEnum
+  export type NestedEnumTaskStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.TaskStatus | EnumTaskStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.TaskStatus[] | ListEnumTaskStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TaskStatus[] | ListEnumTaskStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumTaskStatusFilter<$PrismaModel> | $Enums.TaskStatus
   }
 
-  export type NestedEnumPriorityTaskEnumFilter<$PrismaModel = never> = {
-    equals?: $Enums.PriorityTaskEnum | EnumPriorityTaskEnumFieldRefInput<$PrismaModel>
-    in?: $Enums.PriorityTaskEnum[] | ListEnumPriorityTaskEnumFieldRefInput<$PrismaModel>
-    notIn?: $Enums.PriorityTaskEnum[] | ListEnumPriorityTaskEnumFieldRefInput<$PrismaModel>
-    not?: NestedEnumPriorityTaskEnumFilter<$PrismaModel> | $Enums.PriorityTaskEnum
+  export type NestedEnumTaskPriorityFilter<$PrismaModel = never> = {
+    equals?: $Enums.TaskPriority | EnumTaskPriorityFieldRefInput<$PrismaModel>
+    in?: $Enums.TaskPriority[] | ListEnumTaskPriorityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TaskPriority[] | ListEnumTaskPriorityFieldRefInput<$PrismaModel>
+    not?: NestedEnumTaskPriorityFilter<$PrismaModel> | $Enums.TaskPriority
   }
 
-  export type NestedEnumStatusTaskEnumWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.StatusTaskEnum | EnumStatusTaskEnumFieldRefInput<$PrismaModel>
-    in?: $Enums.StatusTaskEnum[] | ListEnumStatusTaskEnumFieldRefInput<$PrismaModel>
-    notIn?: $Enums.StatusTaskEnum[] | ListEnumStatusTaskEnumFieldRefInput<$PrismaModel>
-    not?: NestedEnumStatusTaskEnumWithAggregatesFilter<$PrismaModel> | $Enums.StatusTaskEnum
+  export type NestedEnumTaskStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TaskStatus | EnumTaskStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.TaskStatus[] | ListEnumTaskStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TaskStatus[] | ListEnumTaskStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumTaskStatusWithAggregatesFilter<$PrismaModel> | $Enums.TaskStatus
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumStatusTaskEnumFilter<$PrismaModel>
-    _max?: NestedEnumStatusTaskEnumFilter<$PrismaModel>
+    _min?: NestedEnumTaskStatusFilter<$PrismaModel>
+    _max?: NestedEnumTaskStatusFilter<$PrismaModel>
   }
 
-  export type NestedEnumPriorityTaskEnumWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.PriorityTaskEnum | EnumPriorityTaskEnumFieldRefInput<$PrismaModel>
-    in?: $Enums.PriorityTaskEnum[] | ListEnumPriorityTaskEnumFieldRefInput<$PrismaModel>
-    notIn?: $Enums.PriorityTaskEnum[] | ListEnumPriorityTaskEnumFieldRefInput<$PrismaModel>
-    not?: NestedEnumPriorityTaskEnumWithAggregatesFilter<$PrismaModel> | $Enums.PriorityTaskEnum
+  export type NestedEnumTaskPriorityWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TaskPriority | EnumTaskPriorityFieldRefInput<$PrismaModel>
+    in?: $Enums.TaskPriority[] | ListEnumTaskPriorityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TaskPriority[] | ListEnumTaskPriorityFieldRefInput<$PrismaModel>
+    not?: NestedEnumTaskPriorityWithAggregatesFilter<$PrismaModel> | $Enums.TaskPriority
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumPriorityTaskEnumFilter<$PrismaModel>
-    _max?: NestedEnumPriorityTaskEnumFilter<$PrismaModel>
+    _min?: NestedEnumTaskPriorityFilter<$PrismaModel>
+    _max?: NestedEnumTaskPriorityFilter<$PrismaModel>
   }
 
-  export type NestedEnumStatusMarkEnumFilter<$PrismaModel = never> = {
-    equals?: $Enums.StatusMarkEnum | EnumStatusMarkEnumFieldRefInput<$PrismaModel>
-    in?: $Enums.StatusMarkEnum[] | ListEnumStatusMarkEnumFieldRefInput<$PrismaModel>
-    notIn?: $Enums.StatusMarkEnum[] | ListEnumStatusMarkEnumFieldRefInput<$PrismaModel>
-    not?: NestedEnumStatusMarkEnumFilter<$PrismaModel> | $Enums.StatusMarkEnum
+  export type NestedEnumAppointmentStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.AppointmentStatus | EnumAppointmentStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.AppointmentStatus[] | ListEnumAppointmentStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AppointmentStatus[] | ListEnumAppointmentStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumAppointmentStatusFilter<$PrismaModel> | $Enums.AppointmentStatus
   }
 
-  export type NestedEnumStatusMarkEnumWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.StatusMarkEnum | EnumStatusMarkEnumFieldRefInput<$PrismaModel>
-    in?: $Enums.StatusMarkEnum[] | ListEnumStatusMarkEnumFieldRefInput<$PrismaModel>
-    notIn?: $Enums.StatusMarkEnum[] | ListEnumStatusMarkEnumFieldRefInput<$PrismaModel>
-    not?: NestedEnumStatusMarkEnumWithAggregatesFilter<$PrismaModel> | $Enums.StatusMarkEnum
+  export type NestedEnumAppointmentStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AppointmentStatus | EnumAppointmentStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.AppointmentStatus[] | ListEnumAppointmentStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AppointmentStatus[] | ListEnumAppointmentStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumAppointmentStatusWithAggregatesFilter<$PrismaModel> | $Enums.AppointmentStatus
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumStatusMarkEnumFilter<$PrismaModel>
-    _max?: NestedEnumStatusMarkEnumFilter<$PrismaModel>
+    _min?: NestedEnumAppointmentStatusFilter<$PrismaModel>
+    _max?: NestedEnumAppointmentStatusFilter<$PrismaModel>
   }
 
 

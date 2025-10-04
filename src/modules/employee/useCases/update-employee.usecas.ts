@@ -1,3 +1,4 @@
+// Caso de uso para atualizar um funcionário por ID
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { EmployeeRepository } from "../repositories/employee.repository";
 import { UpdateEmployeeDto } from "../dto/update-employee.dto";

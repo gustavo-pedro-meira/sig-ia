@@ -1,3 +1,4 @@
+// Interface abstrata para repositório de funcionários
 import { PrismaService } from "src/infra/database/prisma.service";
 import { UsernameAndEmailDto } from "../dto/username-email.dto";
 import { ConflictException, Injectable } from "@nestjs/common";

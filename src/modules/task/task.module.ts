@@ -1,3 +1,4 @@
+// Módulo do NestJS para gerenciamento de tarefas
 import { Module } from "@nestjs/common";
 import { TaskController } from "./task.controller";
 import { CreateTaskUseCase } from "./useCases/create-task.usecase";

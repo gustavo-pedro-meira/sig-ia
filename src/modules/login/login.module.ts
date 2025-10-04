@@ -1,3 +1,4 @@
+// Módulo de login, configura JWT e provedores para autenticação
 import { Module } from "@nestjs/common";
 import { SignInUseCase } from "./useCases/sign-in.usecase";
 import { PrismaService } from "src/infra/database/prisma.service";

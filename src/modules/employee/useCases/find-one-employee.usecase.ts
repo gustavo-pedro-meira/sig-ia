@@ -1,3 +1,4 @@
+// Caso de uso para buscar um funcionário por ID
 import { Injectable } from "@nestjs/common";
 import { EmployeeRepository } from "../repositories/employee.repository";
 

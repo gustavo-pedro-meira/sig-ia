@@ -1,3 +1,4 @@
+// Caso de uso para criar um novo funcionário
 import { ConflictException, Injectable } from '@nestjs/common';
 import { CreateEmployeeDto } from '../dto/create-employee.dto';
 import { hash } from 'bcrypt';

@@ -1,3 +1,4 @@
+// Implementação do repositório de tarefas usando Prisma
 import { Injectable } from "@nestjs/common";
 import { TaskRepository } from "../task.repository";
 import { PrismaService } from "src/infra/database/prisma.service";
@@ -35,7 +36,10 @@ export class TaskPrismaRepository implements TaskRepository {
 
     async save(createTaskDto: CreateTaskDto): Promise<TaskCreateDto | null> {
         return await this.prismaService.task.create({
-            data: createTaskDto,
+            data: {
+                ...createTaskDto,
+                deadline: new Date(createTaskDto.deadline),
+            },
         })
     }
 }

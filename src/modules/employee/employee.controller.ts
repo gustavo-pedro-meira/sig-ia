@@ -1,3 +1,4 @@
+// Controlador para gerenciar funcionários via API REST
 import { Body, Controller, Delete, Get, Param, Post, Put, Req, UseGuards } from "@nestjs/common";
 import { CreateEmployeeUseCase } from "./useCases/create-employee.usecase";
 import { CreateEmployeeDto } from "./dto/create-employee.dto";
@@ -33,7 +34,7 @@ export class EmployeeController {
     }
 
     @ApiOperation({ summary: 'Get current logged user information' })
-    @ApiResponse({ status: 200, description: 'Returns the current logged user data including name, email, cargo, etc.' })
+    @ApiResponse({ status: 200, description: 'Returns the current logged user data including name, email, position, etc.' })
     @ApiResponse({ status: 401, description: 'Unauthorized. Invalid or missing token.' })
     @Get('me')
     @UseGuards(AuthGuard)

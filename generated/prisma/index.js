@@ -103,35 +103,35 @@ exports.Prisma.EmployeeScalarFieldEnum = {
   dateOfBirth: 'dateOfBirth',
   gender: 'gender',
   phone: 'phone',
-  cargo: 'cargo',
+  position: 'position',
   expirationDate: 'expirationDate'
 };
 
 exports.Prisma.TaskScalarFieldEnum = {
   id: 'id',
   createdAt: 'createdAt',
-  missionTask: 'missionTask',
-  descriptionTask: 'descriptionTask',
-  deadlineTask: 'deadlineTask',
-  statusTask: 'statusTask',
-  priorityTask: 'priorityTask'
+  title: 'title',
+  description: 'description',
+  deadline: 'deadline',
+  status: 'status',
+  priority: 'priority'
 };
 
-exports.Prisma.MarkScalarFieldEnum = {
+exports.Prisma.AppointmentScalarFieldEnum = {
   id: 'id',
   createdAt: 'createdAt',
-  motiveMark: 'motiveMark',
-  descriptionMark: 'descriptionMark',
-  localMark: 'localMark',
-  prazoMark: 'prazoMark',
-  statusMark: 'statusMark'
+  reason: 'reason',
+  description: 'description',
+  location: 'location',
+  deadline: 'deadline',
+  status: 'status'
 };
 
 exports.Prisma.DepartmentScalarFieldEnum = {
   id: 'id',
   createdAt: 'createdAt',
-  nameDepartment: 'nameDepartment',
-  sectorDepartment: 'sectorDepartment'
+  name: 'name',
+  sector: 'sector'
 };
 
 exports.Prisma.SortOrder = {
@@ -143,46 +143,46 @@ exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 };
-exports.GenderEmployeeEnum = exports.$Enums.GenderEmployeeEnum = {
-  Masculino: 'Masculino',
-  Feminino: 'Feminino',
-  Outro: 'Outro'
+exports.Gender = exports.$Enums.Gender = {
+  Male: 'Male',
+  Female: 'Female',
+  Other: 'Other'
 };
 
-exports.CargoEmployeeEnum = exports.$Enums.CargoEmployeeEnum = {
-  Prefeito: 'Prefeito',
-  Secretario: 'Secretario',
-  Diretor: 'Diretor',
-  Tecnico: 'Tecnico',
-  Coordenador: 'Coordenador'
+exports.Position = exports.$Enums.Position = {
+  Cabinet: 'Cabinet',
+  Secretary: 'Secretary',
+  Technician1: 'Technician1',
+  Technician2: 'Technician2',
+  Technician3: 'Technician3'
 };
 
-exports.StatusTaskEnum = exports.$Enums.StatusTaskEnum = {
-  Fazer: 'Fazer',
-  Andamento: 'Andamento',
-  Concluida: 'Concluida',
-  Expirada: 'Expirada'
+exports.TaskStatus = exports.$Enums.TaskStatus = {
+  ToDo: 'ToDo',
+  InProgress: 'InProgress',
+  Completed: 'Completed',
+  Expired: 'Expired'
 };
 
-exports.PriorityTaskEnum = exports.$Enums.PriorityTaskEnum = {
-  Baixa: 'Baixa',
-  Media: 'Media',
-  Alta: 'Alta',
-  Urgente: 'Urgente'
+exports.TaskPriority = exports.$Enums.TaskPriority = {
+  Low: 'Low',
+  Medium: 'Medium',
+  High: 'High',
+  Urgent: 'Urgent'
 };
 
-exports.StatusMarkEnum = exports.$Enums.StatusMarkEnum = {
-  Agendada: 'Agendada',
-  Reagendada: 'Reagendada',
-  Adiada: 'Adiada',
-  Encerrada: 'Encerrada',
-  Cancelada: 'Cancelada'
+exports.AppointmentStatus = exports.$Enums.AppointmentStatus = {
+  Scheduled: 'Scheduled',
+  Rescheduled: 'Rescheduled',
+  Postponed: 'Postponed',
+  Closed: 'Closed',
+  Cancelled: 'Cancelled'
 };
 
 exports.Prisma.ModelName = {
   Employee: 'Employee',
   Task: 'Task',
-  Mark: 'Mark',
+  Appointment: 'Appointment',
   Department: 'Department'
 };
 /**
@@ -196,7 +196,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\gusta\\OneDrive\\Documentos\\sig-ia\\backend\\generated\\prisma",
+      "value": "/home/renanamorim/Documents/sig-ia/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -205,7 +205,7 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "windows",
+        "value": "debian-openssl-3.0.x",
         "native": true
       },
       {
@@ -214,7 +214,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\gusta\\OneDrive\\Documentos\\sig-ia\\backend\\prisma\\schema.prisma",
+    "sourceFilePath": "/home/renanamorim/Documents/sig-ia/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -228,6 +228,7 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -236,8 +237,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider      = \"prisma-client-js\"\n  output        = \"../generated/prisma\"\n  binaryTargets = [\"native\", \"debian-openssl-3.0.x\"]\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nenum GenderEmployeeEnum {\n  Masculino\n  Feminino\n  Outro\n}\n\nenum CargoEmployeeEnum {\n  Prefeito\n  Secretario\n  Diretor\n  Tecnico\n  Coordenador\n}\n\nmodel Employee {\n  id        String   @id @default(uuid())\n  createdAt DateTime @default(now())\n\n  username String @unique\n  email    String @unique\n  password String\n\n  fullName       String\n  dateOfBirth    DateTime\n  gender         GenderEmployeeEnum @default(Outro)\n  phone          String\n  cargo          CargoEmployeeEnum  @default(Secretario)\n  expirationDate DateTime\n\n  @@map(\"employees\")\n}\n\nenum StatusTaskEnum {\n  Fazer\n  Andamento\n  Concluida\n  Expirada\n}\n\nenum PriorityTaskEnum {\n  Baixa\n  Media\n  Alta\n  Urgente\n}\n\nmodel Task {\n  id        String   @id @default(uuid())\n  createdAt DateTime @default(now())\n\n  missionTask     String\n  descriptionTask String\n  deadlineTask    DateTime\n  statusTask      StatusTaskEnum   @default(Fazer)\n  priorityTask    PriorityTaskEnum @default(Baixa)\n\n  @@map(\"tasks\")\n}\n\nenum StatusMarkEnum {\n  Agendada\n  Reagendada\n  Adiada\n  Encerrada\n  Cancelada\n}\n\nmodel Mark {\n  id        String   @id @default(uuid())\n  createdAt DateTime @default(now())\n\n  motiveMark      String\n  descriptionMark String\n  localMark       String\n  prazoMark       DateTime\n  statusMark      StatusMarkEnum @default(Agendada)\n\n  @@map(\"marks\")\n}\n\nmodel Department {\n  id        String   @id @default(uuid())\n  createdAt DateTime @default(now())\n\n  nameDepartment   String\n  sectorDepartment String\n\n  @@map(\"departments\")\n}\n",
-  "inlineSchemaHash": "22702a343a4e40a1a5e2352cab065db012f23ac0cd3d09ff844e2c1454c3f025",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider      = \"prisma-client-js\"\n  output        = \"../generated/prisma\"\n  binaryTargets = [\"native\", \"debian-openssl-3.0.x\"]\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nenum Gender {\n  Male\n  Female\n  Other\n}\n\nenum Position {\n  Cabinet\n  Secretary\n  Technician1\n  Technician2\n  Technician3\n}\n\nmodel Employee {\n  id        String   @id @default(uuid())\n  createdAt DateTime @default(now())\n\n  username String @unique\n  email    String @unique\n  password String\n\n  fullName       String\n  dateOfBirth    DateTime\n  gender         Gender   @default(Other)\n  phone          String\n  position       Position @default(Secretary)\n  expirationDate DateTime\n\n  @@map(\"employees\")\n}\n\nenum TaskStatus {\n  ToDo\n  InProgress\n  Completed\n  Expired\n}\n\nenum TaskPriority {\n  Low\n  Medium\n  High\n  Urgent\n}\n\nmodel Task {\n  id        String   @id @default(uuid())\n  createdAt DateTime @default(now())\n\n  title       String\n  description String\n  deadline    DateTime\n  status      TaskStatus   @default(ToDo)\n  priority    TaskPriority @default(Low)\n\n  @@map(\"tasks\")\n}\n\nenum AppointmentStatus {\n  Scheduled\n  Rescheduled\n  Postponed\n  Closed\n  Cancelled\n}\n\nmodel Appointment {\n  id        String   @id @default(uuid())\n  createdAt DateTime @default(now())\n\n  reason      String\n  description String\n  location    String\n  deadline    DateTime\n  status      AppointmentStatus @default(Scheduled)\n\n  @@map(\"appointments\")\n}\n\nmodel Department {\n  id        String   @id @default(uuid())\n  createdAt DateTime @default(now())\n\n  name   String\n  sector String\n\n  @@map(\"departments\")\n}\n",
+  "inlineSchemaHash": "4e19588ed67b53587f095db2b0c47dfcc6d55eb511beaa6a149d0176af9b96a5",
   "copyEngine": true
 }
 
@@ -258,7 +259,7 @@ if (!fs.existsSync(path.join(__dirname, 'schema.prisma'))) {
   config.isBundled = true
 }
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"Employee\":{\"dbName\":\"employees\",\"schema\":null,\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":true,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"String\",\"nativeType\":null,\"default\":{\"name\":\"uuid\",\"args\":[4]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"DateTime\",\"nativeType\":null,\"default\":{\"name\":\"now\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"username\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":true,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"email\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":true,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"password\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"fullName\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"dateOfBirth\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"DateTime\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"gender\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"GenderEmployeeEnum\",\"nativeType\":null,\"default\":\"Outro\",\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"phone\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"cargo\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"CargoEmployeeEnum\",\"nativeType\":null,\"default\":\"Secretario\",\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"expirationDate\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"DateTime\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false}],\"primaryKey\":null,\"uniqueFields\":[],\"uniqueIndexes\":[],\"isGenerated\":false},\"Task\":{\"dbName\":\"tasks\",\"schema\":null,\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":true,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"String\",\"nativeType\":null,\"default\":{\"name\":\"uuid\",\"args\":[4]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"DateTime\",\"nativeType\":null,\"default\":{\"name\":\"now\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"missionTask\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"descriptionTask\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"deadlineTask\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"DateTime\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"statusTask\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"StatusTaskEnum\",\"nativeType\":null,\"default\":\"Fazer\",\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"priorityTask\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"PriorityTaskEnum\",\"nativeType\":null,\"default\":\"Baixa\",\"isGenerated\":false,\"isUpdatedAt\":false}],\"primaryKey\":null,\"uniqueFields\":[],\"uniqueIndexes\":[],\"isGenerated\":false},\"Mark\":{\"dbName\":\"marks\",\"schema\":null,\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":true,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"String\",\"nativeType\":null,\"default\":{\"name\":\"uuid\",\"args\":[4]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"DateTime\",\"nativeType\":null,\"default\":{\"name\":\"now\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"motiveMark\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"descriptionMark\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"localMark\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"prazoMark\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"DateTime\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"statusMark\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"StatusMarkEnum\",\"nativeType\":null,\"default\":\"Agendada\",\"isGenerated\":false,\"isUpdatedAt\":false}],\"primaryKey\":null,\"uniqueFields\":[],\"uniqueIndexes\":[],\"isGenerated\":false},\"Department\":{\"dbName\":\"departments\",\"schema\":null,\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":true,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"String\",\"nativeType\":null,\"default\":{\"name\":\"uuid\",\"args\":[4]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"DateTime\",\"nativeType\":null,\"default\":{\"name\":\"now\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"nameDepartment\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"sectorDepartment\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false}],\"primaryKey\":null,\"uniqueFields\":[],\"uniqueIndexes\":[],\"isGenerated\":false}},\"enums\":{\"GenderEmployeeEnum\":{\"values\":[{\"name\":\"Masculino\",\"dbName\":null},{\"name\":\"Feminino\",\"dbName\":null},{\"name\":\"Outro\",\"dbName\":null}],\"dbName\":null},\"CargoEmployeeEnum\":{\"values\":[{\"name\":\"Prefeito\",\"dbName\":null},{\"name\":\"Secretario\",\"dbName\":null},{\"name\":\"Diretor\",\"dbName\":null},{\"name\":\"Tecnico\",\"dbName\":null},{\"name\":\"Coordenador\",\"dbName\":null}],\"dbName\":null},\"StatusTaskEnum\":{\"values\":[{\"name\":\"Fazer\",\"dbName\":null},{\"name\":\"Andamento\",\"dbName\":null},{\"name\":\"Concluida\",\"dbName\":null},{\"name\":\"Expirada\",\"dbName\":null}],\"dbName\":null},\"PriorityTaskEnum\":{\"values\":[{\"name\":\"Baixa\",\"dbName\":null},{\"name\":\"Media\",\"dbName\":null},{\"name\":\"Alta\",\"dbName\":null},{\"name\":\"Urgente\",\"dbName\":null}],\"dbName\":null},\"StatusMarkEnum\":{\"values\":[{\"name\":\"Agendada\",\"dbName\":null},{\"name\":\"Reagendada\",\"dbName\":null},{\"name\":\"Adiada\",\"dbName\":null},{\"name\":\"Encerrada\",\"dbName\":null},{\"name\":\"Cancelada\",\"dbName\":null}],\"dbName\":null}},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"Employee\":{\"dbName\":\"employees\",\"schema\":null,\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":true,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"String\",\"nativeType\":null,\"default\":{\"name\":\"uuid\",\"args\":[4]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"DateTime\",\"nativeType\":null,\"default\":{\"name\":\"now\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"username\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":true,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"email\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":true,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"password\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"fullName\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"dateOfBirth\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"DateTime\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"gender\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"Gender\",\"nativeType\":null,\"default\":\"Other\",\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"phone\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"position\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"Position\",\"nativeType\":null,\"default\":\"Secretary\",\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"expirationDate\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"DateTime\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false}],\"primaryKey\":null,\"uniqueFields\":[],\"uniqueIndexes\":[],\"isGenerated\":false},\"Task\":{\"dbName\":\"tasks\",\"schema\":null,\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":true,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"String\",\"nativeType\":null,\"default\":{\"name\":\"uuid\",\"args\":[4]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"DateTime\",\"nativeType\":null,\"default\":{\"name\":\"now\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"title\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"description\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"deadline\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"DateTime\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"status\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"TaskStatus\",\"nativeType\":null,\"default\":\"ToDo\",\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"priority\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"TaskPriority\",\"nativeType\":null,\"default\":\"Low\",\"isGenerated\":false,\"isUpdatedAt\":false}],\"primaryKey\":null,\"uniqueFields\":[],\"uniqueIndexes\":[],\"isGenerated\":false},\"Appointment\":{\"dbName\":\"appointments\",\"schema\":null,\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":true,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"String\",\"nativeType\":null,\"default\":{\"name\":\"uuid\",\"args\":[4]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"DateTime\",\"nativeType\":null,\"default\":{\"name\":\"now\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"reason\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"description\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"location\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"deadline\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"DateTime\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"status\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"AppointmentStatus\",\"nativeType\":null,\"default\":\"Scheduled\",\"isGenerated\":false,\"isUpdatedAt\":false}],\"primaryKey\":null,\"uniqueFields\":[],\"uniqueIndexes\":[],\"isGenerated\":false},\"Department\":{\"dbName\":\"departments\",\"schema\":null,\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":true,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"String\",\"nativeType\":null,\"default\":{\"name\":\"uuid\",\"args\":[4]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"DateTime\",\"nativeType\":null,\"default\":{\"name\":\"now\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"name\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"sector\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false}],\"primaryKey\":null,\"uniqueFields\":[],\"uniqueIndexes\":[],\"isGenerated\":false}},\"enums\":{\"Gender\":{\"values\":[{\"name\":\"Male\",\"dbName\":null},{\"name\":\"Female\",\"dbName\":null},{\"name\":\"Other\",\"dbName\":null}],\"dbName\":null},\"Position\":{\"values\":[{\"name\":\"Cabinet\",\"dbName\":null},{\"name\":\"Secretary\",\"dbName\":null},{\"name\":\"Technician1\",\"dbName\":null},{\"name\":\"Technician2\",\"dbName\":null},{\"name\":\"Technician3\",\"dbName\":null}],\"dbName\":null},\"TaskStatus\":{\"values\":[{\"name\":\"ToDo\",\"dbName\":null},{\"name\":\"InProgress\",\"dbName\":null},{\"name\":\"Completed\",\"dbName\":null},{\"name\":\"Expired\",\"dbName\":null}],\"dbName\":null},\"TaskPriority\":{\"values\":[{\"name\":\"Low\",\"dbName\":null},{\"name\":\"Medium\",\"dbName\":null},{\"name\":\"High\",\"dbName\":null},{\"name\":\"Urgent\",\"dbName\":null}],\"dbName\":null},\"AppointmentStatus\":{\"values\":[{\"name\":\"Scheduled\",\"dbName\":null},{\"name\":\"Rescheduled\",\"dbName\":null},{\"name\":\"Postponed\",\"dbName\":null},{\"name\":\"Closed\",\"dbName\":null},{\"name\":\"Cancelled\",\"dbName\":null}],\"dbName\":null}},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.engineWasm = undefined
 config.compilerWasm = undefined
@@ -274,10 +275,6 @@ warnEnvConflicts({
 const PrismaClient = getPrismaClient(config)
 exports.PrismaClient = PrismaClient
 Object.assign(exports, Prisma)
-
-// file annotations for bundling tools to include these files
-path.join(__dirname, "query_engine-windows.dll.node");
-path.join(process.cwd(), "generated/prisma/query_engine-windows.dll.node")
 
 // file annotations for bundling tools to include these files
 path.join(__dirname, "libquery_engine-debian-openssl-3.0.x.so.node");

@@ -1,31 +1,31 @@
 
 
+// DTO para atualização de tarefas, com validações opcionais
 import { IsDate, IsEnum, IsNotEmpty, IsOptional, IsString, MinLength } from "class-validator";
-import { PriorityTaskEnum, StatusTaskEnum } from "generated/prisma";
+import { TaskPriority, TaskStatus } from "generated/prisma";
 
 
 export class UpdateTaskDto {
     @IsString()
     @MinLength(3)
     @IsOptional()
-    missionTask: string;
+    title: string;
 
     @IsString()
     @MinLength(3)
     @IsOptional()
-    descriptionTask: string;
+    description: string;
 
     @IsDate()
     @IsOptional()
-    @MinLength(3)
-    deadlineTask: Date;
+    deadline: Date;
 
-    @IsEnum(StatusTaskEnum)
+    @IsEnum(TaskStatus)
     @IsOptional()
-    statusTask: StatusTaskEnum;
+    status: TaskStatus;
 
-    @IsEnum(PriorityTaskEnum)
+    @IsEnum(TaskPriority)
     @IsOptional()
-    priorityTask: PriorityTaskEnum;
+    priority: TaskPriority;
 }
 

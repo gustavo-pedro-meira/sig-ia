@@ -1,3 +1,4 @@
+// Caso de uso para deletar um funcionário por ID
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { EmployeeRepository } from '../repositories/employee.repository';
 

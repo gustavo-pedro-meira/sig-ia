@@ -1,3 +1,4 @@
+// DTO para validação de username e email de funcionários
 import { IsEmail, IsNotEmpty, IsString, MinLength } from "class-validator";
 
 

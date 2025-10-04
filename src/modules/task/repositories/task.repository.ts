@@ -1,3 +1,4 @@
+// Interface abstrata para repositório de tarefas
 import { Injectable } from "@nestjs/common";
 import { CreateTaskDto, TaskCreateDto } from "../dto/create-task.dto";
 import { UpdateTaskDto } from "../dto/update-task.dto";

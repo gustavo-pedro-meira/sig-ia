@@ -1,3 +1,4 @@
+// Caso de uso para obter informações do usuário logado
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { EmployeeRepository } from "../repositories/employee.repository";
 
@@ -10,7 +11,7 @@ export class GetMeUseCase {
         const employee = await this.employeeRepository.findOne(userId);
         
         if (!employee) {
-            throw new NotFoundException('Funcionário não encontrado');
+            throw new NotFoundException('Employee not found');
         }
 
         // Retorna os dados do usuário sem a senha

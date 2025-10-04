@@ -102,35 +102,35 @@ exports.Prisma.EmployeeScalarFieldEnum = {
   dateOfBirth: 'dateOfBirth',
   gender: 'gender',
   phone: 'phone',
-  cargo: 'cargo',
+  position: 'position',
   expirationDate: 'expirationDate'
 };
 
 exports.Prisma.TaskScalarFieldEnum = {
   id: 'id',
   createdAt: 'createdAt',
-  missionTask: 'missionTask',
-  descriptionTask: 'descriptionTask',
-  deadlineTask: 'deadlineTask',
-  statusTask: 'statusTask',
-  priorityTask: 'priorityTask'
+  title: 'title',
+  description: 'description',
+  deadline: 'deadline',
+  status: 'status',
+  priority: 'priority'
 };
 
-exports.Prisma.MarkScalarFieldEnum = {
+exports.Prisma.AppointmentScalarFieldEnum = {
   id: 'id',
   createdAt: 'createdAt',
-  motiveMark: 'motiveMark',
-  descriptionMark: 'descriptionMark',
-  localMark: 'localMark',
-  prazoMark: 'prazoMark',
-  statusMark: 'statusMark'
+  reason: 'reason',
+  description: 'description',
+  location: 'location',
+  deadline: 'deadline',
+  status: 'status'
 };
 
 exports.Prisma.DepartmentScalarFieldEnum = {
   id: 'id',
   createdAt: 'createdAt',
-  nameDepartment: 'nameDepartment',
-  sectorDepartment: 'sectorDepartment'
+  name: 'name',
+  sector: 'sector'
 };
 
 exports.Prisma.SortOrder = {
@@ -142,46 +142,46 @@ exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 };
-exports.GenderEmployeeEnum = exports.$Enums.GenderEmployeeEnum = {
-  Masculino: 'Masculino',
-  Feminino: 'Feminino',
-  Outro: 'Outro'
+exports.Gender = exports.$Enums.Gender = {
+  Male: 'Male',
+  Female: 'Female',
+  Other: 'Other'
 };
 
-exports.CargoEmployeeEnum = exports.$Enums.CargoEmployeeEnum = {
-  Prefeito: 'Prefeito',
-  Secretario: 'Secretario',
-  Diretor: 'Diretor',
-  Tecnico: 'Tecnico',
-  Coordenador: 'Coordenador'
+exports.Position = exports.$Enums.Position = {
+  Cabinet: 'Cabinet',
+  Secretary: 'Secretary',
+  Technician1: 'Technician1',
+  Technician2: 'Technician2',
+  Technician3: 'Technician3'
 };
 
-exports.StatusTaskEnum = exports.$Enums.StatusTaskEnum = {
-  Fazer: 'Fazer',
-  Andamento: 'Andamento',
-  Concluida: 'Concluida',
-  Expirada: 'Expirada'
+exports.TaskStatus = exports.$Enums.TaskStatus = {
+  ToDo: 'ToDo',
+  InProgress: 'InProgress',
+  Completed: 'Completed',
+  Expired: 'Expired'
 };
 
-exports.PriorityTaskEnum = exports.$Enums.PriorityTaskEnum = {
-  Baixa: 'Baixa',
-  Media: 'Media',
-  Alta: 'Alta',
-  Urgente: 'Urgente'
+exports.TaskPriority = exports.$Enums.TaskPriority = {
+  Low: 'Low',
+  Medium: 'Medium',
+  High: 'High',
+  Urgent: 'Urgent'
 };
 
-exports.StatusMarkEnum = exports.$Enums.StatusMarkEnum = {
-  Agendada: 'Agendada',
-  Reagendada: 'Reagendada',
-  Adiada: 'Adiada',
-  Encerrada: 'Encerrada',
-  Cancelada: 'Cancelada'
+exports.AppointmentStatus = exports.$Enums.AppointmentStatus = {
+  Scheduled: 'Scheduled',
+  Rescheduled: 'Rescheduled',
+  Postponed: 'Postponed',
+  Closed: 'Closed',
+  Cancelled: 'Cancelled'
 };
 
 exports.Prisma.ModelName = {
   Employee: 'Employee',
   Task: 'Task',
-  Mark: 'Mark',
+  Appointment: 'Appointment',
   Department: 'Department'
 };
 /**
@@ -195,7 +195,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\gusta\\OneDrive\\Documentos\\sig-ia\\backend\\generated\\prisma",
+      "value": "/home/renanamorim/Documents/sig-ia/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -204,7 +204,7 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "windows",
+        "value": "debian-openssl-3.0.x",
         "native": true
       },
       {
@@ -213,7 +213,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\gusta\\OneDrive\\Documentos\\sig-ia\\backend\\prisma\\schema.prisma",
+    "sourceFilePath": "/home/renanamorim/Documents/sig-ia/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -227,6 +227,7 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -235,13 +236,13 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider      = \"prisma-client-js\"\n  output        = \"../generated/prisma\"\n  binaryTargets = [\"native\", \"debian-openssl-3.0.x\"]\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nenum GenderEmployeeEnum {\n  Masculino\n  Feminino\n  Outro\n}\n\nenum CargoEmployeeEnum {\n  Prefeito\n  Secretario\n  Diretor\n  Tecnico\n  Coordenador\n}\n\nmodel Employee {\n  id        String   @id @default(uuid())\n  createdAt DateTime @default(now())\n\n  username String @unique\n  email    String @unique\n  password String\n\n  fullName       String\n  dateOfBirth    DateTime\n  gender         GenderEmployeeEnum @default(Outro)\n  phone          String\n  cargo          CargoEmployeeEnum  @default(Secretario)\n  expirationDate DateTime\n\n  @@map(\"employees\")\n}\n\nenum StatusTaskEnum {\n  Fazer\n  Andamento\n  Concluida\n  Expirada\n}\n\nenum PriorityTaskEnum {\n  Baixa\n  Media\n  Alta\n  Urgente\n}\n\nmodel Task {\n  id        String   @id @default(uuid())\n  createdAt DateTime @default(now())\n\n  missionTask     String\n  descriptionTask String\n  deadlineTask    DateTime\n  statusTask      StatusTaskEnum   @default(Fazer)\n  priorityTask    PriorityTaskEnum @default(Baixa)\n\n  @@map(\"tasks\")\n}\n\nenum StatusMarkEnum {\n  Agendada\n  Reagendada\n  Adiada\n  Encerrada\n  Cancelada\n}\n\nmodel Mark {\n  id        String   @id @default(uuid())\n  createdAt DateTime @default(now())\n\n  motiveMark      String\n  descriptionMark String\n  localMark       String\n  prazoMark       DateTime\n  statusMark      StatusMarkEnum @default(Agendada)\n\n  @@map(\"marks\")\n}\n\nmodel Department {\n  id        String   @id @default(uuid())\n  createdAt DateTime @default(now())\n\n  nameDepartment   String\n  sectorDepartment String\n\n  @@map(\"departments\")\n}\n",
-  "inlineSchemaHash": "22702a343a4e40a1a5e2352cab065db012f23ac0cd3d09ff844e2c1454c3f025",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider      = \"prisma-client-js\"\n  output        = \"../generated/prisma\"\n  binaryTargets = [\"native\", \"debian-openssl-3.0.x\"]\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nenum Gender {\n  Male\n  Female\n  Other\n}\n\nenum Position {\n  Cabinet\n  Secretary\n  Technician1\n  Technician2\n  Technician3\n}\n\nmodel Employee {\n  id        String   @id @default(uuid())\n  createdAt DateTime @default(now())\n\n  username String @unique\n  email    String @unique\n  password String\n\n  fullName       String\n  dateOfBirth    DateTime\n  gender         Gender   @default(Other)\n  phone          String\n  position       Position @default(Secretary)\n  expirationDate DateTime\n\n  @@map(\"employees\")\n}\n\nenum TaskStatus {\n  ToDo\n  InProgress\n  Completed\n  Expired\n}\n\nenum TaskPriority {\n  Low\n  Medium\n  High\n  Urgent\n}\n\nmodel Task {\n  id        String   @id @default(uuid())\n  createdAt DateTime @default(now())\n\n  title       String\n  description String\n  deadline    DateTime\n  status      TaskStatus   @default(ToDo)\n  priority    TaskPriority @default(Low)\n\n  @@map(\"tasks\")\n}\n\nenum AppointmentStatus {\n  Scheduled\n  Rescheduled\n  Postponed\n  Closed\n  Cancelled\n}\n\nmodel Appointment {\n  id        String   @id @default(uuid())\n  createdAt DateTime @default(now())\n\n  reason      String\n  description String\n  location    String\n  deadline    DateTime\n  status      AppointmentStatus @default(Scheduled)\n\n  @@map(\"appointments\")\n}\n\nmodel Department {\n  id        String   @id @default(uuid())\n  createdAt DateTime @default(now())\n\n  name   String\n  sector String\n\n  @@map(\"departments\")\n}\n",
+  "inlineSchemaHash": "4e19588ed67b53587f095db2b0c47dfcc6d55eb511beaa6a149d0176af9b96a5",
   "copyEngine": true
 }
 config.dirname = '/'
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"Employee\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"username\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"fullName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"dateOfBirth\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"gender\",\"kind\":\"enum\",\"type\":\"GenderEmployeeEnum\"},{\"name\":\"phone\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"cargo\",\"kind\":\"enum\",\"type\":\"CargoEmployeeEnum\"},{\"name\":\"expirationDate\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"employees\"},\"Task\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"missionTask\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"descriptionTask\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"deadlineTask\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"statusTask\",\"kind\":\"enum\",\"type\":\"StatusTaskEnum\"},{\"name\":\"priorityTask\",\"kind\":\"enum\",\"type\":\"PriorityTaskEnum\"}],\"dbName\":\"tasks\"},\"Mark\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"motiveMark\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"descriptionMark\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"localMark\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"prazoMark\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"statusMark\",\"kind\":\"enum\",\"type\":\"StatusMarkEnum\"}],\"dbName\":\"marks\"},\"Department\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"nameDepartment\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"sectorDepartment\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":\"departments\"}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"Employee\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"username\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"fullName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"dateOfBirth\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"gender\",\"kind\":\"enum\",\"type\":\"Gender\"},{\"name\":\"phone\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"position\",\"kind\":\"enum\",\"type\":\"Position\"},{\"name\":\"expirationDate\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"employees\"},\"Task\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"deadline\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"status\",\"kind\":\"enum\",\"type\":\"TaskStatus\"},{\"name\":\"priority\",\"kind\":\"enum\",\"type\":\"TaskPriority\"}],\"dbName\":\"tasks\"},\"Appointment\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"reason\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"location\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"deadline\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"status\",\"kind\":\"enum\",\"type\":\"AppointmentStatus\"}],\"dbName\":\"appointments\"},\"Department\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"sector\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":\"departments\"}},\"enums\":{},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.engineWasm = {
   getRuntime: async () => require('./query_engine_bg.js'),

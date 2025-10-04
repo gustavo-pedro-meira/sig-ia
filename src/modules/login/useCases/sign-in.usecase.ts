@@ -1,3 +1,4 @@
+// Caso de uso para autenticação: valida credenciais e gera token JWT
 import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { PrismaService } from "src/infra/database/prisma.service";

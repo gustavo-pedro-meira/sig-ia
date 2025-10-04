@@ -1,3 +1,4 @@
+// Implementação do repositório de funcionários usando Prisma
 import { PrismaService } from 'src/infra/database/prisma.service';
 import { EmployeeCreateDto, CreateEmployeeDto } from '../../dto/create-employee.dto';
 import { UsernameAndEmailDto } from '../../dto/username-email.dto';

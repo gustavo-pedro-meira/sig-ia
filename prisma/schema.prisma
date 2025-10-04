@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
   output   = "../generated/prisma"
@@ -15,20 +9,23 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum GenderEmployeeEnum {
-  Masculino
-  Feminino
-  Outro
-} 
-
-enum CargoEmployeeEnum {
-  Prefeito
-  Secretario
-  Diretor
-  Tecnico
-  Coordenador
+// Enum para definir o gênero do funcionário
+enum Gender {
+  Male
+  Female
+  Other
 }
 
+// Enum para definir o cargo do funcionário
+enum Position {
+  Cabinet
+  Secretary
+  Technician1
+  Technician2
+  Technician3
+}
+
+// Modelo que representa um funcionário no sistema
 model Employee {
   id String @id @default(uuid())
   createdAt DateTime @default(now())
@@ -39,68 +36,74 @@ model Employee {
 
   fullName String
   dateOfBirth DateTime
-  gender GenderEmployeeEnum @default(Outro)
+  gender Gender @default(Other)
   phone String
-  cargo CargoEmployeeEnum @default(Secretario)
+  position Position @default(Secretary)
   expirationDate DateTime
 
   @@map("employees")
 }
 
-enum StatusTaskEnum {
-  Fazer
-  Andamento
-  Concluida
-  Expirada
+// Enum para definir o status de uma tarefa
+enum TaskStatus {
+  ToDo
+  InProgress
+  Completed
+  Expired
 }
 
-enum PriorityTaskEnum {
-  Baixa
-  Media
-  Alta
-  Urgente
+// Enum para definir a prioridade de uma tarefa
+enum TaskPriority {
+  Low
+  Medium
+  High
+  Urgent
 }
 
+// Modelo que representa uma tarefa no sistema
 model Task {
   id String @id @default(uuid())
   createdAt DateTime @default(now())
-  
-  missionTask String
-  descriptionTask String
-  deadlineTask DateTime
-  statusTask StatusTaskEnum @default(Fazer)
-  priorityTask PriorityTaskEnum @default(Baixa)
+
+  title String
+  description String
+  deadline DateTime
+  status TaskStatus @default(ToDo)
+  priority TaskPriority @default(Low)
 
   @@map("tasks")
 }
 
-enum StatusMarkEnum {
-  Agendada
-  Reagendada
-  Adiada
-  Encerrada
-  Cancelada
+// Enum para definir o status de um compromisso
+enum AppointmentStatus {
+  Scheduled
+  Rescheduled
+  Postponed
+  Closed
+  Cancelled
 }
 
-model Mark {
+// Modelo que representa um compromisso/agendamento no sistema
+model Appointment {
   id String @id @default(uuid())
   createdAt DateTime @default(now())
 
-  motiveMark String
-  descriptionMark String
-  localMark String
-  prazoMark DateTime
-  statusMark StatusMarkEnum @default(Agendada)
+  reason String
+  description String
+  location String
+  deadline DateTime
+  status AppointmentStatus @default(Scheduled)
 
-  @@map("marks")
+  @@map("appointments")
 }
 
+// Modelo que representa um departamento no sistema
 model Department {
   id String @id @default(uuid())
   createdAt DateTime @default(now())
 
-  nameDepartment String
-  sectorDepartment String
+  name String
+  sector String
 
   @@map("departments")
 }

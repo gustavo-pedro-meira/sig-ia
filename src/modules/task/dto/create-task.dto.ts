@@ -1,29 +1,32 @@
-import { IsDate, IsEnum, IsNotEmpty, IsString, MinLength } from "class-validator";
-import { PriorityTaskEnum, StatusTaskEnum } from "generated/prisma";
+// DTO para criação de tarefas, com validações class-validator
+import { IsDate, IsEnum, IsNotEmpty, IsOptional, IsString, MinLength } from "class-validator";
+import { Type } from "class-transformer";
+import { TaskPriority, TaskStatus } from "generated/prisma";
 
 
 export class CreateTaskDto {
     @IsString()
     @IsNotEmpty()
     @MinLength(3)
-    missionTask: string;
+    title: string;
 
     @IsString()
     @IsNotEmpty()
     @MinLength(3)
-    descriptionTask: string;
+    description: string;
 
     @IsDate()
+    @Type(() => Date)
     @IsNotEmpty()
-    deadlineTask: Date;
+    deadline: Date;
 
-    @IsEnum(StatusTaskEnum)
-    @IsNotEmpty()
-    statusTask: StatusTaskEnum;
+    @IsEnum(TaskStatus)
+    @IsOptional()
+    status?: TaskStatus;
 
-    @IsEnum(PriorityTaskEnum)
-    @IsNotEmpty()
-    priorityTask: PriorityTaskEnum;
+    @IsEnum(TaskPriority)
+    @IsOptional()
+    priority?: TaskPriority;
 }
 
 export class TaskCreateDto extends CreateTaskDto {

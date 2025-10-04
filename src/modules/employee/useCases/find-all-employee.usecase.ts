@@ -1,3 +1,4 @@
+// Caso de uso para buscar todos os funcionários
 import { Injectable } from "@nestjs/common";
 import { EmployeeRepository } from "../repositories/employee.repository";
 
