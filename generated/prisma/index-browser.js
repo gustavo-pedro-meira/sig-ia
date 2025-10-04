@@ -141,7 +141,7 @@ exports.Prisma.TaskScalarFieldEnum = {
   descriptionTask: 'descriptionTask',
   deadlineTask: 'deadlineTask',
   statusTask: 'statusTask',
-  PriorityTask: 'PriorityTask'
+  priorityTask: 'priorityTask'
 };
 
 exports.Prisma.MarkScalarFieldEnum = {

@@ -69,7 +69,7 @@ model Task {
   descriptionTask String
   deadlineTask    DateTime
   statusTask      StatusTaskEnum   @default(Fazer)
-  PriorityTask    PriorityTaskEnum @default(Baixa)
+  priorityTask    PriorityTaskEnum @default(Baixa)
 
   @@map("tasks")
 }
