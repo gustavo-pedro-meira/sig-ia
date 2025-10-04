@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put, Req, UseGuards } from "@nestjs/common";
 import { CreateEmployeeUseCase } from "./useCases/create-employee.usecase";
 import { CreateEmployeeDto } from "./dto/create-employee.dto";
 import { ApiOperation, ApiResponse } from "@nestjs/swagger";
@@ -25,13 +25,13 @@ export class EmployeeController {
     }
 
     @Get()
-    @UseGuards(AuthGuard)
+    // @UseGuards(AuthGuard)
     findAllEmployee() {
         return this.findAllEmployeeUseCase.execute();
     }
 
     @Get(':id')
-    @UseGuards(AuthGuard)
+    // @UseGuards(AuthGuard)
     findOneEmploye(@Param('id') id: string) {
         return this.findOneEmployeeUseCase.execute(id);
     }
