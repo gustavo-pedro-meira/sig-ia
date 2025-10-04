@@ -5,6 +5,7 @@ import { PrismaService } from "src/infra/database/prisma.service";
 import { TaskRepository } from "./repositories/task.repository";
 import { TaskPrismaRepository } from "./repositories/prisma/task.prisma.repository";
 import { DeleteTaskUseCase } from "./useCases/delete-task.usecase";
+import { FindAllTaskUseCase } from "./useCases/find-all-task.usecase";
 
 
 @Module({
@@ -13,6 +14,7 @@ import { DeleteTaskUseCase } from "./useCases/delete-task.usecase";
     providers: [
         CreateTaskUseCase,
         DeleteTaskUseCase,
+        FindAllTaskUseCase,
         PrismaService,
         {
             provide: TaskRepository,
