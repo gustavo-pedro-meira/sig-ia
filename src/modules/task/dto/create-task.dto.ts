@@ -27,6 +27,10 @@ export class CreateTaskDto {
     @IsEnum(TaskPriority)
     @IsOptional()
     priority?: TaskPriority;
+
+    @IsString()
+    @IsOptional()
+    userId?: string | null;
 }
 
 export class TaskCreateDto extends CreateTaskDto {

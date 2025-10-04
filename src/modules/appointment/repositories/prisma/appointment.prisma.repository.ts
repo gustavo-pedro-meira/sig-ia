@@ -9,8 +9,10 @@ import { UpdateAppointmentDto } from "../../dto/update-appointment.dto";
 export class AppointmentPrismaRepository implements AppointmentRepository {
     constructor(private readonly prismaService: PrismaService) {}
 
-    async findAll(): Promise<AppointmentCreateDto[] | null> {
-        return await this.prismaService.appointment.findMany();
+    async findAll(userId: string): Promise<AppointmentCreateDto[] | null> {
+        return await this.prismaService.appointment.findMany({
+            where: { userId }
+        });
     }
 
     async findOne(id: string): Promise<AppointmentCreateDto | null> {

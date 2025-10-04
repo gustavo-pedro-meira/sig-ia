@@ -41,6 +41,9 @@ model Employee {
   position Position @default(Secretary)
   expirationDate DateTime
 
+  tasks Task[]
+  appointments Appointment[]
+
   @@map("employees")
 }
 
@@ -71,6 +74,9 @@ model Task {
   status TaskStatus @default(ToDo)
   priority TaskPriority @default(Low)
 
+  userId String?
+  employee Employee? @relation(fields: [userId], references: [id])
+
   @@map("tasks")
 }
 
@@ -93,6 +99,9 @@ model Appointment {
   location String
   deadline DateTime
   status AppointmentStatus @default(Scheduled)
+
+  userId String?
+  employee Employee? @relation(fields: [userId], references: [id])
 
   @@map("appointments")
 }

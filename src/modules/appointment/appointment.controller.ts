@@ -1,5 +1,5 @@
 // Controlador para gerenciar compromissos/agendamentos via API REST
-import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards, Request } from "@nestjs/common";
 import { CreateAppointmentUseCase } from "./useCases/create-appointment.usecase";
 import { CreateAppointmentDto } from "./dto/create-appointment.dto";
 import { DeleteAppointmentUseCase } from "./useCases/delete-appointment.usecase";
@@ -7,9 +7,11 @@ import { FindAllAppointmentUseCase } from "./useCases/find-all-appointment.useca
 import { FindOneAppointmentUseCase } from "./useCases/find-one-appointment.usecase";
 import { UpdateAppointmentUseCase } from "./useCases/update-appointment.usecase";
 import { UpdateAppointmentDto } from "./dto/update-appointment.dto";
+import { AuthGuard } from "src/infra/database/providers/auth-guard.provider";
 
 
 @Controller('appointments')
+@UseGuards(AuthGuard)
 export class AppointmentController {
     constructor(
         private readonly createAppointmentUseCase: CreateAppointmentUseCase,
@@ -20,7 +22,8 @@ export class AppointmentController {
     ) {}
 
     @Post()
-    createAppointment(@Body() createAppointmentDto: CreateAppointmentDto) {
+    createAppointment(@Body() createAppointmentDto: CreateAppointmentDto, @Request() req) {
+        createAppointmentDto.userId = req.user.sub;
         return this.createAppointmentUseCase.execute(createAppointmentDto);
     }
 
@@ -30,8 +33,8 @@ export class AppointmentController {
     }
 
     @Get()
-    findAllAppointments() {
-        return this.findAllAppointmentUseCase.execute();
+    findAllAppointments(@Request() req) {
+        return this.findAllAppointmentUseCase.execute(req.user.sub);
     }
 
     @Get(':id')

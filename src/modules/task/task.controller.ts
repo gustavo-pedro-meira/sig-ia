@@ -1,5 +1,5 @@
 // Controlador para gerenciar tarefas via API REST
-import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards, Request } from "@nestjs/common";
 import { CreateTaskUseCase } from "./useCases/create-task.usecase";
 import { CreateTaskDto } from "./dto/create-task.dto";
 import { DeleteTaskUseCase } from "./useCases/delete-task.usecase";
@@ -7,9 +7,11 @@ import { FindAllTaskUseCase } from "./useCases/find-all-task.usecase";
 import { FindOneTaskUseCase } from "./useCases/find-one-task.usecase";
 import { UpdateTaskUseCase } from "./useCases/update-task.usecase";
 import { UpdateTaskDto } from "./dto/update-task.dto";
+import { AuthGuard } from "src/infra/database/providers/auth-guard.provider";
 
 
 @Controller('tasks')
+@UseGuards(AuthGuard)
 export class TaskController {
     constructor(
         private readonly createTaskUseCase: CreateTaskUseCase,
@@ -20,7 +22,8 @@ export class TaskController {
     ) {}
 
     @Post()
-    createTask(@Body() createTaskDto: CreateTaskDto) {
+    createTask(@Body() createTaskDto: CreateTaskDto, @Request() req) {
+        createTaskDto.userId = req.user.sub;
         return this.createTaskUseCase.execute(createTaskDto);
     }
 
@@ -30,8 +33,8 @@ export class TaskController {
     }
 
     @Get()
-    findAllTasks() {
-        return this.findAllTaskUseCase.execute();
+    findAllTasks(@Request() req) {
+        return this.findAllTaskUseCase.execute(req.user.sub);
     }
 
     @Get(':id')

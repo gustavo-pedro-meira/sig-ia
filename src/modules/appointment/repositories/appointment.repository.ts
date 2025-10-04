@@ -5,7 +5,7 @@ import { UpdateAppointmentDto } from "../dto/update-appointment.dto";
 
 @Injectable()
 export abstract class AppointmentRepository {
-    abstract findAll(): Promise<AppointmentCreateDto[] | null>;
+    abstract findAll(userId: string): Promise<AppointmentCreateDto[] | null>;
     abstract findOne(id: string): Promise<AppointmentCreateDto | null>;
     abstract updateById(id: string, updateAppointmentDto: UpdateAppointmentDto): Promise<AppointmentCreateDto | null>;
     abstract deleteById(id: string): Promise<AppointmentCreateDto | null>;

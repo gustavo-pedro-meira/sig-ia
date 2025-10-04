@@ -28,4 +28,6 @@ export const CreateAppointmentSchema = z.object({
     deadline: z.coerce.date(),
 
     status: z.nativeEnum(AppointmentStatus).optional(),
+
+    userId: z.string().nullable().optional(),
 })

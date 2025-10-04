@@ -7,7 +7,7 @@ import { AppointmentRepository } from '../repositories/appointment.repository';
 export class FindAllAppointmentUseCase {
     constructor(private readonly appointmentRepository: AppointmentRepository) {}
 
-    async execute(): Promise<AppointmentCreateDto[] | null> {
-        return this.appointmentRepository.findAll();
+    async execute(userId: string): Promise<AppointmentCreateDto[] | null> {
+        return this.appointmentRepository.findAll(userId);
     }
 }

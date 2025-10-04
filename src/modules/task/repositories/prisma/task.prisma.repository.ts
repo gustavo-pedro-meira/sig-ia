@@ -11,8 +11,10 @@ import { UpdateTaskDto } from "../../dto/update-task.dto";
 export class TaskPrismaRepository implements TaskRepository {
     constructor(private readonly prismaService: PrismaService) {}
 
-    async findAll(): Promise<TaskCreateDto[] | null> {
-        return await this.prismaService.task.findMany();
+    async findAll(userId: string): Promise<TaskCreateDto[] | null> {
+        return await this.prismaService.task.findMany({
+            where: { userId }
+        });
     }
 
     async findOne(id: string): Promise<TaskCreateDto | null> {
