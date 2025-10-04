@@ -15,7 +15,6 @@ export class CreateTaskDto {
 
     @IsDate()
     @IsNotEmpty()
-    @MinLength(3)
     deadlineTask: Date;
 
     @IsEnum(StatusTaskEnum)

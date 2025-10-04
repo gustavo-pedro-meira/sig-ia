@@ -11,7 +11,7 @@ import { EmployeePrismaRepository } from "../employee/repositories/prisma/employ
     imports: [JwtModule.register({
         global: true,
         secret: "curso_nestJS",
-        signOptions: { expiresIn: '5m' }
+        signOptions: { expiresIn: '50m' }
     })],
     controllers: [LoginController],
     providers: [SignInUseCase, PrismaService, {
