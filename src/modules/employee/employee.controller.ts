@@ -8,6 +8,7 @@ import { UpdateEmployeeDto } from "./dto/update-employee.dto";
 import { UpdateEmployeeUseCase } from "./useCases/update-employee.usecas";
 import { DeleteEmployeeUseCase } from "./useCases/delete-employee.usecase";
 import { AuthGuard } from "src/infra/database/providers/auth-guard.provider";
+import { GetMeUseCase } from "./useCases/get-me.usecase";
 
 @Controller('employees')
 export class EmployeeController {
@@ -17,6 +18,7 @@ export class EmployeeController {
         private readonly findOneEmployeeUseCase: FindOneEmployeeUseCase,
         private readonly updateEmployeeUseCase: UpdateEmployeeUseCase,
         private readonly deletEmployeeUseCase: DeleteEmployeeUseCase,
+        private readonly getMeUseCase: GetMeUseCase,
     ) {}
 
     @Post()
@@ -28,6 +30,16 @@ export class EmployeeController {
     // @UseGuards(AuthGuard)
     findAllEmployee() {
         return this.findAllEmployeeUseCase.execute();
+    }
+
+    @ApiOperation({ summary: 'Get current logged user information' })
+    @ApiResponse({ status: 200, description: 'Returns the current logged user data including name, email, cargo, etc.' })
+    @ApiResponse({ status: 401, description: 'Unauthorized. Invalid or missing token.' })
+    @Get('me')
+    @UseGuards(AuthGuard)
+    getMe(@Req() request: any) {
+        const userId = request.user.sub;
+        return this.getMeUseCase.execute(userId);
     }
 
     @Get(':id')
