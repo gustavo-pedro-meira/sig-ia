@@ -7,6 +7,7 @@ export class CreateDepartmentDto {
     name: string;
 
     @IsString()
+    @IsNotEmpty()
     sector: string;
 }
 

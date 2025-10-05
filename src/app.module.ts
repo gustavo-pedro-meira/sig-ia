@@ -7,9 +7,10 @@ import { TaskModule } from './modules/task/task.module';
 import { AppointmentModule } from './modules/appointment/appointment.module';
 import { PrismaService } from './infra/database/prisma.service';
 import { ScheduleModule } from '@nestjs/schedule';
+import { DepartmentModule } from './modules/department/department.module';
 
 @Module({
-  imports: [ScheduleModule.forRoot(), EmployeeModule, LoginModule, TaskModule, AppointmentModule],
+  imports: [ScheduleModule.forRoot(), EmployeeModule, LoginModule, TaskModule, AppointmentModule, DepartmentModule],
   controllers: [],
   providers: [
     PrismaService,
