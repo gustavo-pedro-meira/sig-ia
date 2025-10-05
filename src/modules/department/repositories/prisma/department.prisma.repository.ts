@@ -10,7 +10,9 @@ export class DepartmentPrismaRepository implements DepartmentRepository{
     constructor(private readonly prismaService: PrismaService) {}
 
     async findAll(): Promise<DepartmentCreateDto[] | null> {
-        return await this.prismaService.department.findMany();
+        return await this.prismaService.department.findMany({
+            include: { employees: true }
+        });
     }
 
     async findOne(id: string): Promise<DepartmentCreateDto | null> {
@@ -23,7 +25,8 @@ export class DepartmentPrismaRepository implements DepartmentRepository{
         }
 
         return await this.prismaService.department.findUnique({
-            where: { id }
+            where: { id },
+            include: { employees: true }
         })
     }
 
@@ -38,7 +41,8 @@ export class DepartmentPrismaRepository implements DepartmentRepository{
 
         return await this.prismaService.department.update({
             where: { id },
-            data: { ...updateDepartmentDto }
+            data: { ...updateDepartmentDto },
+            include: { employees: true }
         })
     }
 
@@ -52,7 +56,8 @@ export class DepartmentPrismaRepository implements DepartmentRepository{
         }
 
         return await this.prismaService.department.delete({
-            where: { id }
+            where: { id },
+            include: { employees: true }
         })
     }
 

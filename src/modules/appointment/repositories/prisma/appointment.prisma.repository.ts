@@ -11,13 +11,15 @@ export class AppointmentPrismaRepository implements AppointmentRepository {
 
     async findAll(userId: string): Promise<AppointmentCreateDto[] | null> {
         return await this.prismaService.appointment.findMany({
-            where: { userId }
+            where: { userId },
+            include: { employee: true, employeeResponsible: true }
         });
     }
 
     async findOne(id: string): Promise<AppointmentCreateDto | null> {
         return await this.prismaService.appointment.findUnique({
-            where: { id }
+            where: { id },
+            include: { employee: true, employeeResponsible: true }
         })
     }
 
@@ -25,18 +27,21 @@ export class AppointmentPrismaRepository implements AppointmentRepository {
         return await this.prismaService.appointment.update({
             where: { id },
             data: updateAppointmentDto,
+            include: { employee: true, employeeResponsible: true }
         })
     }
 
     async deleteById(id: string): Promise<AppointmentCreateDto | null> {
         return await this.prismaService.appointment.delete({
-            where: { id }
+            where: { id },
+            include: { employee: true, employeeResponsible: true }
         })
     }
 
     async save(createAppointmentDto: CreateAppointmentDto): Promise<AppointmentCreateDto | null> {
         return await this.prismaService.appointment.create({
             data: createAppointmentDto,
+            include: { employee: true, employeeResponsible: true }
         })
     }
 }

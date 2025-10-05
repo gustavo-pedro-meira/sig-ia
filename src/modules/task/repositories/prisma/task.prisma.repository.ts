@@ -13,19 +13,22 @@ export class TaskPrismaRepository implements TaskRepository {
 
     async findAll(userId: string): Promise<TaskCreateDto[] | null> {
         return await this.prismaService.task.findMany({
-            where: { userId }
+            where: { userId },
+            include: { employee: true, employeeResponsible: true }
         });
     }
 
     async findOne(id: string): Promise<TaskCreateDto | null> {
         return await this.prismaService.task.findUnique({
-            where: { id }
+            where: { id },
+            include: { employee: true, employeeResponsible: true }
         })
     }
 
     async deleteById(id: string): Promise<TaskCreateDto | null> {
         return await this.prismaService.task.delete({
-            where: { id }
+            where: { id },
+            include: { employee: true, employeeResponsible: true }
         })
     }
 
@@ -33,6 +36,7 @@ export class TaskPrismaRepository implements TaskRepository {
         return await this.prismaService.task.update({
             where: { id },
             data: updateTaskDto,
+            include: { employee: true, employeeResponsible: true }
         })
     }
 
