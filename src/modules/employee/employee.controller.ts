@@ -37,7 +37,7 @@ export class EmployeeController {
     @ApiResponse({ status: 200, description: 'Returns the current logged user data including name, email, position, etc.' })
     @ApiResponse({ status: 401, description: 'Unauthorized. Invalid or missing token.' })
     @Get('me')
-    @UseGuards(AuthGuard)
+    // @UseGuards(AuthGuard)
     getMe(@Req() request: any) {
         const userId = request.user.sub;
         return this.getMeUseCase.execute(userId);
@@ -50,13 +50,13 @@ export class EmployeeController {
     }
 
     @Put(':id')
-    @UseGuards(AuthGuard)
+    // @UseGuards(AuthGuard)
     updateByIdEmployee(@Param('id') id: string, @Body() updateEmployeeDto: UpdateEmployeeDto) {
         return this.updateEmployeeUseCase.execute(id, updateEmployeeDto);
     }
 
     @Delete(':id')
-    @UseGuards(AuthGuard)
+    // @UseGuards(AuthGuard)
     deleteByIdEmployee(@Param('id') id: string) {
         return this.deletEmployeeUseCase.execute(id);
     }

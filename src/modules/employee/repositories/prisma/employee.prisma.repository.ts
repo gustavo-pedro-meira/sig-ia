@@ -27,12 +27,15 @@ export class EmployeePrismaRepository implements EmployeeRepository {
   }
 
   async findAll(): Promise<EmployeeCreateDto[]> {
-    return await this.prismaService.employee.findMany();
+    return await this.prismaService.employee.findMany({
+      include: { department: true, tasks: true, appointments: true }
+    });
   }
 
   async findOne(id: string): Promise<EmployeeCreateDto | null> {
       return await this.prismaService.employee.findUnique({
-        where: { id }
+        where: { id },
+        include: { department: true, tasks: true, appointments: true }
       })
   }
 

@@ -40,7 +40,7 @@ export class TaskPrismaRepository implements TaskRepository {
         return await this.prismaService.task.create({
             data: {
                 ...createTaskDto,
-                deadline: new Date(createTaskDto.deadline),
+                // deadline: new Date(createTaskDto.deadline),
             },
         })
     }

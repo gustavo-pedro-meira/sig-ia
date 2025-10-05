@@ -9,6 +9,8 @@ export class CreateDepartmentDto {
     @IsString()
     @IsNotEmpty()
     sector: string;
+
+    
 }
 
 export class DepartmentCreateDto extends CreateDepartmentDto {

@@ -50,6 +50,9 @@ export const CreateEmployeeSchema = z.object({
 
    position: z.nativeEnum(Position),
 
-   expirationDate: z.coerce.date()
+   expirationDate: z.coerce.date(),
+
+    departmentId: z.string().uuid('Invalid department ID.'),
+
 })
 

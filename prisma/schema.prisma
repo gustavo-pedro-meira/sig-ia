@@ -1,6 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
-  output   = "../generated/prisma"
+  provider      = "prisma-client-js"
+  output        = "../generated/prisma"
   binaryTargets = ["native", "debian-openssl-3.0.x"]
 }
 
@@ -9,14 +9,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// Enum para definir o gênero do funcionário
 enum Gender {
   Male
   Female
   Other
 }
 
-// Enum para definir o cargo do funcionário
 enum Position {
   Cabinet
   Secretary
@@ -25,7 +23,6 @@ enum Position {
   Technician3
 }
 
-// Modelo que representa um funcionário no sistema
 model Employee {
   id String @id @default(uuid())
   createdAt DateTime @default(now())
@@ -41,13 +38,19 @@ model Employee {
   position Position @default(Secretary)
   expirationDate DateTime
 
-  tasks Task[]
-  appointments Appointment[]
+  tasks Task[] @relation("EmployeeTasks")
+  appointments Appointment[] @relation("EmployeeAppointments")
+
+  tasksResponsible Task[] @relation("EmployeeTasksResponsible")
+  appointmentsResponsible Appointment[] @relation("EmployeeAppointmentsResponsible")
+
+  // Relação com Departamento
+  departmentId String
+  department   Department @relation(fields: [departmentId], references: [id])
 
   @@map("employees")
 }
 
-// Enum para definir o status de uma tarefa
 enum TaskStatus {
   ToDo
   InProgress
@@ -55,7 +58,6 @@ enum TaskStatus {
   Expired
 }
 
-// Enum para definir a prioridade de uma tarefa
 enum TaskPriority {
   Low
   Medium
@@ -63,7 +65,6 @@ enum TaskPriority {
   Urgent
 }
 
-// Modelo que representa uma tarefa no sistema
 model Task {
   id String @id @default(uuid())
   createdAt DateTime @default(now())
@@ -78,12 +79,14 @@ model Task {
   minute Int @default(0)
 
   userId String?
-  employee Employee? @relation(fields: [userId], references: [id])
+  employee Employee? @relation("EmployeeTasks", fields: [userId], references: [id])
+
+  userIdResponsible String?
+  employeeResponsible Employee? @relation("EmployeeTasksResponsible", fields: [userIdResponsible], references: [id])
 
   @@map("tasks")
 }
 
-// Enum para definir o status de um compromisso
 enum AppointmentStatus {
   Scheduled
   Rescheduled
@@ -92,7 +95,6 @@ enum AppointmentStatus {
   Cancelled
 }
 
-// Modelo que representa um compromisso/agendamento no sistema
 model Appointment {
   id String @id @default(uuid())
   createdAt DateTime @default(now())
@@ -107,18 +109,23 @@ model Appointment {
   minute Int @default(0)
 
   userId String?
-  employee Employee? @relation(fields: [userId], references: [id])
+  employee Employee? @relation("EmployeeAppointments", fields: [userId], references: [id])
+
+  userIdResponsible String?
+  employeeResponsible Employee? @relation("EmployeeAppointmentsResponsible", fields: [userIdResponsible], references: [id])
 
   @@map("appointments")
 }
 
-// Modelo que representa um departamento no sistema
 model Department {
   id String @id @default(uuid())
   createdAt DateTime @default(now())
 
   name String
   sector String
+
+  // Relação com Funcionários
+  employees Employee[]
 
   @@map("departments")
 }
