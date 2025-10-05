@@ -8,11 +8,10 @@ import { Cron } from '@nestjs/schedule';
 export class TaskExpirationService {
   constructor(private readonly prisma: PrismaService) {}
 
-  @Cron('0 */1 * * * *') // Run every minute
+  @Cron('0 */1 * * * *')
   async updateExpiredTasks(): Promise<void> {
     const now = dayjs();
 
-    // Update tasks where deadline is in the past and status is not already Expired
     await this.prisma.task.updateMany({
       where: {
         deadline: {
