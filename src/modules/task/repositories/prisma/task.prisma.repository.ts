@@ -29,7 +29,7 @@ export class TaskPrismaRepository implements TaskRepository {
         })
     }
 
-    async updateBydId(id: string, updateTaskDto: UpdateTaskDto): Promise<UpdateTaskDto | null> {
+    async updateBydId(id: string, updateTaskDto: UpdateTaskDto): Promise<TaskCreateDto | null> {
         return await this.prismaService.task.update({
             where: { id },
             data: updateTaskDto,
