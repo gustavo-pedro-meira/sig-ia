@@ -6,6 +6,7 @@ import { hash } from "bcrypt";
 import { CreateEmployeeDto, EmployeeCreateDto } from "../dto/create-employee.dto";
 import { UpdateEmployeeDto } from "../dto/update-employee.dto";
 import { FilterEmployeeDto } from "../dto/filters-employee.dto";
+import { OrderingEmployeeDto } from "../dto/ordering-employee.dto";
 
 @Injectable()
 export abstract class EmployeeRepository {

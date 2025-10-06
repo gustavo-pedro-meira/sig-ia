@@ -27,8 +27,12 @@ export class EmployeePrismaRepository implements EmployeeRepository {
       })
   }
 
-  async findAll(filter: FilterEmployeeDto): Promise<EmployeeCreateDto[]> {
-    const { fullName, position, departmentId } = filter;
+  async findAll(filter: FilterEmployeeDto, ): Promise<EmployeeCreateDto[]> {
+    const { fullName, position, departmentId, sortBy = 'score', order = 'asc' } = filter;
+
+    const orderBy = {
+      [sortBy]: order,
+    }
 
     const where: any = {};
 
@@ -45,9 +49,9 @@ export class EmployeePrismaRepository implements EmployeeRepository {
     return await this.prismaService.employee.findMany({
       where,
       include: { department: true, tasks: true, appointments: true },
-      orderBy: {
-        fullName: 'asc',
-      }
+      orderBy: [
+        orderBy,
+      ]
     });
   }
 

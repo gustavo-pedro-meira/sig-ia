@@ -28,7 +28,7 @@ export class TaskPrismaRepository implements TaskRepository {
             throw new NotFoundException('Task not found')
         }
 
-        if (taskExist.userIdResponsible) {
+        if (taskExist.userIdResponsible && taskExist.status === "Completed") {
             await this.prismaService.employee.update({
                 where: { id: taskExist.userIdResponsible },
                 data: {
