@@ -31,5 +31,13 @@ export class UpdateTaskDto {
     @IsString()
     @IsOptional()
     userId?: string | null;
+
+    @IsString()
+    @IsOptional()
+    userIdResponsible?: string | null;
+
+    @IsOptional()
+    @IsNotEmpty()
+    points?: number;
 }
 

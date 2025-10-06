@@ -11,12 +11,6 @@ export class UpdateTaskUseCase {
     constructor(private readonly taskRepository: TaskRepository)  {}
 
     async execute(id: string, updateTaskDto: UpdateTaskDto) {
-        const taskExits = await this.taskRepository.findOne(id);
-
-        if (!taskExits) {
-        throw new NotFoundException('Task not found');
-        }
-
         return await this.taskRepository.updateBydId(id, updateTaskDto);
     }
 }

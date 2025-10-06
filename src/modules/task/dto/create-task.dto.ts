@@ -45,6 +45,11 @@ export class CreateTaskDto {
     @IsString()
     @IsOptional()
     userIdResponsible?: string | null;
+
+    @IsNumber()
+    @Min(1)
+    @IsOptional()
+    points?: number;
 }
 
 export class TaskCreateDto extends CreateTaskDto {

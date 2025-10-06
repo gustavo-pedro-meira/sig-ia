@@ -21,6 +21,22 @@ export class TaskPrismaRepository implements TaskRepository {
     }
 
     async deleteById(id: string): Promise<TaskCreateDto | null> {
+        const taskExist = await this.prismaService.task.findUnique({
+            where: { id },
+        })
+        if (!taskExist) {
+            throw new NotFoundException('Task not found')
+        }
+
+        if (taskExist.userIdResponsible) {
+            await this.prismaService.employee.update({
+                where: { id: taskExist.userIdResponsible },
+                data: {
+                    score: { decrement: taskExist.points }
+                }
+            })
+        }
+
         return await this.prismaService.task.delete({
             where: { id },
             include: { employee: true, employeeResponsible: true }
@@ -28,11 +44,33 @@ export class TaskPrismaRepository implements TaskRepository {
     }
 
     async updateBydId(id: string, updateTaskDto: UpdateTaskDto): Promise<TaskCreateDto | null> {
-        return await this.prismaService.task.update({
+        const taskExist = await this.prismaService.task.findUnique({
+            where: { id },
+        })
+        if (!taskExist) {
+            throw new NotFoundException('Task not found')
+        }
+
+        const validationStatusTask = taskExist.status === "Expired";
+        if (validationStatusTask) {
+            throw new NotFoundException('Task expired')
+        }
+
+        const taskUpdate = await this.prismaService.task.update({
             where: { id },
             data: updateTaskDto,
             include: { employee: true, employeeResponsible: true }
         })
+        if (taskUpdate.status === "Completed" && taskExist.status !== "Completed" && taskUpdate.userIdResponsible) {
+            await this.prismaService.employee.update({
+                where: { id: taskUpdate.userIdResponsible },
+                data: {
+                    score: { increment: taskUpdate.points }
+                }
+            })
+        }
+
+        return taskUpdate;
     }
 
     async save(createTaskDto: CreateTaskDto): Promise<TaskCreateDto | null> {

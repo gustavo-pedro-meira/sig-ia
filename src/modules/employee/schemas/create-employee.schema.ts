@@ -54,5 +54,6 @@ export const CreateEmployeeSchema = z.object({
 
    departmentId: z.string().uuid('Invalid department ID.'),
 
+   score: z.number().min(0).optional(),
 })
 
