@@ -45,6 +45,17 @@
             width: 100%;
             box-sizing: border-box;
         }
+        input.error, select.error {
+            border-color: #dc3545;
+            background-color: #f8d7da;
+        }
+        .error-message {
+            color: #dc3545;
+            font-size: 14px;
+            margin-top: -10px;
+            margin-bottom: 10px;
+            display: none;
+        }
         button {
             padding: 12px;
             background-color: #28a745;
@@ -98,15 +109,19 @@
         <form id="createAccountForm">
             <label for="fullName">Nome Completo:</label>
             <input type="text" id="fullName" name="fullName" required>
+            <div id="fullNameError" class="error-message"></div>
 
             <label for="username">Nome de Usuário:</label>
             <input type="text" id="username" name="username" required minlength="6">
+            <div id="usernameError" class="error-message"></div>
 
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>
+            <div id="emailError" class="error-message"></div>
 
             <label for="password">Senha:</label>
             <input type="password" id="password" name="password" required minlength="8">
+            <div id="passwordError" class="error-message"></div>
 
             <label for="gender">Gênero:</label>
             <select id="gender" name="gender" required>
@@ -115,12 +130,15 @@
                 <option value="Female">Feminino</option>
                 <option value="Other">Outro</option>
             </select>
+            <div id="genderError" class="error-message"></div>
 
             <label for="phone">Telefone:</label>
             <input type="tel" id="phone" name="phone" required>
+            <div id="phoneError" class="error-message"></div>
 
             <label for="dateOfBirth">Data de Nascimento:</label>
             <input type="date" id="dateOfBirth" name="dateOfBirth" required>
+            <div id="dateOfBirthError" class="error-message"></div>
 
             <label for="position">Cargo:</label>
             <select id="position" name="position" required>
@@ -131,9 +149,17 @@
                 <option value="Technician2">Técnico 2</option>
                 <option value="Technician3">Técnico 3</option>
             </select>
+            <div id="positionError" class="error-message"></div>
 
             <label for="expirationDate">Data de Expiração:</label>
             <input type="date" id="expirationDate" name="expirationDate" required>
+            <div id="expirationDateError" class="error-message"></div>
+
+            <label for="departmentId">Departamento:</label>
+            <select id="departmentId" name="departmentId" required>
+                <option value="">Carregando departamentos...</option>
+            </select>
+            <div id="departmentIdError" class="error-message"></div>
 
             <button type="submit">Criar Conta</button>
         </form>
@@ -141,8 +167,75 @@
     </div>
 
     <script>
+        // Função para carregar departamentos
+        async function loadDepartments() {
+            try {
+                const response = await fetch('http://localhost:3000/departments');
+                const departments = await response.json();
+                
+                const departmentSelect = document.getElementById('departmentId');
+                departmentSelect.innerHTML = '<option value="">Selecione um departamento</option>';
+                
+                departments.forEach(department => {
+                    const option = document.createElement('option');
+                    option.value = department.id;
+                    option.textContent = `${department.name} - ${department.sector}`;
+                    departmentSelect.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Erro ao carregar departamentos:', error);
+                const departmentSelect = document.getElementById('departmentId');
+                departmentSelect.innerHTML = '<option value="">Erro ao carregar departamentos</option>';
+            }
+        }
+
+        // Carregar departamentos quando a página carrega
+        document.addEventListener('DOMContentLoaded', loadDepartments);
+        // Função para limpar todos os erros
+        function clearErrors() {
+            const inputs = document.querySelectorAll('input, select');
+            inputs.forEach(input => input.classList.remove('error'));
+            
+            const errorMessages = document.querySelectorAll('.error-message');
+            errorMessages.forEach(msg => {
+                msg.textContent = '';
+                msg.style.display = 'none';
+            });
+        }
+
+        // Função para mostrar erro em um campo específico
+        function showFieldError(fieldName, message) {
+            const input = document.getElementById(fieldName);
+            const errorDiv = document.getElementById(fieldName + 'Error');
+            
+            if (input) {
+                input.classList.add('error');
+            }
+            if (errorDiv) {
+                errorDiv.textContent = message;
+                errorDiv.style.display = 'block';
+            }
+        }
+
+        // Mapeamento de campos do backend para IDs do frontend
+        const fieldMapping = {
+            fullName: 'fullName',
+            username: 'username',
+            email: 'email',
+            password: 'password',
+            gender: 'gender',
+            phone: 'phone',
+            dateOfBirth: 'dateOfBirth',
+            position: 'position',
+            expirationDate: 'expirationDate',
+            departmentId: 'departmentId'
+        };
+
         document.getElementById('createAccountForm').addEventListener('submit', async function(event) {
             event.preventDefault();
+            
+            // Limpar erros anteriores
+            clearErrors();
 
             const formData = new FormData(event.target);
             const data = {
@@ -154,7 +247,8 @@
                 phone: formData.get('phone'),
                 dateOfBirth: formData.get('dateOfBirth'),
                 position: formData.get('position'),
-                expirationDate: formData.get('expirationDate')
+                expirationDate: formData.get('expirationDate'),
+                departmentId: formData.get('departmentId')
             };
 
             try {
@@ -172,12 +266,44 @@
                 if (response.ok) {
                     responseDiv.className = 'response success';
                     responseDiv.textContent = 'Conta criada com sucesso!';
+                    responseDiv.style.display = 'block';
                 } else {
                     responseDiv.className = 'response error';
-                    responseDiv.textContent = 'Erro: ' + (result.message || 'Falha ao criar conta');
+                    
+                    // Verificar se há erros de validação específicos
+                    if (result.errors && Array.isArray(result.errors)) {
+                        // Erros de validação do Zod
+                        responseDiv.textContent = 'Por favor, corrija os erros abaixo:';
+                        
+                        result.errors.forEach(error => {
+                            const fieldName = error.path && error.path[0]; // Primeiro elemento do path
+                            if (fieldName && fieldMapping[fieldName]) {
+                                showFieldError(fieldMapping[fieldName], error.message);
+                            }
+                        });
+                    } else if (result.message && Array.isArray(result.message)) {
+                        // Erros de validação do class-validator (fallback)
+                        responseDiv.textContent = 'Por favor, corrija os erros abaixo:';
+                        
+                        result.message.forEach(error => {
+                            const fieldName = Object.keys(fieldMapping).find(key => 
+                                error.toLowerCase().includes(key.toLowerCase()) ||
+                                error.toLowerCase().includes(fieldMapping[key].toLowerCase())
+                            );
+                            
+                            if (fieldName && fieldMapping[fieldName]) {
+                                showFieldError(fieldMapping[fieldName], error);
+                            }
+                        });
+                    } else if (result.message) {
+                        // Erro genérico
+                        responseDiv.textContent = 'Erro: ' + result.message;
+                    } else {
+                        responseDiv.textContent = 'Erro desconhecido ao criar conta';
+                    }
+                    
+                    responseDiv.style.display = 'block';
                 }
-
-                responseDiv.style.display = 'block';
             } catch (error) {
                 const responseDiv = document.getElementById('response');
                 responseDiv.className = 'response error';
