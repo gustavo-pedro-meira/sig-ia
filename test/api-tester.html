@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIG-IA API Tester - by Gustavo Bigode</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #49cc90;
+            --secondary-color: #2c3e50;
+            --accent-color: #3498db;
+            --success-color: #27ae60;
+            --error-color: #e74c3c;
+            --warning-color: #f39c12;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --border-color: #dee2e6;
+            --text-color: #2c3e50;
+            --text-muted: #6c757d;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: var(--text-color);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .signature {
+            font-style: italic;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .main-content {
+            display: flex;
+            min-height: calc(100vh - 200px);
+        }
+
+        .sidebar {
+            width: 300px;
+            background: var(--bg-color);
+            border-right: 2px solid var(--border-color);
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .sidebar h2 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+        }
+
+        .endpoint-group {
+            margin-bottom: 25px;
+        }
+
+        .endpoint-group h3 {
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .endpoint-btn {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 8px;
+            border: none;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        .endpoint-btn:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .endpoint-btn.active {
+            background: var(--primary-color);
+            color: white;
+            font-weight: bold;
+        }
+
+        .method-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-right: 10px;
+            min-width: 50px;
+            text-align: center;
+        }
+
+        .method-get { background: #61affe; color: white; }
+        .method-post { background: #49cc90; color: white; }
+        .method-put { background: #fca130; color: white; }
+        .method-delete { background: #f93e3e; color: white; }
+
+        .content-area {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+        }
+
+        .endpoint-details {
+            display: none;
+        }
+
+        .endpoint-details.active {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .endpoint-title {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: var(--secondary-color);
+        }
+
+        .endpoint-url {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px;
+            background: var(--bg-color);
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .form-section {
+            margin-bottom: 25px;
+        }
+
+        .form-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .form-group small {
+            display: block;
+            margin-top: 5px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: var(--text-muted);
+            color: white;
+        }
+
+        .response-section {
+            margin-top: 30px;
+        }
+
+        .response-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: var(--secondary-color);
+            color: white;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .response-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .status-success { background: var(--success-color); }
+        .status-error { background: var(--error-color); }
+        .status-pending { background: var(--text-muted); }
+
+        .response-body {
+            padding: 20px;
+            background: #1e1e1e;
+            color: #d4d4d4;
+            border-radius: 0 0 8px 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .response-body pre {
+            margin: 0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .auth-section {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .auth-section h3 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+
+        .token-display {
+            background: white;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            word-break: break-all;
+            max-height: 100px;
+            overflow-y: auto;
+        }
+
+        .auth-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .btn-logout {
+            background: #dc3545;
+            color: white;
+        }
+
+        .loading {
+            display: none;
+            margin-left: 10px;
+        }
+
+        .loading.active {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .tab {
+            padding: 12px 20px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-size: 1rem;
+            color: var(--text-muted);
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .tab.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 2px solid var(--border-color);
+            }
+
+            .header h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 SIG-IA API Tester</h1>
+            <p>Teste completo de todas as rotas do sistema</p>
+            <p class="signature">Desenvolvido por Gustavo Bigode 🧔</p>
+        </div>
+
+        <div class="main-content">
+            <aside class="sidebar">
+                <h2>📋 Endpoints</h2>
+
+                <!-- Auth -->
+                <div class="endpoint-group">
+                    <h3>🔐 Autenticação</h3>
+                    <button class="endpoint-btn" data-endpoint="login">
+                        <span class="method-badge method-post">POST</span>
+                        <span>Login</span>
+                    </button>
+                    <button class="endpoint-btn" data-endpoint="get-me">
+                        <span class="method-badge method-get">GET</span>
+                        <span>Get Me</span>
+                    </button>
+                </div>
+
+                <!-- Employees -->
+                <div class="endpoint-group">
+                    <h3>👥 Funcionários</h3>
+                    <button class="endpoint-btn" data-endpoint="employees-create">
+                        <span class="method-badge method-post">POST</span>
+                        <span>Criar</span>
+                    </button>
+                    <button class="endpoint-btn" data-endpoint="employees-list">
+                        <span class="method-badge method-get">GET</span>
+                        <span>Listar</span>
+                    </button>
+                    <button class="endpoint-btn" data-endpoint="employees-get">
+                        <span class="method-badge method-get">GET</span>
+                        <span>Buscar por ID</span>
+                    </button>
+                    <button class="endpoint-btn" data-endpoint="employees-update">
+                        <span class="method-badge method-put">PUT</span>
+                        <span>Atualizar</span>
+                    </button>
+                    <button class="endpoint-btn" data-endpoint="employees-delete">
+                        <span class="method-badge method-delete">DELETE</span>
+                        <span>Deletar</span>
+                    </button>
+                </div>
+
+                <!-- Departments -->
+                <div class="endpoint-group">
+                    <h3>🏢 Departamentos</h3>
+                    <button class="endpoint-btn" data-endpoint="departments-create">
+                        <span class="method-badge method-post">POST</span>
+                        <span>Criar</span>
+                    </button>
+                    <button class="endpoint-btn" data-endpoint="departments-list">
+                        <span class="method-badge method-get">GET</span>
+                        <span>Listar</span>
+                    </button>
+                    <button class="endpoint-btn" data-endpoint="departments-get">
+                        <span class="method-badge method-get">GET</span>
+                        <span>Buscar por ID</span>
+                    </button>
+                    <button class="endpoint-btn" data-endpoint="departments-update">
+                        <span class="method-badge method-put">PUT</span>
+                        <span>Atualizar</span>
+                    </button>
+                    <button class="endpoint-btn" data-endpoint="departments-delete">
+                        <span class="method-badge method-delete">DELETE</span>
+                        <span>Deletar</span>
+                    </button>
+                </div>
+
+                <!-- Tasks -->
+                <div class="endpoint-group">
+                    <h3>✅ Tarefas</h3>
+                    <button class="endpoint-btn" data-endpoint="tasks-create">
+                        <span class="method-badge method-post">POST</span>
+                        <span>Criar</span>
+                    </button>
+                    <button class="endpoint-btn" data-endpoint="tasks-list">
+                        <span class="method-badge method-get">GET</span>
+                        <span>Listar/Filtrar</span>
+                    </button>
+                    <button class="endpoint-btn" data-endpoint="tasks-get">
+                        <span class="method-badge method-get">GET</span>
+                        <span>Buscar por ID</span>
+                    </button>
+                    <button class="endpoint-btn" data-endpoint="tasks-update">
+                        <span class="method-badge method-put">PUT</span>
+                        <span>Atualizar</span>
+                    </button>
+                    <button class="endpoint-btn" data-endpoint="tasks-delete">
+                        <span class="method-badge method-delete">DELETE</span>
+                        <span>Deletar</span>
+                    </button>
+                </div>
+
+                <!-- Appointments -->
+                <div class="endpoint-group">
+                    <h3>📅 Compromissos</h3>
+                    <button class="endpoint-btn" data-endpoint="appointments-create">
+                        <span class="method-badge method-post">POST</span>
+                        <span>Criar</span>
+                    </button>
+                    <button class="endpoint-btn" data-endpoint="appointments-list">
+                        <span class="method-badge method-get">GET</span>
+                        <span>Listar/Filtrar</span>
+                    </button>
+                    <button class="endpoint-btn" data-endpoint="appointments-get">
+                        <span class="method-badge method-get">GET</span>
+                        <span>Buscar por ID</span>
+                    </button>
+                    <button class="endpoint-btn" data-endpoint="appointments-update">
+                        <span class="method-badge method-put">PUT</span>
+                        <span>Atualizar</span>
+                    </button>
+                    <button class="endpoint-btn" data-endpoint="appointments-delete">
+                        <span class="method-badge method-delete">DELETE</span>
+                        <span>Deletar</span>
+                    </button>
+                </div>
+            </aside>
+
+            <main class="content-area" id="contentArea">
+                <div class="endpoint-details active" id="welcome">
+                    <h1 style="text-align: center; color: var(--text-muted); margin-top: 100px;">
+                        👈 Selecione um endpoint para começar
+                    </h1>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE_URL = 'http://localhost:3000';
+        let authToken = localStorage.getItem('authToken') || '';
+
+        // Função para atualizar status de autenticação na interface
+        function updateAuthStatus() {
+            const authSections = document.querySelectorAll('.auth-section');
+            authSections.forEach(section => {
+                const tokenDisplay = section.querySelector('.token-display');
+                const authActions = section.querySelector('.auth-actions');
+                
+                if (authToken) {
+                    section.innerHTML = `
+                        <h3>🔑 Autenticação Ativa</h3>
+                        <p>Token JWT: ✅ Configurado</p>
+                        <div class="token-display">${authToken}</div>
+                        <div class="auth-actions">
+                            <button class="btn btn-logout" onclick="logout()">🚪 Logout</button>
+                        </div>
+                    `;
+                } else {
+                    section.innerHTML = `
+                        <h3>🔑 Autenticação Necessária</h3>
+                        <p>Token JWT: ❌ Não configurado</p>
+                        <p>Faça login primeiro para obter um token</p>
+                    `;
+                }
+            });
+        }
+
+        // Função de logout
+        function logout() {
+            authToken = '';
+            localStorage.removeItem('authToken');
+            updateAuthStatus();
+            alert('✅ Logout realizado! Token removido.');
+        }
+
+        const endpoints = {
+            'login': {
+                title: 'Login - Autenticação',
+                method: 'POST',
+                url: '/login/token',
+                requiresAuth: false,
+                fields: [
+                    { name: 'email', type: 'email', label: 'Email', required: true, placeholder: 'usuario@exemplo.com', value: 'api@teste.com' },
+                    { name: 'password', type: 'password', label: 'Senha', required: true, placeholder: 'Sua senha', value: 'Teste123!' }
+                ],
+                description: 'Faça login para obter um token JWT'
+            },
+            'get-me': {
+                title: 'Get Me - Dados do Usuário Logado',
+                method: 'GET',
+                url: '/employees/me',
+                requiresAuth: true,
+                description: 'Obtém informações do usuário logado'
+            },
+            'employees-create': {
+                title: 'Criar Funcionário',
+                method: 'POST',
+                url: '/employees',
+                requiresAuth: false,
+                fields: [
+                    { name: 'fullName', type: 'text', label: 'Nome Completo', required: true },
+                    { name: 'username', type: 'text', label: 'Username', required: true, hint: 'Mínimo 6 caracteres, sem espaços' },
+                    { name: 'email', type: 'email', label: 'Email', required: true },
+                    { name: 'password', type: 'password', label: 'Senha', required: true, hint: 'Mín. 8 chars, maiúscula, número e especial' },
+                    { name: 'gender', type: 'select', label: 'Gênero', required: true, options: ['Male', 'Female', 'Other'] },
+                    { name: 'phone', type: 'tel', label: 'Telefone', required: true },
+                    { name: 'dateOfBirth', type: 'date', label: 'Data de Nascimento', required: true },
+                    { name: 'position', type: 'select', label: 'Cargo', required: true, options: ['Cabinet', 'Secretary', 'Technician1', 'Technician2', 'Technician3'] },
+                    { name: 'expirationDate', type: 'date', label: 'Data de Expiração', required: true },
+                    { name: 'departmentId', type: 'text', label: 'Department ID (UUID)', required: true, hint: 'ID do departamento' }
+                ]
+            },
+            'employees-list': {
+                title: 'Listar Funcionários',
+                method: 'GET',
+                url: '/employees',
+                requiresAuth: false
+            },
+            'employees-get': {
+                title: 'Buscar Funcionário por ID',
+                method: 'GET',
+                url: '/employees/:id',
+                requiresAuth: false,
+                fields: [
+                    { name: 'id', type: 'text', label: 'ID do Funcionário', required: true, isParam: true }
+                ]
+            },
+            'employees-update': {
+                title: 'Atualizar Funcionário',
+                method: 'PUT',
+                url: '/employees/:id',
+                requiresAuth: false,
+                fields: [
+                    { name: 'id', type: 'text', label: 'ID do Funcionário', required: true, isParam: true },
+                    { name: 'fullName', type: 'text', label: 'Nome Completo' },
+                    { name: 'username', type: 'text', label: 'Username' },
+                    { name: 'email', type: 'email', label: 'Email' },
+                    { name: 'phone', type: 'tel', label: 'Telefone' },
+                    { name: 'position', type: 'select', label: 'Cargo', options: ['Cabinet', 'Secretary', 'Technician1', 'Technician2', 'Technician3'] }
+                ]
+            },
+            'employees-delete': {
+                title: 'Deletar Funcionário',
+                method: 'DELETE',
+                url: '/employees/:id',
+                requiresAuth: false,
+                fields: [
+                    { name: 'id', type: 'text', label: 'ID do Funcionário', required: true, isParam: true }
+                ]
+            },
+            'departments-create': {
+                title: 'Criar Departamento',
+                method: 'POST',
+                url: '/departments',
+                requiresAuth: false,
+                fields: [
+                    { name: 'name', type: 'text', label: 'Nome', required: true },
+                    { name: 'sector', type: 'text', label: 'Setor', required: true }
+                ]
+            },
+            'departments-list': {
+                title: 'Listar Departamentos',
+                method: 'GET',
+                url: '/departments',
+                requiresAuth: false
+            },
+            'departments-get': {
+                title: 'Buscar Departamento por ID',
+                method: 'GET',
+                url: '/departments/:id',
+                requiresAuth: false,
+                fields: [
+                    { name: 'id', type: 'text', label: 'ID do Departamento', required: true, isParam: true }
+                ]
+            },
+            'departments-update': {
+                title: 'Atualizar Departamento',
+                method: 'PUT',
+                url: '/departments/:id',
+                requiresAuth: false,
+                fields: [
+                    { name: 'id', type: 'text', label: 'ID do Departamento', required: true, isParam: true },
+                    { name: 'name', type: 'text', label: 'Nome' },
+                    { name: 'sector', type: 'text', label: 'Setor' }
+                ]
+            },
+            'departments-delete': {
+                title: 'Deletar Departamento',
+                method: 'DELETE',
+                url: '/departments/:id',
+                requiresAuth: false,
+                fields: [
+                    { name: 'id', type: 'text', label: 'ID do Departamento', required: true, isParam: true }
+                ]
+            },
+            'tasks-create': {
+                title: 'Criar Tarefa',
+                method: 'POST',
+                url: '/tasks',
+                requiresAuth: true,
+                fields: [
+                    { name: 'title', type: 'text', label: 'Título', required: true },
+                    { name: 'description', type: 'textarea', label: 'Descrição', required: true },
+                    { name: 'deadline', type: 'datetime-local', label: 'Prazo', required: true },
+                    { name: 'hour', type: 'number', label: 'Hora (0-23)', required: true, min: 0, max: 23 },
+                    { name: 'minute', type: 'number', label: 'Minuto (0-59)', required: true, min: 0, max: 59 },
+                    { name: 'status', type: 'select', label: 'Status', options: ['ToDo', 'InProgress', 'Completed', 'Expired'] },
+                    { name: 'priority', type: 'select', label: 'Prioridade', options: ['Low', 'Medium', 'High', 'Urgent'] },
+                    { name: 'userIdResponsible', type: 'text', label: 'ID Responsável (UUID)' }
+                ]
+            },
+            'tasks-list': {
+                title: 'Listar/Filtrar Tarefas',
+                method: 'GET',
+                url: '/tasks',
+                requiresAuth: true,
+                fields: [
+                    { name: 'status', type: 'select', label: 'Status', options: ['', 'ToDo', 'InProgress', 'Completed', 'Expired'], isQuery: true },
+                    { name: 'priority', type: 'select', label: 'Prioridade', options: ['', 'Low', 'Medium', 'High', 'Urgent'], isQuery: true },
+                    { name: 'userId', type: 'text', label: 'User ID', isQuery: true },
+                    { name: 'userIdResponsible', type: 'text', label: 'Responsible ID', isQuery: true }
+                ]
+            },
+            'tasks-get': {
+                title: 'Buscar Tarefa por ID',
+                method: 'GET',
+                url: '/tasks/:id',
+                requiresAuth: true,
+                fields: [
+                    { name: 'id', type: 'text', label: 'ID da Tarefa', required: true, isParam: true }
+                ]
+            },
+            'tasks-update': {
+                title: 'Atualizar Tarefa',
+                method: 'PUT',
+                url: '/tasks/:id',
+                requiresAuth: true,
+                fields: [
+                    { name: 'id', type: 'text', label: 'ID da Tarefa', required: true, isParam: true },
+                    { name: 'title', type: 'text', label: 'Título' },
+                    { name: 'description', type: 'textarea', label: 'Descrição' },
+                    { name: 'deadline', type: 'datetime-local', label: 'Prazo' },
+                    { name: 'status', type: 'select', label: 'Status', options: ['', 'ToDo', 'InProgress', 'Completed', 'Expired'] },
+                    { name: 'priority', type: 'select', label: 'Prioridade', options: ['', 'Low', 'Medium', 'High', 'Urgent'] },
+                    { name: 'userId', type: 'text', label: 'User ID' }
+                ]
+            },
+            'tasks-delete': {
+                title: 'Deletar Tarefa',
+                method: 'DELETE',
+                url: '/tasks/:id',
+                requiresAuth: true,
+                fields: [
+                    { name: 'id', type: 'text', label: 'ID da Tarefa', required: true, isParam: true }
+                ]
+            },
+            'appointments-create': {
+                title: 'Criar Compromisso',
+                method: 'POST',
+                url: '/appointments',
+                requiresAuth: true,
+                fields: [
+                    { name: 'reason', type: 'text', label: 'Motivo', required: true },
+                    { name: 'description', type: 'textarea', label: 'Descrição', required: true },
+                    { name: 'location', type: 'text', label: 'Local', required: true },
+                    { name: 'deadline', type: 'datetime-local', label: 'Data/Hora', required: true },
+                    { name: 'hour', type: 'number', label: 'Hora (0-23)', min: 0, max: 23 },
+                    { name: 'minute', type: 'number', label: 'Minuto (0-59)', min: 0, max: 59 },
+                    { name: 'status', type: 'select', label: 'Status', options: ['Scheduled', 'Rescheduled', 'Postponed', 'Closed', 'Cancelled'] },
+                    { name: 'userIdResponsible', type: 'text', label: 'ID Responsável (UUID)' }
+                ]
+            },
+            'appointments-list': {
+                title: 'Listar/Filtrar Compromissos',
+                method: 'GET',
+                url: '/appointments',
+                requiresAuth: true,
+                fields: [
+                    { name: 'status', type: 'select', label: 'Status', options: ['', 'Scheduled', 'Rescheduled', 'Postponed', 'Closed', 'Cancelled'], isQuery: true },
+                    { name: 'userId', type: 'text', label: 'User ID', isQuery: true },
+                    { name: 'userIdResponsible', type: 'text', label: 'Responsible ID', isQuery: true }
+                ]
+            },
+            'appointments-get': {
+                title: 'Buscar Compromisso por ID',
+                method: 'GET',
+                url: '/appointments/:id',
+                requiresAuth: true,
+                fields: [
+                    { name: 'id', type: 'text', label: 'ID do Compromisso', required: true, isParam: true }
+                ]
+            },
+            'appointments-update': {
+                title: 'Atualizar Compromisso',
+                method: 'PUT',
+                url: '/appointments/:id',
+                requiresAuth: true,
+                fields: [
+                    { name: 'id', type: 'text', label: 'ID do Compromisso', required: true, isParam: true },
+                    { name: 'reason', type: 'text', label: 'Motivo' },
+                    { name: 'description', type: 'textarea', label: 'Descrição' },
+                    { name: 'location', type: 'text', label: 'Local' },
+                    { name: 'deadline', type: 'datetime-local', label: 'Data/Hora' },
+                    { name: 'status', type: 'select', label: 'Status', options: ['', 'Scheduled', 'Rescheduled', 'Postponed', 'Closed', 'Cancelled'] },
+                    { name: 'userId', type: 'text', label: 'User ID' },
+                    { name: 'userIdResponsible', type: 'text', label: 'Responsible ID' }
+                ]
+            },
+            'appointments-delete': {
+                title: 'Deletar Compromisso',
+                method: 'DELETE',
+                url: '/appointments/:id',
+                requiresAuth: true,
+                fields: [
+                    { name: 'id', type: 'text', label: 'ID do Compromisso', required: true, isParam: true }
+                ]
+            }
+        };
+
+        // Renderizar endpoint
+        function renderEndpoint(endpointKey) {
+            const endpoint = endpoints[endpointKey];
+            const contentArea = document.getElementById('contentArea');
+            
+            let fieldsHTML = '';
+            if (endpoint.fields && endpoint.fields.length > 0) {
+                fieldsHTML = `
+                    <div class="form-section">
+                        <h3>📝 Parâmetros</h3>
+                        ${endpoint.fields.map(field => {
+                            if (field.type === 'select') {
+                                return `
+                                    <div class="form-group">
+                                        <label for="${field.name}">${field.label}${field.required ? ' *' : ''}</label>
+                                        <select id="${field.name}" name="${field.name}" ${field.required ? 'required' : ''}>
+                                            ${field.options.map(opt => `<option value="${opt}">${opt || '(vazio)'}</option>`).join('')}
+                                        </select>
+                                        ${field.hint ? `<small>${field.hint}</small>` : ''}
+                                    </div>
+                                `;
+                            } else if (field.type === 'textarea') {
+                                return `
+                                    <div class="form-group">
+                                        <label for="${field.name}">${field.label}${field.required ? ' *' : ''}</label>
+                                        <textarea id="${field.name}" name="${field.name}" ${field.required ? 'required' : ''} placeholder="${field.placeholder || ''}"></textarea>
+                                        ${field.hint ? `<small>${field.hint}</small>` : ''}
+                                    </div>
+                                `;
+                            } else {
+                                return `
+                                    <div class="form-group">
+                                        <label for="${field.name}">${field.label}${field.required ? ' *' : ''}</label>
+                                        <input type="${field.type}" id="${field.name}" name="${field.name}" 
+                                            ${field.required ? 'required' : ''} 
+                                            ${field.min !== undefined ? `min="${field.min}"` : ''}
+                                            ${field.max !== undefined ? `max="${field.max}"` : ''}
+                                            ${field.value ? `value="${field.value}"` : ''}
+                                            placeholder="${field.placeholder || ''}">
+                                        ${field.hint ? `<small>${field.hint}</small>` : ''}
+                                    </div>
+                                `;
+                            }
+                        }).join('')}
+                    </div>
+                `;
+            }
+
+            const authHTML = endpoint.requiresAuth ? `
+                <div class="auth-section">
+                    ${authToken ? `
+                        <h3>🔑 Autenticação Ativa</h3>
+                        <p>Token JWT: ✅ Configurado</p>
+                        <div class="token-display">${authToken}</div>
+                        <div class="auth-actions">
+                            <button class="btn btn-logout" onclick="logout()">🚪 Logout</button>
+                        </div>
+                    ` : `
+                        <h3>🔑 Autenticação Necessária</h3>
+                        <p>Token JWT: ❌ Não configurado</p>
+                        <p>Faça login primeiro para obter um token</p>
+                    `}
+                </div>
+            ` : '';
+
+            contentArea.innerHTML = `
+                <div class="endpoint-details active">
+                    <h1 class="endpoint-title">${endpoint.title}</h1>
+                    ${endpoint.description ? `<p style="color: var(--text-muted); margin-bottom: 20px;">${endpoint.description}</p>` : ''}
+                    
+                    <div class="endpoint-url">
+                        <span class="method-badge method-${endpoint.method.toLowerCase()}">${endpoint.method}</span>
+                        <code>${API_BASE_URL}${endpoint.url}</code>
+                    </div>
+
+                    ${authHTML}
+
+                    <form id="endpointForm">
+                        ${fieldsHTML}
+
+                        <div class="btn-group">
+                            <button type="submit" class="btn btn-primary">
+                                🚀 Enviar Requisição
+                                <span class="loading" id="loading"></span>
+                            </button>
+                            <button type="button" class="btn btn-secondary" onclick="clearForm()">
+                                🗑️ Limpar
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="response-section" id="responseSection" style="display: none;">
+                        <div class="response-header">
+                            <div class="response-status">
+                                <span>Status:</span>
+                                <span class="status-badge" id="statusBadge">Aguardando...</span>
+                            </div>
+                            <span id="responseTime"></span>
+                        </div>
+                        <div class="response-body">
+                            <pre id="responseBody"></pre>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Adicionar event listener ao form
+            document.getElementById('endpointForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                executeRequest(endpointKey);
+            });
+        }
+
+        // Executar requisição
+        async function executeRequest(endpointKey) {
+            const endpoint = endpoints[endpointKey];
+            const form = document.getElementById('endpointForm');
+            const formData = new FormData(form);
+            const loading = document.getElementById('loading');
+            const responseSection = document.getElementById('responseSection');
+            const statusBadge = document.getElementById('statusBadge');
+            const responseBody = document.getElementById('responseBody');
+            const responseTime = document.getElementById('responseTime');
+
+            // Mostrar loading
+            loading.classList.add('active');
+            responseSection.style.display = 'block';
+            statusBadge.textContent = 'Carregando...';
+            statusBadge.className = 'status-badge status-pending';
+            responseBody.textContent = 'Aguardando resposta...';
+
+            // Construir URL e body
+            let url = API_BASE_URL + endpoint.url;
+            let body = {};
+            let queryParams = [];
+
+            if (endpoint.fields) {
+                endpoint.fields.forEach(field => {
+                    const value = formData.get(field.name);
+                    if (value) {
+                        if (field.isParam) {
+                            url = url.replace(`:${field.name}`, value);
+                        } else if (field.isQuery) {
+                            queryParams.push(`${field.name}=${encodeURIComponent(value)}`);
+                        } else {
+                            // Converter tipos específicos
+                            if (field.type === 'number') {
+                                body[field.name] = parseInt(value, 10);
+                            } else if (field.type === 'datetime-local') {
+                                body[field.name] = new Date(value).toISOString();
+                            } else {
+                                body[field.name] = value;
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Adicionar query params
+            if (queryParams.length > 0) {
+                url += '?' + queryParams.join('&');
+            }
+
+            // Configurar headers
+            const headers = {
+                'Content-Type': 'application/json'
+            };
+
+            if (endpoint.requiresAuth && authToken) {
+                headers['Authorization'] = `Bearer ${authToken}`;
+            }
+
+            // Fazer requisição
+            const startTime = Date.now();
+            try {
+                const options = {
+                    method: endpoint.method,
+                    headers: headers
+                };
+
+                if (endpoint.method !== 'GET' && endpoint.method !== 'DELETE') {
+                    options.body = JSON.stringify(body);
+                }
+
+                const response = await fetch(url, options);
+                const endTime = Date.now();
+                const duration = endTime - startTime;
+
+                const data = await response.json();
+
+                // Atualizar UI
+                loading.classList.remove('active');
+                responseTime.textContent = `⏱️ ${duration}ms`;
+                
+                if (response.ok) {
+                    statusBadge.textContent = `${response.status} ${response.statusText}`;
+                    statusBadge.className = 'status-badge status-success';
+
+                    // Se for login, salvar token
+                    if (endpointKey === 'login' && data.token) {
+                        authToken = data.token;
+                        localStorage.setItem('authToken', authToken);
+                        updateAuthStatus(); // Atualizar interface
+                        alert('✅ Token salvo! Você está autenticado.');
+                    }
+                } else {
+                    statusBadge.textContent = `${response.status} ${response.statusText}`;
+                    statusBadge.className = 'status-badge status-error';
+                }
+
+                responseBody.textContent = JSON.stringify(data, null, 2);
+
+            } catch (error) {
+                loading.classList.remove('active');
+                statusBadge.textContent = 'Erro de Rede';
+                statusBadge.className = 'status-badge status-error';
+                responseBody.textContent = JSON.stringify({
+                    error: error.message,
+                    message: 'Erro ao conectar com o servidor. Verifique se o backend está rodando.'
+                }, null, 2);
+                responseTime.textContent = '';
+            }
+        }
+
+        // Limpar formulário
+        function clearForm() {
+            document.getElementById('endpointForm').reset();
+            document.getElementById('responseSection').style.display = 'none';
+        }
+
+        // Navegação
+        document.querySelectorAll('.endpoint-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remover active de todos
+                document.querySelectorAll('.endpoint-btn').forEach(b => b.classList.remove('active'));
+                // Adicionar active no clicado
+                btn.classList.add('active');
+                // Renderizar endpoint
+                const endpointKey = btn.getAttribute('data-endpoint');
+                renderEndpoint(endpointKey);
+            });
+        });
+
+        // Carregar primeiro endpoint (welcome)
+        console.log('🚀 SIG-IA API Tester carregado!');
+        console.log('Desenvolvido por Gustavo Bigode 🧔');
+        
+        // Inicializar status de autenticação
+        updateAuthStatus();
+    </script>
+</body>
+</html>
