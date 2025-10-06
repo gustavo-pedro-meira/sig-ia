@@ -4,6 +4,7 @@ import { AppointmentRepository } from "../appointment.repository";
 import { PrismaService } from "src/infra/database/prisma.service";
 import { CreateAppointmentDto, AppointmentCreateDto } from "../../dto/create-appointment.dto";
 import { UpdateAppointmentDto } from "../../dto/update-appointment.dto";
+import { FilterAppointmentDto } from "../../dto/filter-appointment.sto";
 
 @Injectable()
 export class AppointmentPrismaRepository implements AppointmentRepository {
@@ -41,6 +42,28 @@ export class AppointmentPrismaRepository implements AppointmentRepository {
     async save(createAppointmentDto: CreateAppointmentDto): Promise<AppointmentCreateDto | null> {
         return await this.prismaService.appointment.create({
             data: createAppointmentDto,
+            include: { employee: true, employeeResponsible: true }
+        })
+    }
+
+    // Filtragens
+    async findFilters(filters: FilterAppointmentDto): Promise<AppointmentCreateDto[] | null> {
+        const { userId, status, userIdResponsible } = filters;
+
+        const where: any = {};
+
+        if (userId) {
+            where.userId = userId;
+        }
+        if (status) {
+            where.status = status;
+        }
+        if (userIdResponsible) {
+            where.userIdResponsible = userIdResponsible;
+        }
+
+        return await this.prismaService.appointment.findMany({
+            where,
             include: { employee: true, employeeResponsible: true }
         })
     }

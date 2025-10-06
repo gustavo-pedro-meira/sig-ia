@@ -9,6 +9,7 @@ import { UpdateAppointmentUseCase } from './useCases/update-appointment.usecase'
 import { AppointmentPrismaRepository } from './repositories/prisma/appointment.prisma.repository';
 import { AppointmentRepository } from './repositories/appointment.repository';
 import { PrismaService } from 'src/infra/database/prisma.service';
+import { FindFiltersAppointmentUseCase } from './useCases/find-filters-appointment.usecase';
 
 @Module({
   controllers: [AppointmentController],
@@ -18,6 +19,7 @@ import { PrismaService } from 'src/infra/database/prisma.service';
     FindAllAppointmentUseCase,
     FindOneAppointmentUseCase,
     UpdateAppointmentUseCase,
+    FindFiltersAppointmentUseCase,
     PrismaService,
     {
       provide: AppointmentRepository,

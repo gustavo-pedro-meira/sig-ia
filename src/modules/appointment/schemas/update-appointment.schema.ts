@@ -28,4 +28,8 @@ export const UpdateAppointmentSchema = z.object({
     deadline: z.coerce.date().optional(),
 
     status: z.nativeEnum(AppointmentStatus).optional(),
+
+    userId: z.string().uuid('Invalid user ID.').optional().nullable(),
+
+    userIdResponsible: z.string().uuid('Invalid responsible employee ID.').optional().nullable(),
 })

@@ -29,9 +29,11 @@ export const CreateAppointmentSchema = z.object({
 
     status: z.nativeEnum(AppointmentStatus).optional(),
 
-    userId: z.string().nullable().optional(),
+    hour: z.number().min(0).max(23).optional(),
 
-    hour: z.number().min(0).max(23),
+    minute: z.number().min(0).max(59).optional(),
 
-    minute: z.number().min(0).max(59),
+    userId: z.string().uuid('Invalid user ID.').optional().nullable(),
+
+    userIdResponsible: z.string().uuid('Invalid responsible employee ID.').nullable(),
 })

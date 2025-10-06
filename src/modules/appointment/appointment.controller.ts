@@ -1,5 +1,5 @@
 // Controlador para gerenciar compromissos/agendamentos via API REST
-import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards, Request } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards, Request, Query } from "@nestjs/common";
 import { CreateAppointmentUseCase } from "./useCases/create-appointment.usecase";
 import { CreateAppointmentDto } from "./dto/create-appointment.dto";
 import { DeleteAppointmentUseCase } from "./useCases/delete-appointment.usecase";
@@ -8,6 +8,8 @@ import { FindOneAppointmentUseCase } from "./useCases/find-one-appointment.useca
 import { UpdateAppointmentUseCase } from "./useCases/update-appointment.usecase";
 import { UpdateAppointmentDto } from "./dto/update-appointment.dto";
 import { AuthGuard } from "src/infra/database/providers/auth-guard.provider";
+import { FindFiltersAppointmentUseCase } from "./useCases/find-filters-appointment.usecase";
+import { FilterAppointmentDto } from "./dto/filter-appointment.sto";
 
 
 @Controller('appointments')
@@ -19,6 +21,7 @@ export class AppointmentController {
         private readonly findAllAppointmentUseCase: FindAllAppointmentUseCase,
         private readonly findOneAppointmentUseCase: FindOneAppointmentUseCase,
         private readonly updateAppointmentUseCase: UpdateAppointmentUseCase,
+        private readonly findFiltersAppointmentUseCase: FindFiltersAppointmentUseCase,
     ) {}
 
     @Post()
@@ -32,7 +35,7 @@ export class AppointmentController {
         return this.deleteAppointmentUseCase.execute(id);
     }
 
-    @Get()
+    @Get('all')
     findAllAppointments(@Request() req) {
         return this.findAllAppointmentUseCase.execute(req.user.sub);
     }
@@ -45,5 +48,11 @@ export class AppointmentController {
     @Put(':id')
     updateByIdAppointment(@Param('id') id: string, @Body() updateAppointmentDto: UpdateAppointmentDto) {
         return this.updateAppointmentUseCase.execute(id, updateAppointmentDto);
+    }
+
+    // Filtragens
+    @Get('')
+    findFiltersAppointment(@Query() filters: FilterAppointmentDto) {
+        return this.findFiltersAppointmentUseCase.execute(filters);
     }
 }
