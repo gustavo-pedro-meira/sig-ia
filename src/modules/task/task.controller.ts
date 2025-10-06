@@ -3,7 +3,6 @@ import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards, Request, Qu
 import { CreateTaskUseCase } from "./useCases/create-task.usecase";
 import { CreateTaskDto } from "./dto/create-task.dto";
 import { DeleteTaskUseCase } from "./useCases/delete-task.usecase";
-// import { FindAllTaskUseCase } from "./useCases/find-all-task.usecase";
 import { FindOneTaskUseCase } from "./useCases/find-one-task.usecase";
 import { UpdateTaskUseCase } from "./useCases/update-task.usecase";
 import { UpdateTaskDto } from "./dto/update-task.dto";
@@ -18,7 +17,6 @@ export class TaskController {
     constructor(
         private readonly createTaskUseCase: CreateTaskUseCase,
         private readonly deleteTaskUseCase: DeleteTaskUseCase,
-        // private readonly findAllTaskUseCase: FindAllTaskUseCase,
         private readonly findOneTaksUseCase: FindOneTaskUseCase,
         private readonly updateTaskUseCase: UpdateTaskUseCase,
         private readonly findByIdEmployee: FindByIdEmployee
@@ -34,11 +32,6 @@ export class TaskController {
     deleteByIdTask(@Param('id') id: string) {
         return this.deleteTaskUseCase.execute(id);
     }
-
-    // @Get()
-    // findAllTasks(@Request() req) {
-    //     return this.findAllTaskUseCase.execute(req.user.sub);
-    // }
 
     @Get(':id')
     findOneTask(@Param('id') id: string) {

@@ -6,7 +6,6 @@ import { PrismaService } from "src/infra/database/prisma.service";
 import { TaskRepository } from "./repositories/task.repository";
 import { TaskPrismaRepository } from "./repositories/prisma/task.prisma.repository";
 import { DeleteTaskUseCase } from "./useCases/delete-task.usecase";
-// import { FindAllTaskUseCase } from "./useCases/find-all-task.usecase";
 import { FindOneTaskUseCase } from "./useCases/find-one-task.usecase";
 import { UpdateTaskUseCase } from "./useCases/update-task.usecase";
 import { TaskExpirationService } from "./services/task-expiration.service";
@@ -21,7 +20,6 @@ import { EmployeePrismaRepository } from "../employee/repositories/prisma/employ
     providers: [
         CreateTaskUseCase,
         DeleteTaskUseCase,
-        // FindAllTaskUseCase,
         FindOneTaskUseCase,
         UpdateTaskUseCase,
         TaskExpirationService,

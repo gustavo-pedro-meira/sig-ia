@@ -7,7 +7,6 @@ import { FilterTaskDto } from "../dto/filter-task.dto";
 
 @Injectable()
 export abstract class TaskRepository {
-    // abstract findAll(userId: string): Promise<TaskCreateDto[] | null>
     abstract findOne(id: string): Promise<TaskCreateDto | null>;
     abstract deleteById(id: string): Promise<TaskCreateDto | null>;
     abstract updateBydId(id: string, updateTaskDto: UpdateTaskDto): Promise<TaskCreateDto | null>;
