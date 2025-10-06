@@ -1,14 +1,13 @@
-// Caso de uso para buscar todas as tarefas
-import { Injectable } from "@nestjs/common";
-import { TaskRepository } from "../repositories/task.repository";
+// import { Injectable } from "@nestjs/common";
+// import { TaskRepository } from "../repositories/task.repository";
 
 
 
-@Injectable()
-export class FindAllTaskUseCase {
-    constructor(private readonly taskRepository: TaskRepository) {}
+// @Injectable()
+// export class FindAllTaskUseCase {
+//     constructor(private readonly taskRepository: TaskRepository) {}
 
-    async execute(userId: string) {
-        return await this.taskRepository.findAll(userId)
-    }
-}
+//     async execute(userId: string) {
+//         return await this.taskRepository.findAll(userId);
+//     }
+// }

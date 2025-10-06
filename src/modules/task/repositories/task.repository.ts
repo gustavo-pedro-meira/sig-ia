@@ -2,13 +2,17 @@
 import { Injectable } from "@nestjs/common";
 import { CreateTaskDto, TaskCreateDto } from "../dto/create-task.dto";
 import { UpdateTaskDto } from "../dto/update-task.dto";
+import { FilterTaskDto } from "../dto/filter-task.dto";
 
 
 @Injectable()
 export abstract class TaskRepository {
-    abstract findAll(userId: string): Promise<TaskCreateDto[] | null>
+    // abstract findAll(userId: string): Promise<TaskCreateDto[] | null>
     abstract findOne(id: string): Promise<TaskCreateDto | null>;
     abstract deleteById(id: string): Promise<TaskCreateDto | null>;
     abstract updateBydId(id: string, updateTaskDto: UpdateTaskDto): Promise<TaskCreateDto | null>;
     abstract save(createTaskDto: CreateTaskDto): Promise<TaskCreateDto | null>;
+
+    // Filtragens
+    abstract findFilters(filters: FilterTaskDto): Promise<TaskCreateDto[] | null>;
 }

@@ -1,13 +1,15 @@
 // Controlador para gerenciar tarefas via API REST
-import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards, Request } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards, Request, Query } from "@nestjs/common";
 import { CreateTaskUseCase } from "./useCases/create-task.usecase";
 import { CreateTaskDto } from "./dto/create-task.dto";
 import { DeleteTaskUseCase } from "./useCases/delete-task.usecase";
-import { FindAllTaskUseCase } from "./useCases/find-all-task.usecase";
+// import { FindAllTaskUseCase } from "./useCases/find-all-task.usecase";
 import { FindOneTaskUseCase } from "./useCases/find-one-task.usecase";
 import { UpdateTaskUseCase } from "./useCases/update-task.usecase";
 import { UpdateTaskDto } from "./dto/update-task.dto";
 import { AuthGuard } from "src/infra/database/providers/auth-guard.provider";
+import { FindByIdEmployee } from "./useCases/find-task-by-idEmployee.usecase";
+import { FilterTaskDto } from "./dto/filter-task.dto";
 
 
 @Controller('tasks')
@@ -16,9 +18,10 @@ export class TaskController {
     constructor(
         private readonly createTaskUseCase: CreateTaskUseCase,
         private readonly deleteTaskUseCase: DeleteTaskUseCase,
-        private readonly findAllTaskUseCase: FindAllTaskUseCase,
+        // private readonly findAllTaskUseCase: FindAllTaskUseCase,
         private readonly findOneTaksUseCase: FindOneTaskUseCase,
         private readonly updateTaskUseCase: UpdateTaskUseCase,
+        private readonly findByIdEmployee: FindByIdEmployee
     ) {}
 
     @Post()
@@ -32,10 +35,10 @@ export class TaskController {
         return this.deleteTaskUseCase.execute(id);
     }
 
-    @Get()
-    findAllTasks(@Request() req) {
-        return this.findAllTaskUseCase.execute(req.user.sub);
-    }
+    // @Get()
+    // findAllTasks(@Request() req) {
+    //     return this.findAllTaskUseCase.execute(req.user.sub);
+    // }
 
     @Get(':id')
     findOneTask(@Param('id') id: string) {
@@ -45,5 +48,11 @@ export class TaskController {
     @Put(':id')
     updateByIdTask(@Param('id') id: string, @Body() updateTaskDto: UpdateTaskDto) {
         return this.updateTaskUseCase.execute(id, updateTaskDto);
+    }
+
+    // Filtragens
+    @Get()
+    findTaskByEmployee(@Query() filters: FilterTaskDto) {
+        return this.findByIdEmployee.execute(filters)
     }
 }
