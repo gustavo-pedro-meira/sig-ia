@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIG-IA API Tester - by Gustavo Bigode</title>
+    <title>SIG-IA API Tester</title>
     <style>
         * {
             margin: 0;
@@ -12,22 +12,20 @@
         }
 
         :root {
-            --primary-color: #49cc90;
-            --secondary-color: #2c3e50;
-            --accent-color: #3498db;
-            --success-color: #27ae60;
-            --error-color: #e74c3c;
-            --warning-color: #f39c12;
-            --bg-color: #f8f9fa;
-            --card-bg: #ffffff;
-            --border-color: #dee2e6;
-            --text-color: #2c3e50;
-            --text-muted: #6c757d;
+            --primary-color: #000000;
+            --secondary-color: #141414;
+            --bg-color: #141414;
+            --card-bg: #000000;
+            --border-color: #333333;
+            --text-color: #FFFFFF;
+            --text-muted: #999999;
+            --success-color: #00ff00;
+            --error-color: #ff0000;
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--bg-color);
             min-height: 100vh;
             padding: 20px;
             color: var(--text-color);
@@ -37,34 +35,34 @@
             max-width: 1400px;
             margin: 0 auto;
             background: var(--card-bg);
-            border-radius: 16px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
             overflow: hidden;
         }
 
         .header {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
-            color: white;
+            background: var(--primary-color);
+            color: var(--text-color);
             padding: 30px;
             text-align: center;
+            border-bottom: 2px solid var(--border-color);
         }
 
         .header h1 {
-            font-size: 2.5rem;
+            font-size: 2rem;
             margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         .header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
+            font-size: 0.9rem;
+            color: var(--text-muted);
         }
 
         .signature {
-            font-style: italic;
             margin-top: 10px;
-            font-size: 0.9rem;
-            opacity: 0.8;
+            font-size: 0.85rem;
+            color: var(--text-muted);
         }
 
         .main-content {
@@ -74,8 +72,8 @@
 
         .sidebar {
             width: 300px;
-            background: var(--bg-color);
-            border-right: 2px solid var(--border-color);
+            background: var(--secondary-color);
+            border-right: 1px solid var(--border-color);
             padding: 20px;
             overflow-y: auto;
         }
@@ -83,7 +81,7 @@
         .sidebar h2 {
             font-size: 1.2rem;
             margin-bottom: 15px;
-            color: var(--secondary-color);
+            color: var(--text-color);
         }
 
         .endpoint-group {
@@ -91,7 +89,7 @@
         }
 
         .endpoint-group h3 {
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: var(--text-muted);
             margin-bottom: 10px;
             text-transform: uppercase;
@@ -104,9 +102,10 @@
             width: 100%;
             padding: 12px;
             margin-bottom: 8px;
-            border: none;
-            border-radius: 8px;
-            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            background: var(--card-bg);
+            color: var(--text-color);
             cursor: pointer;
             transition: all 0.3s;
             text-align: left;
@@ -114,36 +113,37 @@
         }
 
         .endpoint-btn:hover {
-            transform: translateX(5px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            background: var(--secondary-color);
+            border-color: var(--text-color);
         }
 
         .endpoint-btn.active {
-            background: var(--primary-color);
-            color: white;
+            background: var(--text-color);
+            color: var(--primary-color);
             font-weight: bold;
         }
 
         .method-badge {
             display: inline-block;
             padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.75rem;
+            border-radius: 2px;
+            font-size: 0.7rem;
             font-weight: bold;
             margin-right: 10px;
             min-width: 50px;
             text-align: center;
         }
 
-        .method-get { background: #61affe; color: white; }
-        .method-post { background: #49cc90; color: white; }
-        .method-put { background: #fca130; color: white; }
-        .method-delete { background: #f93e3e; color: white; }
+        .method-get { background: #FFFFFF; color: #000000; }
+        .method-post { background: #00ff00; color: #000000; }
+        .method-put { background: #ffff00; color: #000000; }
+        .method-delete { background: #ff0000; color: #FFFFFF; }
 
         .content-area {
             flex: 1;
             padding: 30px;
             overflow-y: auto;
+            background: var(--secondary-color);
         }
 
         .endpoint-details {
@@ -152,18 +152,12 @@
 
         .endpoint-details.active {
             display: block;
-            animation: fadeIn 0.3s;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         .endpoint-title {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             margin-bottom: 10px;
-            color: var(--secondary-color);
+            color: var(--text-color);
         }
 
         .endpoint-url {
@@ -171,8 +165,9 @@
             align-items: center;
             gap: 10px;
             padding: 15px;
-            background: var(--bg-color);
-            border-radius: 8px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
             margin-bottom: 20px;
             font-family: 'Courier New', monospace;
         }
@@ -203,9 +198,11 @@
         .form-group textarea {
             width: 100%;
             padding: 12px;
-            border: 2px solid var(--border-color);
-            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
             font-size: 1rem;
+            background: var(--card-bg);
+            color: var(--text-color);
             transition: border-color 0.3s;
         }
 
@@ -213,7 +210,7 @@
         .form-group select:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: var(--primary-color);
+            border-color: var(--text-color);
         }
 
         .form-group textarea {
@@ -236,8 +233,8 @@
 
         .btn {
             padding: 12px 24px;
-            border: none;
-            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
@@ -248,18 +245,24 @@
         }
 
         .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            opacity: 0.8;
         }
 
         .btn-primary {
-            background: var(--primary-color);
-            color: white;
+            background: var(--text-color);
+            color: var(--primary-color);
+            border-color: var(--text-color);
         }
 
         .btn-secondary {
-            background: var(--text-muted);
-            color: white;
+            background: var(--card-bg);
+            color: var(--text-color);
+        }
+
+        .btn-logout {
+            background: var(--error-color);
+            color: var(--text-color);
+            border-color: var(--error-color);
         }
 
         .response-section {
@@ -271,9 +274,10 @@
             justify-content: space-between;
             align-items: center;
             padding: 15px;
-            background: var(--secondary-color);
-            color: white;
-            border-radius: 8px 8px 0 0;
+            background: var(--card-bg);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            border-radius: 4px 4px 0 0;
         }
 
         .response-status {
@@ -284,19 +288,21 @@
 
         .status-badge {
             padding: 6px 12px;
-            border-radius: 6px;
+            border-radius: 2px;
             font-weight: bold;
         }
 
-        .status-success { background: var(--success-color); }
-        .status-error { background: var(--error-color); }
-        .status-pending { background: var(--text-muted); }
+        .status-success { background: var(--success-color); color: #000000; }
+        .status-error { background: var(--error-color); color: #FFFFFF; }
+        .status-pending { background: var(--text-muted); color: #000000; }
 
         .response-body {
             padding: 20px;
-            background: #1e1e1e;
-            color: #d4d4d4;
-            border-radius: 0 0 8px 8px;
+            background: var(--card-bg);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            border-top: none;
+            border-radius: 0 0 4px 4px;
             font-family: 'Courier New', monospace;
             font-size: 0.9rem;
             max-height: 500px;
@@ -310,21 +316,22 @@
         }
 
         .auth-section {
-            background: #fff3cd;
-            border: 2px solid #ffc107;
-            border-radius: 8px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
             padding: 15px;
             margin-bottom: 20px;
         }
 
         .auth-section h3 {
-            color: #856404;
+            color: var(--text-color);
             margin-bottom: 10px;
         }
 
         .token-display {
-            background: white;
+            background: var(--secondary-color);
             padding: 10px;
+            border: 1px solid var(--border-color);
             border-radius: 4px;
             font-family: 'Courier New', monospace;
             font-size: 0.85rem;
@@ -339,9 +346,30 @@
             margin-top: 10px;
         }
 
-        .btn-logout {
-            background: #dc3545;
-            color: white;
+        .btn-login {
+            background: var(--text-color);
+            color: var(--primary-color);
+            border-color: var(--text-color);
+        }
+
+        .btn-login:hover {
+            background: var(--text-muted);
+            color: var(--text-color);
+        }
+
+        .btn-primary:hover {
+            background: var(--text-muted);
+            color: var(--primary-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--secondary-color);
+            color: var(--text-color);
+        }
+
+        .btn-logout:hover {
+            background: #cc0000;
+            color: var(--text-color);
         }
 
         .loading {
@@ -355,7 +383,7 @@
             height: 20px;
             border: 3px solid rgba(255, 255, 255, 0.3);
             border-radius: 50%;
-            border-top-color: white;
+            border-top-color: var(--text-color);
             animation: spin 1s ease-in-out infinite;
         }
 
@@ -363,35 +391,52 @@
             to { transform: rotate(360deg); }
         }
 
-        .tabs {
+        .login-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
             display: flex;
-            gap: 5px;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .login-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 40px;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .login-box h2 {
             margin-bottom: 20px;
-            border-bottom: 2px solid var(--border-color);
+            text-align: center;
         }
 
-        .tab {
-            padding: 12px 20px;
-            border: none;
-            background: transparent;
-            cursor: pointer;
-            font-size: 1rem;
-            color: var(--text-muted);
-            border-bottom: 3px solid transparent;
-            transition: all 0.3s;
+        .login-box .form-group {
+            margin-bottom: 20px;
         }
 
-        .tab.active {
-            color: var(--primary-color);
-            border-bottom-color: var(--primary-color);
-            font-weight: 600;
+        .login-box .btn {
+            width: 100%;
+            justify-content: center;
         }
 
-        .tab-content {
+        .error-message {
+            background: var(--error-color);
+            color: var(--text-color);
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
             display: none;
         }
 
-        .tab-content.active {
+        .error-message.active {
             display: block;
         }
 
@@ -403,43 +448,64 @@
             .sidebar {
                 width: 100%;
                 border-right: none;
-                border-bottom: 2px solid var(--border-color);
+                border-bottom: 1px solid var(--border-color);
             }
 
             .header h1 {
-                font-size: 1.8rem;
+                font-size: 1.5rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="login-overlay" id="loginOverlay">
+        <div class="login-box">
+            <h2>SIG-IA API Tester</h2>
+            <p style="text-align: center; color: var(--text-muted); margin-bottom: 30px;">
+                Por favor, faça login para continuar
+            </p>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Senha</label>
+                    <input type="password" id="loginPassword" name="password" required>
+                </div>
+                <button type="submit" class="btn btn-login">
+                    Entrar
+                    <span class="loading" id="loginLoading"></span>
+                </button>
+                <div class="error-message" id="loginError"></div>
+            </form>
+            <p class="signature" style="text-align: center; margin-top: 30px;">
+                Desenvolvido por SIG-IA GOV SOLUTIONS
+            </p>
+        </div>
+    </div>
+
+    <div class="container" id="mainContainer" style="display: none;">
         <div class="header">
-            <h1>🚀 SIG-IA API Tester</h1>
+            <h1>SIG-IA API Tester</h1>
             <p>Teste completo de todas as rotas do sistema</p>
-            <p class="signature">Desenvolvido por Gustavo Bigode 🧔</p>
+            <p class="signature">Desenvolvido por SIG-IA GOV SOLUTIONS</p>
         </div>
 
         <div class="main-content">
             <aside class="sidebar">
-                <h2>📋 Endpoints</h2>
+                <h2>Endpoints</h2>
 
-                <!-- Auth -->
                 <div class="endpoint-group">
-                    <h3>🔐 Autenticação</h3>
-                    <button class="endpoint-btn" data-endpoint="login">
-                        <span class="method-badge method-post">POST</span>
-                        <span>Login</span>
-                    </button>
+                    <h3>Autenticacao</h3>
                     <button class="endpoint-btn" data-endpoint="get-me">
                         <span class="method-badge method-get">GET</span>
                         <span>Get Me</span>
                     </button>
                 </div>
 
-                <!-- Employees -->
                 <div class="endpoint-group">
-                    <h3>👥 Funcionários</h3>
+                    <h3>Funcionarios</h3>
                     <button class="endpoint-btn" data-endpoint="employees-create">
                         <span class="method-badge method-post">POST</span>
                         <span>Criar</span>
@@ -462,9 +528,8 @@
                     </button>
                 </div>
 
-                <!-- Departments -->
                 <div class="endpoint-group">
-                    <h3>🏢 Departamentos</h3>
+                    <h3>Departamentos</h3>
                     <button class="endpoint-btn" data-endpoint="departments-create">
                         <span class="method-badge method-post">POST</span>
                         <span>Criar</span>
@@ -487,9 +552,8 @@
                     </button>
                 </div>
 
-                <!-- Tasks -->
                 <div class="endpoint-group">
-                    <h3>✅ Tarefas</h3>
+                    <h3>Tarefas</h3>
                     <button class="endpoint-btn" data-endpoint="tasks-create">
                         <span class="method-badge method-post">POST</span>
                         <span>Criar</span>
@@ -512,9 +576,8 @@
                     </button>
                 </div>
 
-                <!-- Appointments -->
                 <div class="endpoint-group">
-                    <h3>📅 Compromissos</h3>
+                    <h3>Compromissos</h3>
                     <button class="endpoint-btn" data-endpoint="appointments-create">
                         <span class="method-badge method-post">POST</span>
                         <span>Criar</span>
@@ -541,7 +604,7 @@
             <main class="content-area" id="contentArea">
                 <div class="endpoint-details active" id="welcome">
                     <h1 style="text-align: center; color: var(--text-muted); margin-top: 100px;">
-                        👈 Selecione um endpoint para começar
+                        Selecione um endpoint para começar
                     </h1>
                 </div>
             </main>
@@ -552,58 +615,68 @@
         const API_BASE_URL = 'http://localhost:3000';
         let authToken = localStorage.getItem('authToken') || '';
 
-        // Função para atualizar status de autenticação na interface
-        function updateAuthStatus() {
-            const authSections = document.querySelectorAll('.auth-section');
-            authSections.forEach(section => {
-                const tokenDisplay = section.querySelector('.token-display');
-                const authActions = section.querySelector('.auth-actions');
-                
-                if (authToken) {
-                    section.innerHTML = `
-                        <h3>🔑 Autenticação Ativa</h3>
-                        <p>Token JWT: ✅ Configurado</p>
-                        <div class="token-display">${authToken}</div>
-                        <div class="auth-actions">
-                            <button class="btn btn-logout" onclick="logout()">🚪 Logout</button>
-                        </div>
-                    `;
+        // Verificar login ao carregar página
+        window.addEventListener('DOMContentLoaded', () => {
+            if (authToken) {
+                document.getElementById('loginOverlay').style.display = 'none';
+                document.getElementById('mainContainer').style.display = 'block';
+            }
+        });
+
+        // Login form handler
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const loading = document.getElementById('loginLoading');
+            const errorDiv = document.getElementById('loginError');
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            loading.classList.add('active');
+            errorDiv.classList.remove('active');
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/login/token`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.access_token) {
+                    authToken = data.access_token;
+                    localStorage.setItem('authToken', authToken);
+                    document.getElementById('loginOverlay').style.display = 'none';
+                    document.getElementById('mainContainer').style.display = 'block';
                 } else {
-                    section.innerHTML = `
-                        <h3>🔑 Autenticação Necessária</h3>
-                        <p>Token JWT: ❌ Não configurado</p>
-                        <p>Faça login primeiro para obter um token</p>
-                    `;
+                    errorDiv.textContent = data.message || 'Erro ao fazer login. Verifique suas credenciais.';
+                    errorDiv.classList.add('active');
                 }
-            });
-        }
+            } catch (error) {
+                errorDiv.textContent = 'Erro ao conectar com o servidor. Verifique se o backend está rodando.';
+                errorDiv.classList.add('active');
+            } finally {
+                loading.classList.remove('active');
+            }
+        });
 
         // Função de logout
         function logout() {
             authToken = '';
             localStorage.removeItem('authToken');
-            updateAuthStatus();
-            alert('✅ Logout realizado! Token removido.');
+            document.getElementById('mainContainer').style.display = 'none';
+            document.getElementById('loginOverlay').style.display = 'flex';
+            document.getElementById('loginEmail').value = '';
+            document.getElementById('loginPassword').value = '';
         }
 
         const endpoints = {
-            'login': {
-                title: 'Login - Autenticação',
-                method: 'POST',
-                url: '/login/token',
-                requiresAuth: false,
-                fields: [
-                    { name: 'email', type: 'email', label: 'Email', required: true, placeholder: 'usuario@exemplo.com', value: 'api@teste.com' },
-                    { name: 'password', type: 'password', label: 'Senha', required: true, placeholder: 'Sua senha', value: 'Teste123!' }
-                ],
-                description: 'Faça login para obter um token JWT'
-            },
             'get-me': {
-                title: 'Get Me - Dados do Usuário Logado',
+                title: 'Get Me - Dados do Usuario Logado',
                 method: 'GET',
                 url: '/employees/me',
                 requiresAuth: true,
-                description: 'Obtém informações do usuário logado'
+                description: 'Obtem informacoes do usuario logado'
             },
             'employees-create': {
                 title: 'Criar Funcionário',
@@ -880,18 +953,12 @@
 
             const authHTML = endpoint.requiresAuth ? `
                 <div class="auth-section">
-                    ${authToken ? `
-                        <h3>🔑 Autenticação Ativa</h3>
-                        <p>Token JWT: ✅ Configurado</p>
-                        <div class="token-display">${authToken}</div>
-                        <div class="auth-actions">
-                            <button class="btn btn-logout" onclick="logout()">🚪 Logout</button>
-                        </div>
-                    ` : `
-                        <h3>🔑 Autenticação Necessária</h3>
-                        <p>Token JWT: ❌ Não configurado</p>
-                        <p>Faça login primeiro para obter um token</p>
-                    `}
+                    <h3>Autenticacao Ativa</h3>
+                    <p>Token JWT: Configurado</p>
+                    <div class="token-display">${authToken}</div>
+                    <div class="auth-actions">
+                        <button class="btn btn-logout" onclick="logout()">Logout</button>
+                    </div>
                 </div>
             ` : '';
 
@@ -912,11 +979,11 @@
 
                         <div class="btn-group">
                             <button type="submit" class="btn btn-primary">
-                                🚀 Enviar Requisição
+                                Enviar Requisicao
                                 <span class="loading" id="loading"></span>
                             </button>
                             <button type="button" class="btn btn-secondary" onclick="clearForm()">
-                                🗑️ Limpar
+                                Limpar
                             </button>
                         </div>
                     </form>
@@ -1028,13 +1095,6 @@
                     statusBadge.textContent = `${response.status} ${response.statusText}`;
                     statusBadge.className = 'status-badge status-success';
 
-                    // Se for login, salvar token
-                    if (endpointKey === 'login' && data.token) {
-                        authToken = data.token;
-                        localStorage.setItem('authToken', authToken);
-                        updateAuthStatus(); // Atualizar interface
-                        alert('✅ Token salvo! Você está autenticado.');
-                    }
                 } else {
                     statusBadge.textContent = `${response.status} ${response.statusText}`;
                     statusBadge.className = 'status-badge status-error';
@@ -1072,13 +1132,6 @@
                 renderEndpoint(endpointKey);
             });
         });
-
-        // Carregar primeiro endpoint (welcome)
-        console.log('🚀 SIG-IA API Tester carregado!');
-        console.log('Desenvolvido por Gustavo Bigode 🧔');
-        
-        // Inicializar status de autenticação
-        updateAuthStatus();
     </script>
 </body>
 </html>
