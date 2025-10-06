@@ -84,7 +84,11 @@ export class TaskPrismaRepository implements TaskRepository {
 
     // Filtragens
     async findFilters(filters: FilterTaskDto): Promise<TaskCreateDto[] | null> {
-        const { status, priority, userId, userIdResponsible } = filters;
+        const { status, priority, userId, userIdResponsible, sortBy = 'deadline', order = 'desc' } = filters;
+
+        const orderBy = {
+            [sortBy]: order,
+        }
 
         const where: any = {};
 
@@ -106,7 +110,10 @@ export class TaskPrismaRepository implements TaskRepository {
 
         return await this.prismaService.task.findMany({
             where,
-            include: { employee: true, employeeResponsible: true }
+            include: { employee: true, employeeResponsible: true },
+            orderBy: [
+                orderBy,
+            ]
         })
     }
 }

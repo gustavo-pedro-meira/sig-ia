@@ -12,7 +12,7 @@ import { FilterTaskDto } from "./dto/filter-task.dto";
 
 
 @Controller('tasks')
-@UseGuards(AuthGuard)
+// @UseGuards(AuthGuard)
 export class TaskController {
     constructor(
         private readonly createTaskUseCase: CreateTaskUseCase,

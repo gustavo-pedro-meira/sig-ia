@@ -28,7 +28,7 @@ export class EmployeePrismaRepository implements EmployeeRepository {
   }
 
   async findAll(filter: FilterEmployeeDto, ): Promise<EmployeeCreateDto[]> {
-    const { fullName, position, departmentId, sortBy = 'score', order = 'asc' } = filter;
+    const { fullName, position, departmentId, sortBy = 'score', order = 'desc' } = filter;
 
     const orderBy = {
       [sortBy]: order,
