@@ -64,7 +64,10 @@ export class AppointmentPrismaRepository implements AppointmentRepository {
 
         return await this.prismaService.appointment.findMany({
             where,
-            include: { employee: true, employeeResponsible: true }
+            include: { employee: true, employeeResponsible: true },
+            orderBy: {
+                reason: 'asc',
+            }
         })
     }
 }

@@ -28,7 +28,10 @@ export class EmployeePrismaRepository implements EmployeeRepository {
 
   async findAll(): Promise<EmployeeCreateDto[]> {
     return await this.prismaService.employee.findMany({
-      include: { department: true, tasks: true, appointments: true }
+      include: { department: true, tasks: true, appointments: true },
+      orderBy: {
+        fullName: 'asc',
+      }
     });
   }
 
