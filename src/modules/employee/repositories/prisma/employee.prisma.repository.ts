@@ -5,6 +5,7 @@ import { UsernameAndEmailDto } from '../../dto/username-email.dto';
 import { EmployeeRepository } from '../employee.repository';
 import { Injectable } from '@nestjs/common';
 import { UpdateEmployeeDto } from '../../dto/update-employee.dto';
+import { FilterEmployeeDto } from '../../dto/filters-employee.dto';
 
 @Injectable()
 export class EmployeePrismaRepository implements EmployeeRepository {
@@ -26,8 +27,23 @@ export class EmployeePrismaRepository implements EmployeeRepository {
       })
   }
 
-  async findAll(): Promise<EmployeeCreateDto[]> {
+  async findAll(filter: FilterEmployeeDto): Promise<EmployeeCreateDto[]> {
+    const { fullName, position, departmentId } = filter;
+
+    const where: any = {};
+
+    if (fullName) {
+      where.fullName = fullName;
+    }
+    if (position) {
+      where.position = position;
+    }
+    if (departmentId) {
+      where.departmentId = departmentId
+    }
+
     return await this.prismaService.employee.findMany({
+      where,
       include: { department: true, tasks: true, appointments: true },
       orderBy: {
         fullName: 'asc',

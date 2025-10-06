@@ -1,5 +1,5 @@
 // Controlador para gerenciar funcionários via API REST
-import { Body, Controller, Delete, Get, Param, Post, Put, Req, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, Req, UseGuards } from "@nestjs/common";
 import { CreateEmployeeUseCase } from "./useCases/create-employee.usecase";
 import { CreateEmployeeDto } from "./dto/create-employee.dto";
 import { ApiOperation, ApiResponse } from "@nestjs/swagger";
@@ -10,6 +10,7 @@ import { UpdateEmployeeUseCase } from "./useCases/update-employee.usecas";
 import { DeleteEmployeeUseCase } from "./useCases/delete-employee.usecase";
 import { AuthGuard } from "src/infra/database/providers/auth-guard.provider";
 import { GetMeUseCase } from "./useCases/get-me.usecase";
+import { FilterEmployeeDto } from "./dto/filters-employee.dto";
 
 @Controller('employees')
 export class EmployeeController {
@@ -29,8 +30,8 @@ export class EmployeeController {
 
     @Get()
     // @UseGuards(AuthGuard)
-    findAllEmployee() {
-        return this.findAllEmployeeUseCase.execute();
+    findAllEmployee(@Query() filter: FilterEmployeeDto) {
+        return this.findAllEmployeeUseCase.execute(filter);
     }
 
     @ApiOperation({ summary: 'Get current logged user information' })

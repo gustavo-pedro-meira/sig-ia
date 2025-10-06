@@ -52,7 +52,7 @@ export const CreateEmployeeSchema = z.object({
 
    expirationDate: z.coerce.date(),
 
-    departmentId: z.string().uuid('Invalid department ID.'),
+   departmentId: z.string().uuid('Invalid department ID.'),
 
 })
 
