@@ -37,6 +37,7 @@ model Employee {
   phone String
   position Position @default(Secretary)
   expirationDate DateTime
+  score Int @default(0)
 
   tasks Task[] @relation("EmployeeTasks")
   appointments Appointment[] @relation("EmployeeAppointments")
@@ -74,6 +75,7 @@ model Task {
   deadline DateTime
   status TaskStatus @default(ToDo)
   priority TaskPriority @default(Low)
+  points Int @default(1)
 
   hour Int @default(0)
   minute Int @default(0)
