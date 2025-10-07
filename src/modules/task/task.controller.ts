@@ -20,8 +20,8 @@ import { UpdateTaskDto } from './dto/update-task.dto';
 import { AuthGuard } from 'src/infra/database/providers/auth-guard.provider';
 import { FindByIdEmployee } from './useCases/find-task-by-idEmployee.usecase';
 import { FilterTaskDto } from './dto/filter-task.dto';
-import { TaskCreateGuard } from 'src/modules/task/guards/task-create-guard.guard';
-import { TaskDeleteGuard } from './guards/task-delete-guard.guard';
+import { TaskCreateGuard } from 'src/modules/task/guards/task-create.guard';
+import { TaskDeleteGuard } from './guards/task-delete.guard';
 
 @Controller('tasks')
 @UseGuards(AuthGuard)

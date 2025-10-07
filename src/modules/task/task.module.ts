@@ -12,7 +12,7 @@ import { TaskExpirationService } from './services/task-expiration.service';
 import { FindByIdEmployee } from './useCases/find-task-by-idEmployee.usecase';
 import { EmployeeRepository } from '../employee/repositories/employee.repository';
 import { EmployeePrismaRepository } from '../employee/repositories/prisma/employee.prisma.repository';
-import { TaskCreateGuard } from 'src/modules/task/guards/task-create-guard.guard';
+import { TaskCreateGuard } from 'src/modules/task/guards/task-create.guard';
 
 @Module({
   imports: [],

@@ -17,9 +17,14 @@ export class TaskDeleteGuard implements CanActivate {
             throw new NotFoundException('Task not found');
         }
 
-        const taskCreator = taskExist.userId === userAuth;
+        const taskCreator = taskExist.userId === userAuth.sub;
         if (!taskCreator) {
             throw new InternalServerErrorException('Only the role that created it can delete');
+        }
+
+        const taskValidateStatus = taskExist.status === "Expired" || taskExist.status === "Completed";
+        if (taskValidateStatus) {
+            throw new InternalServerErrorException('Tarefa esta expirada ou foi completa, assim não pode deletar')
         }
 
         return true;
