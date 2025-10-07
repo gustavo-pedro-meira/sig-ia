@@ -12,6 +12,7 @@ import { FindFiltersAppointmentUseCase } from "./useCases/find-filters-appointme
 import { FilterAppointmentDto } from "./dto/filter-appointment.sto";
 import { AppointmentDeleteGuard } from "src/infra/database/providers/appointment-delete-guard.provider";
 import { AppointmentUpdateGuard } from "src/infra/database/providers/appointment-update-guard.provider";
+import { AppointmentViewGuard } from "src/infra/database/providers/appointment-view-guard.provider";
 
 
 @Controller('appointments')
@@ -56,6 +57,7 @@ export class AppointmentController {
 
     // Filtragens
     @Get('')
+    @UseGuards(AppointmentViewGuard)
     findFiltersAppointment(@Query() filters: FilterAppointmentDto) {
         return this.findFiltersAppointmentUseCase.execute(filters);
     }

@@ -15,6 +15,7 @@ import { EmployeePrismaRepository } from "../employee/repositories/prisma/employ
 import { TaskCreateGuard } from "src/infra/database/providers/task-create-guard.provide";
 import { TaskDeleteGuard } from "src/infra/database/providers/task-delete-guard.provider";
 import { TaskUpdateGuard } from "src/infra/database/providers/task-update-guard.provider";
+import { TaskViewGuard } from "src/infra/database/providers/task-view-guard.provider";
 
 
 @Module({
@@ -30,6 +31,7 @@ import { TaskUpdateGuard } from "src/infra/database/providers/task-update-guard.
         TaskCreateGuard,
         TaskDeleteGuard,
         TaskUpdateGuard,
+        TaskViewGuard,
         PrismaService,
         {
             provide: TaskRepository,

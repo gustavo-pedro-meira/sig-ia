@@ -12,6 +12,7 @@ import { FilterTaskDto } from "./dto/filter-task.dto";
 import { TaskCreateGuard } from "src/infra/database/providers/task-create-guard.provide";
 import { TaskDeleteGuard } from "src/infra/database/providers/task-delete-guard.provider";
 import { TaskUpdateGuard } from "src/infra/database/providers/task-update-guard.provider";
+import { TaskViewGuard } from "src/infra/database/providers/task-view-guard.provider";
 
 
 @Controller('tasks')
@@ -51,6 +52,7 @@ export class TaskController {
 
     // Filtragens
     @Get()
+    @UseGuards(TaskViewGuard)
     findTaskByEmployee(@Query() filters: FilterTaskDto) {
         return this.findByIdEmployee.execute(filters)
     }

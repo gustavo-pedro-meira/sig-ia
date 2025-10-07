@@ -1,0 +1,44 @@
+import { CanActivate, ExecutionContext, ForbiddenException, Injectable } from "@nestjs/common";
+import { EmployeeRepository } from "src/modules/employee/repositories/employee.repository";
+
+/**
+ * Guard para proteger visualização de tarefas
+ *
+ * Regras:
+ * - Prefeito (Cabinet) pode ver todas as tarefas
+ * - Demais usuários só podem ver suas próprias tarefas (onde userId ou userIdResponsible === currentUserId)
+ */
+@Injectable()
+export class TaskViewGuard implements CanActivate {
+    constructor(private readonly employeeRepository: EmployeeRepository) {}
+
+    async canActivate(context: ExecutionContext): Promise<boolean> {
+        const request = context.switchToHttp().getRequest();
+        const currentUser = request.user;
+        const query = request.query;
+
+        // Busca o funcionário atual para verificar a posição
+        const employee = await this.employeeRepository.findOne(currentUser.sub);
+
+        if (!employee) {
+            throw new ForbiddenException('Employee not found');
+        }
+
+        // Se é Cabinet (Prefeito), pode ver tudo
+        if (employee.position === 'Cabinet') {
+            return true;
+        }
+
+        // Se não é Cabinet, só pode ver tarefas onde ele é o responsável ou criador
+        // Verifica se está tentando filtrar por outro usuário
+        if (query.userIdResponsible && query.userIdResponsible !== currentUser.sub) {
+            throw new ForbiddenException('You can only view your own tasks');
+        }
+
+        if (query.userId && query.userId !== currentUser.sub) {
+            throw new ForbiddenException('You can only view your own tasks');
+        }
+
+        return true;
+    }
+}

@@ -12,6 +12,9 @@ import { PrismaService } from 'src/infra/database/prisma.service';
 import { FindFiltersAppointmentUseCase } from './useCases/find-filters-appointment.usecase';
 import { AppointmentDeleteGuard } from 'src/infra/database/providers/appointment-delete-guard.provider';
 import { AppointmentUpdateGuard } from 'src/infra/database/providers/appointment-update-guard.provider';
+import { AppointmentViewGuard } from 'src/infra/database/providers/appointment-view-guard.provider';
+import { EmployeeRepository } from '../employee/repositories/employee.repository';
+import { EmployeePrismaRepository } from '../employee/repositories/prisma/employee.prisma.repository';
 
 @Module({
   controllers: [AppointmentController],
@@ -24,10 +27,15 @@ import { AppointmentUpdateGuard } from 'src/infra/database/providers/appointment
     FindFiltersAppointmentUseCase,
     AppointmentDeleteGuard,
     AppointmentUpdateGuard,
+    AppointmentViewGuard,
     PrismaService,
     {
       provide: AppointmentRepository,
       useClass: AppointmentPrismaRepository,
+    },
+    {
+      provide: EmployeeRepository,
+      useClass: EmployeePrismaRepository,
     },
   ],
 })
