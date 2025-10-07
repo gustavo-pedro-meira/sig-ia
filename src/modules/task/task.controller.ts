@@ -9,10 +9,11 @@ import { UpdateTaskDto } from "./dto/update-task.dto";
 import { AuthGuard } from "src/infra/database/providers/auth-guard.provider";
 import { FindByIdEmployee } from "./useCases/find-task-by-idEmployee.usecase";
 import { FilterTaskDto } from "./dto/filter-task.dto";
+import { TaskCreateGuard } from "src/infra/database/providers/task-create-guard.provide";
 
 
 @Controller('tasks')
-// @UseGuards(AuthGuard)
+@UseGuards(AuthGuard)
 export class TaskController {
     constructor(
         private readonly createTaskUseCase: CreateTaskUseCase,
@@ -23,6 +24,7 @@ export class TaskController {
     ) {}
 
     @Post()
+    @UseGuards(TaskCreateGuard)
     createTask(@Body() createTaskDto: CreateTaskDto, @Request() req) {
         createTaskDto.userId = req.user.sub;
         return this.createTaskUseCase.execute(createTaskDto);

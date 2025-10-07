@@ -1,7 +1,5 @@
 import { IsIn, IsOptional } from "class-validator";
 
-
-
 export class OrderingTaskDto {
     @IsOptional()
     readonly sortBy?: 'deadline' = 'deadline';

@@ -9,8 +9,6 @@ import { CreateEmployeeSchema } from "../schemas/create-employee.schema";
 
 export class CreateEmployeeDto extends createZodDto(CreateEmployeeSchema) {}
 
-
-
 export class EmployeeCreateDto extends CreateEmployeeDto {
   @IsString()
   id: string;
@@ -18,3 +16,11 @@ export class EmployeeCreateDto extends CreateEmployeeDto {
   @IsDate()
   createdAt: Date;
 } 
+
+export const positionHierarchy: Record<Position, number> = {
+  [Position.Cabinet]: 5,
+  [Position.Secretary]: 4,
+  [Position.Technician1]: 3,
+  [Position.Technician2]: 2,
+  [Position.Technician3]: 1,
+}

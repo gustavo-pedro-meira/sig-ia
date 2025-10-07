@@ -1,6 +1,5 @@
 import { IsIn, IsOptional, IsString } from "class-validator"
 
-
 export class OrderingEmployeeDto {
     @IsOptional()
     @IsString()
