@@ -10,6 +10,8 @@ import { UpdateAppointmentDto } from "./dto/update-appointment.dto";
 import { AuthGuard } from "src/infra/database/providers/auth-guard.provider";
 import { FindFiltersAppointmentUseCase } from "./useCases/find-filters-appointment.usecase";
 import { FilterAppointmentDto } from "./dto/filter-appointment.sto";
+import { AppointmentDeleteGuard } from "src/infra/database/providers/appointment-delete-guard.provider";
+import { AppointmentUpdateGuard } from "src/infra/database/providers/appointment-update-guard.provider";
 
 
 @Controller('appointments')
@@ -31,6 +33,7 @@ export class AppointmentController {
     }
 
     @Delete(':id')
+    @UseGuards(AppointmentDeleteGuard)
     deleteByIdAppointment(@Param('id') id: string) {
         return this.deleteAppointmentUseCase.execute(id);
     }
@@ -46,6 +49,7 @@ export class AppointmentController {
     }
 
     @Put(':id')
+    @UseGuards(AppointmentUpdateGuard)
     updateByIdAppointment(@Param('id') id: string, @Body() updateAppointmentDto: UpdateAppointmentDto) {
         return this.updateAppointmentUseCase.execute(id, updateAppointmentDto);
     }

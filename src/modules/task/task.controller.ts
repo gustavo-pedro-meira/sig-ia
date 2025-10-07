@@ -10,6 +10,8 @@ import { AuthGuard } from "src/infra/database/providers/auth-guard.provider";
 import { FindByIdEmployee } from "./useCases/find-task-by-idEmployee.usecase";
 import { FilterTaskDto } from "./dto/filter-task.dto";
 import { TaskCreateGuard } from "src/infra/database/providers/task-create-guard.provide";
+import { TaskDeleteGuard } from "src/infra/database/providers/task-delete-guard.provider";
+import { TaskUpdateGuard } from "src/infra/database/providers/task-update-guard.provider";
 
 
 @Controller('tasks')
@@ -31,6 +33,7 @@ export class TaskController {
     }
 
     @Delete(':id')
+    @UseGuards(TaskDeleteGuard)
     deleteByIdTask(@Param('id') id: string) {
         return this.deleteTaskUseCase.execute(id);
     }
@@ -41,6 +44,7 @@ export class TaskController {
     }
 
     @Put(':id')
+    @UseGuards(TaskUpdateGuard)
     updateByIdTask(@Param('id') id: string, @Body() updateTaskDto: UpdateTaskDto) {
         return this.updateTaskUseCase.execute(id, updateTaskDto);
     }

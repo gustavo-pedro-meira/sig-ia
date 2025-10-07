@@ -13,6 +13,8 @@ import { FindByIdEmployee } from "./useCases/find-task-by-idEmployee.usecase";
 import { EmployeeRepository } from "../employee/repositories/employee.repository";
 import { EmployeePrismaRepository } from "../employee/repositories/prisma/employee.prisma.repository";
 import { TaskCreateGuard } from "src/infra/database/providers/task-create-guard.provide";
+import { TaskDeleteGuard } from "src/infra/database/providers/task-delete-guard.provider";
+import { TaskUpdateGuard } from "src/infra/database/providers/task-update-guard.provider";
 
 
 @Module({
@@ -26,6 +28,8 @@ import { TaskCreateGuard } from "src/infra/database/providers/task-create-guard.
         TaskExpirationService,
         FindByIdEmployee,
         TaskCreateGuard,
+        TaskDeleteGuard,
+        TaskUpdateGuard,
         PrismaService,
         {
             provide: TaskRepository,
