@@ -48,9 +48,12 @@ export class AppointmentPrismaRepository implements AppointmentRepository {
 
     // Filtragens
     async findFilters(filters: FilterAppointmentDto): Promise<AppointmentCreateDto[] | null> {
-        const { userId, status, userIdResponsible } = filters;
+        const { userId, status, userIdResponsible, sortBy = 'deadline', order = 'desc' } = filters;
 
         const where: any = {};
+        const orderBy = {
+           [sortBy]: order, 
+        }
 
         if (userId) {
             where.userId = userId;
@@ -65,9 +68,9 @@ export class AppointmentPrismaRepository implements AppointmentRepository {
         return await this.prismaService.appointment.findMany({
             where,
             include: { employee: true, employeeResponsible: true },
-            orderBy: {
-                reason: 'asc',
-            }
+            orderBy: [
+                orderBy,
+            ]
         })
     }
 }
