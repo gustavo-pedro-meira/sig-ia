@@ -13,6 +13,7 @@ import { GetMeUseCase } from "./useCases/get-me.usecase";
 import { FilterEmployeeDto } from "./dto/filters-employee.dto";
 
 @Controller('employees')
+@UseGuards(AuthGuard)
 export class EmployeeController {
     constructor(
         private readonly createEmployeUseCase: CreateEmployeeUseCase,
@@ -29,7 +30,6 @@ export class EmployeeController {
     }
 
     @Get()
-    // @UseGuards(AuthGuard)
     findAllEmployee(@Query() filter: FilterEmployeeDto) {
         return this.findAllEmployeeUseCase.execute(filter);
     }
@@ -45,19 +45,16 @@ export class EmployeeController {
     }
 
     @Get(':id')
-    // @UseGuards(AuthGuard)
     findOneEmploye(@Param('id') id: string) {
         return this.findOneEmployeeUseCase.execute(id);
     }
 
     @Put(':id')
-    // @UseGuards(AuthGuard)
     updateByIdEmployee(@Param('id') id: string, @Body() updateEmployeeDto: UpdateEmployeeDto) {
         return this.updateEmployeeUseCase.execute(id, updateEmployeeDto);
     }
 
     @Delete(':id')
-    // @UseGuards(AuthGuard)
     deleteByIdEmployee(@Param('id') id: string) {
         return this.deletEmployeeUseCase.execute(id);
     }

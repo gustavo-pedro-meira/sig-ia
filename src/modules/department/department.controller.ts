@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from "@nestjs/common";
 import { CreateDepartmentUseCase } from "./useCases/create-department.usecase";
 import { CreateDepartmentDto } from "./dto/create-department.dto";
 import { UpdateDepartmentUseCase } from "./useCases/update-department.usecase";
@@ -6,9 +6,11 @@ import { UpdateDepartmentDto } from "./dto/update-department.dto";
 import { FindOneDepartmentUseCase } from "./useCases/find-one-department.usecase";
 import { FindAllDepartmentUseCase } from "./useCases/find-all-department.usecase";
 import { DeleteDepartmentUseCase } from "./useCases/delete-department.usecase";
+import { AuthGuard } from "src/infra/database/providers/auth-guard.provider";
 
 
 @Controller('departments')
+@UseGuards(AuthGuard)
 export class DepartmentController {
     constructor(
         private readonly createDepartmentUseCase: CreateDepartmentUseCase,
